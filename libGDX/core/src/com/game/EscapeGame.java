@@ -35,7 +35,7 @@ public class escapeGame extends ApplicationAdapter {
 	Move move;
 	BitmapFont font;
 
-	
+
 	@Override
 	public void create () {
 		WIDTH = 1920;
