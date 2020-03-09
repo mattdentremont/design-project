@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -15,18 +16,9 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Intersector;
 
 
-<<<<<<< Updated upstream
-public class EscapeGame extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
-	
-	@Override
-	public void create () {
-		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
-=======
-public class escapeGame extends ApplicationAdapter {
 
+public class escapeGame extends ApplicationAdapter {
+	Texture img;
 	public static int WIDTH;
 	public static int HEIGHT;
 	public static OrthographicCamera cam;
@@ -46,6 +38,8 @@ public class escapeGame extends ApplicationAdapter {
 	
 	@Override
 	public void create () {
+		WIDTH = 1920;
+		HEIGHT=1080;
 
 		font = new BitmapFont();
 		font.setColor(Color.CYAN);
@@ -65,17 +59,17 @@ public class escapeGame extends ApplicationAdapter {
 		tmr = new OrthogonalTiledMapRenderer(map);
 
 
->>>>>>> Stashed changes
+
 	}
 
 	@Override
 	public void render () {
-<<<<<<< Updated upstream
+
 		Gdx.gl.glClearColor(1, 0, 0, 1);
-=======
+
 		//Clear Screen to black then open textures
 		Gdx.gl.glClearColor(0, 0, 0, 1);
->>>>>>> Stashed changes
+
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		move.movePlayer();
 		if(Intersector.overlaps(player.sprite.getBoundingRectangle(),enemy.sprite.getBoundingRectangle()))
@@ -85,9 +79,6 @@ public class escapeGame extends ApplicationAdapter {
 		}
 
 		batch.begin();
-<<<<<<< Updated upstream
-		batch.draw(img, 0, 0);
-=======
 		batch.draw(lvl,0,0);
 		if(player.isDead)
 		{
@@ -98,21 +89,19 @@ public class escapeGame extends ApplicationAdapter {
 		player.sprite.draw(batch);
 		enemy.sprite.draw(batch);
 		font.draw(batch,"X:" + player.sprite.getX() + ", Y:" + player.sprite.getY(),500,500);
->>>>>>> Stashed changes
 		batch.end();
 	}
 	
 	@Override
 	public void dispose () {
 		batch.dispose();
-<<<<<<< Updated upstream
+
 		img.dispose();
-=======
+
 		mario.dispose();
 		motion.dispose();
 		font.dispose();
 		tmr.dispose();
 		map.dispose();
->>>>>>> Stashed changes
 	}
 }
