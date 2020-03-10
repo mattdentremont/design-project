@@ -1,15 +1,16 @@
-package com.game;
+package com.game.Managers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
-public class Move {
+public class GameInputProcessor extends InputAdapter {
     Sprite playerSprite;
     public static int WIDTH;
     public static int HEIGHT;
 
-   Move(Sprite x, int width, int height)
+   GameInputProcessor(Sprite x, int width, int height)
     {
         playerSprite = x;
         WIDTH = width;
