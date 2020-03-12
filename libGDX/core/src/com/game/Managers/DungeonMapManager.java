@@ -7,26 +7,60 @@ import com.game.Entities.Room;
 import java.io.File;
 
 public class DungeonMapManager {
-    private OrthogonalTiledMapRenderer tmr;
+    private int width;
+    private int height;
     private Room[] dungeon;
+    private Room currentRoom;
     private File[] mapFiles;
     private TiledMap[] maps;
-    File dir;
+    private File dir;
 
-    DungeonMapManager()
-    {
+    DungeonMapManager(int x, int y) {
+        this.width = x;
+        this.height = y;
         File dir = new File("maps/rooms");
         mapFiles = dir.listFiles();
+        maps = new TiledMap[mapFiles.length];
+        if(mapFiles.length != 0) {
+            for (int i = 0; i < mapFiles.length; i++) {
+                maps[i] = new TmxMapLoader().load(mapFiles[i].getName());
+            }
+            dungeon = new Room[x * y];
+            for (int i = 0; i < width * height; i++) {
+                Room room = new Room(maps[i]);
+                dungeon[i] = room;
+            }
+        }
 
-        for(int i = 0; i < mapFiles.length; i++ )
-        {
-            maps[i] = new TmxMapLoader().load(mapFiles[i].getName());
-        }
-        for(int i = 0; i < 25; i++){
-            Room room = new Room(maps[i]);
-            dungeon[i] = room;
-        }
-        }
+        setCurrentRoom(width/2,height/2);
+    }
+    public Room[] getDungeon() {
+        return dungeon;
+    }
+
+    public File getDir() {
+        return dir;
+    }
+
+    public File[] getMapFiles() {
+        return mapFiles;
+    }
+
+    public TiledMap[] getMaps() {
+        return maps;
+    }
+
+    public Room getCurrentRoom() {
+        return currentRoom;
+    }
+
+    public void setCurrentRoom(int x, int y)
+    {
+        currentRoom = dungeon[y*width+x];
+    }
+
 }
+
+
 
 
