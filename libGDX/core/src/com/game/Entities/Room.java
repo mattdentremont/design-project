@@ -3,12 +3,12 @@ package com.game.Entities;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 
 public class Room {
-    public TiledMap map;
+    public String mapName;
     public boolean isEnemies;
 
-   public Room(TiledMap lvl)
+   public Room(String  map)
     {
-        this.map = lvl;
+        this.mapName = map;
         this.isEnemies = true;
     }
 

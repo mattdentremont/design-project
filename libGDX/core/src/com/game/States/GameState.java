@@ -1,10 +1,12 @@
 package com.game.States;
 
 import com.game.Managers.GameStateManager;
+import com.game.main.escapeGame;
 
 public abstract class GameState {
 
     protected GameStateManager gsm;
+    public escapeGame game;
 
     protected GameState(GameStateManager gsm)
     {

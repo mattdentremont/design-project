@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 public class Player extends Character {
 
 
-    Player(Texture texture, int damage, int health)
+   public Player(Texture texture, int damage, int health)
     {
         super(texture, damage, health);
     }
