@@ -4,44 +4,46 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.game.Entities.Player;
+import com.game.States.GameState;
 
 public class GameInputProcessor extends InputAdapter {
-    Sprite playerSprite;
+    public Player player;
+    public GameStateManager gsm;
     public static int WIDTH;
     public static int HEIGHT;
+    public static final float speed = 200f;
+    public boolean isFlipped;
 
-   GameInputProcessor(Sprite x, int width, int height)
+   public GameInputProcessor(Player player, GameStateManager gsm)
     {
-        playerSprite = x;
-        WIDTH = width;
-        HEIGHT = height;
+        this.player = player;
+        this.gsm = gsm;
     }
 
-    public void movePlayer()
+    public void movePlayer(float dt)
     {
-        if(Gdx.input.isKeyPressed(Input.Keys.A))
-        {
-            if(!playerSprite.isFlipX()) {
-                playerSprite.flip(true, false);
-            }
-            playerSprite.translateX(-10.0f);
+        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {//TODO: PAUSE MENU IMPLEMENTATION
+            gsm.setState(GameStateManager.MENU);
         }
-        else if(Gdx.input.isKeyPressed(Input.Keys.D))
+        if(Gdx.input.isKeyPressed(Input.Keys.A))//MOVE LEFT
         {
-            if(playerSprite.isFlipX()) {
-                playerSprite.flip(true, false);
-            }
-            playerSprite.translateX(10.0f);
+            player.translatePlayer(-speed*dt,0);
         }
-        else if(Gdx.input.isKeyPressed(Input.Keys.W))
+        if(Gdx.input.isKeyPressed(Input.Keys.D))//MOVE RIGHT
         {
-            playerSprite.translateY(10.0f);
-        }
-        else if(Gdx.input.isKeyPressed(Input.Keys.S))
-        {
-            playerSprite.translateY(-10.0f);
-        }
 
+            player.translatePlayer(speed*dt,0);
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.W))//MOVE UP
+        {
+            player.translatePlayer(0,speed*dt);
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.S))//MOVE DOWN
+        {
+            player.translatePlayer(0,-speed*dt);
+        }
+/*
         if(playerSprite.getX() <= 0)
         {
             playerSprite.setPosition(0,playerSprite.getY());
@@ -57,7 +59,9 @@ public class GameInputProcessor extends InputAdapter {
         else if(playerSprite.getY() >= 1080-playerSprite.getHeight())
         {
             playerSprite.setPosition(playerSprite.getX(),1080-playerSprite.getHeight());
-        }
+        }*/
+
+        //TODO: COLLISION MANAGER
 
     }
 

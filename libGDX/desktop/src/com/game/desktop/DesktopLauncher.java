@@ -12,7 +12,7 @@ public class DesktopLauncher {
 		config.title = "Dungeon Escape";
 		config.width = 1920;
 		config.height=1080;
-		config.fullscreen = false;
+		config.fullscreen = true;
 		config.addIcon("jamilIcon.jpg", Files.FileType.Internal);
 		new LwjglApplication(new escapeGame(), config);
 	}

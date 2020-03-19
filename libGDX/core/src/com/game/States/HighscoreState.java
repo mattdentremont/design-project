@@ -25,7 +25,7 @@ public class HighscoreState extends GameState {
     }
 
     @Override
-    public void handleInput() {
+    public void handleInput(float dt) {
 
     }
 

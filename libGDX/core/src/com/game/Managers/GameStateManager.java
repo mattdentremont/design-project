@@ -3,18 +3,20 @@ package com.game.Managers;
 import com.game.States.GameState;
 import com.game.States.MenuState;
 import com.game.States.PlayState;
+import com.game.main.escapeGame;
 
 public class GameStateManager {
 
     private GameState currentState;
-
+    public escapeGame game;
 
     public static final int MENU = 0;
     public static final int PLAY = 1;
     //public static final int HIGHSCORES = 2;
 
-    public GameStateManager() {
+    public GameStateManager(escapeGame g) {
         setState(MENU);//Start in MENU state.
+        this.game = g;
     }
 
     public void setState(int state) {

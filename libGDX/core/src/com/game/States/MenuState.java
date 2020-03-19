@@ -40,7 +40,7 @@ public class MenuState extends GameState {
 
     @Override
     public void update(float dt) {
-        handleInput();
+        handleInput(dt);
     }
 
     @Override
@@ -68,7 +68,7 @@ public class MenuState extends GameState {
     }
 
     @Override
-    public void handleInput() {
+    public void handleInput(float dt) {
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
             if (currentItem > 0) {
                 currentItem--;
@@ -98,5 +98,9 @@ public class MenuState extends GameState {
         }
 
     @Override
-    public void dispose(){ }
+    public void dispose(){
+        sb.dispose();
+        titleFont.dispose();
+        font.dispose();
+    }
 }
