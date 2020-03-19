@@ -16,7 +16,7 @@ public class Player extends Character {
     {
         super(texture, damage, health,posX,posY);
         this.sprite = new Sprite(texture);
-        sprite.setScale(0.1f);
+        sprite.setScale(1f);
     }
 
     @Override
