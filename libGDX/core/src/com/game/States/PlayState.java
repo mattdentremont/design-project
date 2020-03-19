@@ -12,6 +12,7 @@ import com.game.Entities.Room;
 import com.game.Managers.DungeonMapManager;
 import com.game.Managers.GameInputProcessor;
 import com.game.Managers.GameStateManager;
+import com.game.Managers.TiledMapManager;
 import com.game.main.escapeGame;
 
 public class PlayState extends GameState{
@@ -27,8 +28,10 @@ public class PlayState extends GameState{
     private OrthogonalTiledMapRenderer renderer;
     private Texture playerTexture;
     private Player player;
+    private String roomPath;
 
     public GameInputProcessor inputProcessor;
+    public TiledMapManager mapManager;
     public PlayState(GameStateManager gsm)
     {
         super(gsm);
@@ -39,35 +42,27 @@ public class PlayState extends GameState{
         sb = new SpriteBatch();
         playerTexture = new Texture(Gdx.files.internal("mario.png"));
         player = new Player(playerTexture,10,100,WIDTH/2,HEIGHT/2);
-       // player.sprite.setScale(.2f);
         inputProcessor = new GameInputProcessor(player,gsm);
-        currentRoom = new Room("maps/map2.tmx");
+        roomPath = "maps/map2.tmx";
+        mapManager = new TiledMapManager(roomPath,game);
         cam = game.cam;
         WIDTH = game.WIDTH;
         HEIGHT = game.HEIGHT;
-        mapLoader = new TmxMapLoader();
-        map = mapLoader.load(currentRoom.mapName);
-        renderer = new OrthogonalTiledMapRenderer(map);
     }
 
     @Override
     public void update(float dt) {
         handleInput(dt);
-        //player.sprite.setPosition(player.posX,player.posY);
-        renderer.setView(cam);
         cam.update();
-        renderer.setView(cam);
-
+        mapManager.update();
     }
 
     @Override
     public void draw() {
         sb.setProjectionMatrix(escapeGame.cam.combined);
-        renderer.render();
+        mapManager.render();
         sb.begin();
-        player.sprite.setScale(0.1f);
         player.sprite.draw(sb);
-        //sb.draw(playerTexture,player.posX,player.posY);
         sb.end();
     }
 
