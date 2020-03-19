@@ -45,4 +45,10 @@ public class TiledMapManager {
         renderer.render();
     }
 
+    public void dispose(){
+        map.dispose();
+        renderer.dispose();
+    }
+
+
 }

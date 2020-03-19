@@ -42,7 +42,7 @@ public class PlayState extends GameState{
         sb = new SpriteBatch();
         playerTexture = new Texture(Gdx.files.internal("Protag.png"));
         player = new Player(playerTexture,10,100,WIDTH/2,HEIGHT/2);
-        inputProcessor = new GameInputProcessor(player,gsm);
+        inputProcessor = new GameInputProcessor(player,this.gsm);
         roomPath = "maps/map2.tmx";
         mapManager = new TiledMapManager(roomPath,game);
         cam = game.cam;
@@ -74,7 +74,7 @@ public class PlayState extends GameState{
     @Override
     public void dispose() {
         sb.dispose();
-        renderer.dispose();
         playerTexture.dispose();
+        mapManager.dispose();
     }
 }
