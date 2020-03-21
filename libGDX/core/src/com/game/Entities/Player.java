@@ -2,6 +2,7 @@ package com.game.Entities;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class Player extends Character {
 
@@ -43,7 +44,18 @@ public class Player extends Character {
         sprite.setPosition(posX,posY);
     }
 
+    public void setPosition(float x, float y)
+    {
+        posX =  x;
+        posY =  y;
+        sprite.setPosition(posX,posY);
+    }
 
+    public float getPosX()
+    {return posX;}
 
-
+    public float getPosY()
+    {
+        return posY;
+    }
 }

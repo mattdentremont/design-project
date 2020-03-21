@@ -1,65 +1,71 @@
 package com.game.Managers;
 
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.game.Entities.Room;
 import java.io.File;
+import java.util.Random;
 
 public class DungeonMapManager {
     private int width;
     private int height;
-    private Room[] dungeon;
+    private int xPos;
+    private int yPos;
+    private Room[][] dungeon;//matrix of dungeon rooms.
     private Room currentRoom;
-  //  private File[] mapFiles;
-    private String[] maps;
-   // private File dir;
+    private String[] mapList;
 
-    public DungeonMapManager(int x, int y) {
-      /* this.width = x;
+    public DungeonMapManager(String[] maps,int x, int y) {
+        this.width = x;
         this.height = y;
-        File dir = new File("maps/rooms");
-        mapFiles = dir.listFiles();
-        maps = new TiledMap[mapFiles.length];
-        if(mapFiles.length != 0) {
-            for (int i = 0; i < mapFiles.length; i++) {
-                maps[i] = "maps/map1.tmx";//TODO: Random maps from list
+        this.mapList = maps;
+        dungeon = new Room[x][y];
+        for (int i = 0; i < width; i++) {
+                for(int j = 0; j < height; j++){
+                int rand = new Random().nextInt(mapList.length);
+                dungeon[i][j] = new Room(mapList[rand]);//assign random map to each dungeon room.
             }
-            dungeon = new Room[x * y];
-            for (int i = 0; i < width * height; i++) {
-                Room room = new Room(maps[i]);
-                dungeon[i] = room;
-            }
-
-
-        setCurrentRoom(width/2,height/2);*/
+        }
+        this.xPos = x/2;
+        this.yPos = y/2;
+        setCurrentRoom(width/2,height/2);
     }
-    /*
-    public Room[] getDungeon() {
+
+    public Room[][] getDungeon() {
         return dungeon;
     }
 
-    public File getDir() {
-        return dir;
-    }
-
-    public File[] getMapFiles() {
-        return mapFiles;
-    }
-
-    public TiledMap[] getMaps() {
-        return maps;
+    public String[] getMaps() {
+        return mapList;
     }
 
     public Room getCurrentRoom() {
         return currentRoom;
     }
 
+    public int getxPos()
+    {
+        return this.xPos;
+    }
+
+    public int getyPos()
+    {
+        return this.yPos;
+    }
+
     public void setCurrentRoom(int x, int y)
     {
-        currentRoom = dungeon[y*width+x];
+        currentRoom = dungeon[x][y];
+        this.xPos = x;
+        this.yPos = y;
     }
-*/
+
+
 }
 
 

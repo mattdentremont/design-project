@@ -6,19 +6,23 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.game.Entities.Player;
 import com.game.States.GameState;
+import com.game.main.escapeGame;
 
 public class GameInputProcessor extends InputAdapter {
     public Player player;
+    public escapeGame game;
     public GameStateManager gsm;
     public static int WIDTH;
     public static int HEIGHT;
     public static final float speed = 200f;
-    public boolean isFlipped;
 
-   public GameInputProcessor(Player player, GameStateManager gsm)
+   public GameInputProcessor(Player player, GameStateManager gsm, escapeGame game)
     {
         this.player = player;
         this.gsm = gsm;
+        this.game = game;
+        WIDTH = game.WIDTH;
+        HEIGHT = game.HEIGHT;
     }
 
     public void movePlayer(float dt)
@@ -28,40 +32,26 @@ public class GameInputProcessor extends InputAdapter {
         }
         if(Gdx.input.isKeyPressed(Input.Keys.A))//MOVE LEFT
         {
+            if(player.getPosX() >= 0)
             player.translatePlayer(-speed*dt,0);
         }
         if(Gdx.input.isKeyPressed(Input.Keys.D))//MOVE RIGHT
         {
-
+            if(player.getPosX() <= WIDTH-player.sprite.getWidth())
             player.translatePlayer(speed*dt,0);
         }
         if(Gdx.input.isKeyPressed(Input.Keys.W))//MOVE UP
         {
+            if(player.getPosY() <= HEIGHT-player.sprite.getHeight())
             player.translatePlayer(0,speed*dt);
         }
         if(Gdx.input.isKeyPressed(Input.Keys.S))//MOVE DOWN
         {
-            player.translatePlayer(0,-speed*dt);
+            if(player.getPosY() >= 0)
+                player.translatePlayer(0,-speed*dt);
         }
-/*
-        if(playerSprite.getX() <= 0)
-        {
-            playerSprite.setPosition(0,playerSprite.getY());
-        }
-        else if(playerSprite.getX() >= 1920-playerSprite.getWidth())
-        {
-            playerSprite.setPosition(1920-playerSprite.getWidth(),playerSprite.getY());
-        }
-        if(playerSprite.getY() <= 0)
-        {
-            playerSprite.setPosition(playerSprite.getX(),0);
-        }
-        else if(playerSprite.getY() >= 1080-playerSprite.getHeight())
-        {
-            playerSprite.setPosition(playerSprite.getX(),1080-playerSprite.getHeight());
-        }*/
-
-        //TODO: COLLISION MANAGER
+        //TODO: COLLISION MANAGER - Maybe in another class.
+        //TODO: MAP COLLISIONS - NOT ENEMY HIT DETECTION
 
     }
 
