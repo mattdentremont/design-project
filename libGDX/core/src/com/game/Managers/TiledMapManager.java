@@ -125,7 +125,7 @@ public class TiledMapManager {
             int currentX = dungeon.getxPos();
             int currentY = dungeon.getyPos();
             if(currentY +1 < dungeon.getHeight()) {
-                dungeonMapManager.setCurrentRoom(currentX, currentY + 1);
+                dungeonMapManager.setCurrentRoom(currentX, currentY + 1,false);
                 changeRoom(dungeonMapManager.getCurrentRoom().mapName,"UP");
             }
         }
@@ -135,7 +135,7 @@ public class TiledMapManager {
             int currentX = dungeon.getxPos();
             int currentY = dungeon.getyPos();
             if(currentY -1 >=0) {
-                dungeonMapManager.setCurrentRoom(currentX, currentY - 1);
+                dungeonMapManager.setCurrentRoom(currentX, currentY - 1,false);
                 changeRoom(dungeonMapManager.getCurrentRoom().mapName,"DOWN");
             }
         }
@@ -145,7 +145,7 @@ public class TiledMapManager {
             int currentX = dungeon.getxPos();
             int currentY = dungeon.getyPos();
             if(currentX -1 >=0) {
-                dungeonMapManager.setCurrentRoom(currentX - 1, currentY);
+                dungeonMapManager.setCurrentRoom(currentX - 1, currentY,false);
                 changeRoom(dungeonMapManager.getCurrentRoom().mapName,"LEFT");
             }
         }
@@ -155,7 +155,7 @@ public class TiledMapManager {
             int currentX = dungeon.getxPos();
             int currentY = dungeon.getyPos();
             if(currentX +1 < dungeon.getWidth()) {
-                dungeonMapManager.setCurrentRoom(currentX + 1, currentY);
+                dungeonMapManager.setCurrentRoom(currentX + 1, currentY,false);
                 changeRoom(dungeonMapManager.getCurrentRoom().mapName,"RIGHT");
             }
         }

@@ -13,6 +13,7 @@ public class Player extends Character {
     public Sprite sprite;
     public boolean flipSprite;//false when facing right. true when facing left.
     boolean isDead;
+    public int score;
    public Player(Texture texture, int damage, int health,int posX,int posY)
     {
         super(texture, damage, health,posX,posY);
@@ -24,6 +25,7 @@ public class Player extends Character {
         this.isDead = false;
         this.sprite.setScale(1f);
         this.sprite.setPosition(posX,posY);
+        this.score = 0;
     }
 
     @Override
@@ -66,5 +68,16 @@ public class Player extends Character {
     {
 
         return posY;
+    }
+
+    public int getScore()
+    {
+
+        return score;
+    }
+
+    public void incrementScore(int scoreAdded)
+    {
+        this.score+=scoreAdded;
     }
 }

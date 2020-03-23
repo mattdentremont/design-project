@@ -55,7 +55,7 @@ public class PlayState extends GameState{
         player = new Player(playerTexture,10,100,WIDTH/2,HEIGHT/2);
         inputProcessor = new GameInputProcessor(player,this.gsm,game);
         String[] maps = {"maps/UP.tmx","maps/DOWN.tmx"};
-        dungeonMapManager = new DungeonMapManager(maps,5,5);//5x5 dungeon of maps.
+        dungeonMapManager = new DungeonMapManager(maps,5,5,player);//5x5 dungeon of maps.
         currentRoom = dungeonMapManager.getCurrentRoom();
         mapManager = new TiledMapManager(currentRoom.mapName,game,player);
         cam = game.cam;

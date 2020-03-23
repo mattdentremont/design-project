@@ -7,6 +7,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.game.Entities.Player;
 import com.game.Entities.Room;
 import java.io.File;
 import java.util.Random;
@@ -19,8 +20,10 @@ public class DungeonMapManager {
     private Room[][] dungeon;//matrix of dungeon rooms.
     private Room currentRoom;
     private String[] mapList;
+    private Player player;
 
-    public DungeonMapManager(String[] maps,int x, int y) {
+    public DungeonMapManager(String[] maps,int x, int y,Player player) {
+        this.player = player;
         this.width = x;
         this.height = y;
         this.mapList = maps;
@@ -33,7 +36,7 @@ public class DungeonMapManager {
         }
         this.xPos = x/2;
         this.yPos = y/2;
-        setCurrentRoom(xPos,yPos);
+        setCurrentRoom(xPos,yPos,true);
     }
 
     public Room[][] getDungeon() {
@@ -67,12 +70,22 @@ public class DungeonMapManager {
         return this.yPos;
     }
 
-    public void setCurrentRoom(int x, int y)
+    public void setCurrentRoom(int x, int y,boolean isFirst)
     {
         if(x>=0 && x < this.width && y>=0 && y < this.height) {
             currentRoom = dungeon[x][y];
             this.xPos = x;
             this.yPos = y;
+            if(isFirst == true)
+            {
+                currentRoom.setHasBeenVisited();
+            }
+            if(currentRoom.hasBeenVisited == false)
+            {
+                player.incrementScore(10);
+                System.out.println(player.getScore() + " "+ player.health);
+                //10 for new room,50 for enemy,500
+            }
         }
         else return;
     }
