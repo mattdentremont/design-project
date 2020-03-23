@@ -5,15 +5,17 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class Player extends Character {
+    public Sprite sprite;
+    public boolean flipSprite;//false when facing right. true when facing left.
+    boolean isDead;
 
     public int damage;
     public int health;
     public float posX;
     public float posY;
-    public Sprite sprite;
-    public boolean flipSprite;//false when facing right. true when facing left.
-    boolean isDead;
     public int score;
+    public int roomsVisited;
+    public int enemiesDefeated;
    public Player(Texture texture, int damage, int health,int posX,int posY)
     {
         super(texture, damage, health,posX,posY);
@@ -26,6 +28,8 @@ public class Player extends Character {
         this.sprite.setScale(1f);
         this.sprite.setPosition(posX,posY);
         this.score = 0;
+        this.roomsVisited = 1;
+        this.enemiesDefeated = 0;
     }
 
     @Override
@@ -75,9 +79,30 @@ public class Player extends Character {
 
         return score;
     }
+    public int getHealth()
+    {
+
+        return health;
+    }
+
+    public int getRoomsVisited()
+    {
+
+        return roomsVisited;
+    }
+
+    public int getEnemiesDefeated()
+    {
+
+        return enemiesDefeated;
+    }
 
     public void incrementScore(int scoreAdded)
     {
         this.score+=scoreAdded;
+    }
+    public void incrementRoomsVisited()
+    {
+        this.roomsVisited++;
     }
 }
