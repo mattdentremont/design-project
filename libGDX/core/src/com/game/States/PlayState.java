@@ -17,10 +17,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.game.Entities.Player;
 import com.game.Entities.Room;
-import com.game.Managers.DungeonMapManager;
-import com.game.Managers.GameInputProcessor;
-import com.game.Managers.GameStateManager;
-import com.game.Managers.TiledMapManager;
+import com.game.Managers.*;
 import com.game.main.escapeGame;
 
 public class PlayState extends GameState{
@@ -41,6 +38,7 @@ public class PlayState extends GameState{
     public DungeonMapManager dungeonMapManager;
     public GameInputProcessor inputProcessor;
     public TiledMapManager mapManager;
+    public UI HUD;
     public PlayState(GameStateManager gsm)
     {
         super(gsm);
@@ -59,6 +57,7 @@ public class PlayState extends GameState{
         currentRoom = dungeonMapManager.getCurrentRoom();
         mapManager = new TiledMapManager(currentRoom.mapName,game,player);
         cam = game.cam;
+        HUD = new UI(player,cam);
     }
 
     @Override
@@ -74,6 +73,7 @@ public class PlayState extends GameState{
         mapManager.render();
         mapManager.checkDoors(dungeonMapManager);
         sb.begin();
+        HUD.draw(sb);
         player.sprite.draw(sb);
         sb.end();
     }
@@ -88,5 +88,6 @@ public class PlayState extends GameState{
         sb.dispose();
         playerTexture.dispose();
         mapManager.dispose();
+        HUD.dispose();
     }
 }

@@ -83,7 +83,9 @@ public class DungeonMapManager {
             if(currentRoom.hasBeenVisited == false)
             {
                 player.incrementScore(10);
-                System.out.println(player.getScore() + " "+ player.health);
+                currentRoom.setHasBeenVisited();
+                player.incrementRoomsVisited();
+                System.out.println("Score: "+ player.getScore() + " Health: "+ player.health+ " Rooms Visited: "+ player.roomsVisited);
                 //10 for new room,50 for enemy,500
             }
         }
