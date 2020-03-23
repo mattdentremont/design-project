@@ -58,11 +58,23 @@ public class TiledMapManager {
         renderer.render();
     }
 
-    public void changeRoom(String mapPath)
+    public void changeRoom(String mapPath,String Direction)
     {
         map = mapLoader.load(mapPath);
         renderer = new OrthogonalTiledMapRenderer(map);
         Doors = map.getLayers().get("Doors");
+        if(Direction == "UP") {
+            player.setPosition(player.getPosX(), getDownDoorRectangle().height +5);
+        }
+        else if(Direction == "DOWN") {
+            player.setPosition(player.getPosX(), getUpDoorRectangle().y-getUpDoorRectangle().height - 5);
+        }
+        else if(Direction == "LEFT") {
+            player.setPosition(getRightDoorRectangle().x-getRightDoorRectangle().width -5, player.getPosY());
+        }
+        else if(Direction == "RIGHT") {
+            player.setPosition(getLeftDoorRectangle().width +5, player.getPosY());
+        }
     }
 
     public MapLayer getDoors()
@@ -112,32 +124,40 @@ public class TiledMapManager {
         {
             int currentX = dungeon.getxPos();
             int currentY = dungeon.getyPos();
-            dungeonMapManager.setCurrentRoom(currentX,currentY+1);
-            changeRoom(dungeonMapManager.getCurrentRoom().mapName);
+            if(currentY +1 < dungeon.getHeight()) {
+                dungeonMapManager.setCurrentRoom(currentX, currentY + 1);
+                changeRoom(dungeonMapManager.getCurrentRoom().mapName,"UP");
+            }
         }
 
         else if(player.sprite.getBoundingRectangle().overlaps(DownDoor))
         {
             int currentX = dungeon.getxPos();
             int currentY = dungeon.getyPos();
-            dungeonMapManager.setCurrentRoom(currentX,currentY-1);
-            changeRoom(dungeonMapManager.getCurrentRoom().mapName);
+            if(currentY -1 >=0) {
+                dungeonMapManager.setCurrentRoom(currentX, currentY - 1);
+                changeRoom(dungeonMapManager.getCurrentRoom().mapName,"DOWN");
+            }
         }
 
         else if(player.sprite.getBoundingRectangle().overlaps(LeftDoor))
         {
             int currentX = dungeon.getxPos();
             int currentY = dungeon.getyPos();
-            dungeonMapManager.setCurrentRoom(currentX-1,currentY);
-            changeRoom(dungeonMapManager.getCurrentRoom().mapName);
+            if(currentX -1 >=0) {
+                dungeonMapManager.setCurrentRoom(currentX - 1, currentY);
+                changeRoom(dungeonMapManager.getCurrentRoom().mapName,"LEFT");
+            }
         }
 
         else if(player.sprite.getBoundingRectangle().overlaps(RightDoor))
         {
             int currentX = dungeon.getxPos();
             int currentY = dungeon.getyPos();
-            dungeonMapManager.setCurrentRoom(currentX+1,currentY);
-            changeRoom(dungeonMapManager.getCurrentRoom().mapName);
+            if(currentX +1 < dungeon.getWidth()) {
+                dungeonMapManager.setCurrentRoom(currentX + 1, currentY);
+                changeRoom(dungeonMapManager.getCurrentRoom().mapName,"RIGHT");
+            }
         }
         else return;
     }

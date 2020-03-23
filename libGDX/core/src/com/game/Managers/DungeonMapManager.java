@@ -33,7 +33,7 @@ public class DungeonMapManager {
         }
         this.xPos = x/2;
         this.yPos = y/2;
-        setCurrentRoom(width/2,height/2);
+        setCurrentRoom(xPos,yPos);
     }
 
     public Room[][] getDungeon() {
@@ -53,6 +53,15 @@ public class DungeonMapManager {
         return this.xPos;
     }
 
+    public int getHeight()
+    {
+        return this.height;
+    }
+    public int getWidth()
+    {
+        return this.width;
+    }
+
     public int getyPos()
     {
         return this.yPos;
@@ -60,9 +69,12 @@ public class DungeonMapManager {
 
     public void setCurrentRoom(int x, int y)
     {
-        currentRoom = dungeon[x][y];
-        this.xPos = x;
-        this.yPos = y;
+        if(x>=0 && x < this.width && y>=0 && y < this.height) {
+            currentRoom = dungeon[x][y];
+            this.xPos = x;
+            this.yPos = y;
+        }
+        else return;
     }
 
 

@@ -49,6 +49,8 @@ public class PlayState extends GameState{
     @Override
     public void init() {
         sb = new SpriteBatch();
+        WIDTH = game.WIDTH;
+        HEIGHT = game.HEIGHT;
         playerTexture = new Texture(Gdx.files.internal("Protag.png"));
         player = new Player(playerTexture,10,100,WIDTH/2,HEIGHT/2);
         inputProcessor = new GameInputProcessor(player,this.gsm,game);
@@ -57,8 +59,6 @@ public class PlayState extends GameState{
         currentRoom = dungeonMapManager.getCurrentRoom();
         mapManager = new TiledMapManager(currentRoom.mapName,game,player);
         cam = game.cam;
-        WIDTH = game.WIDTH;
-        HEIGHT = game.HEIGHT;
     }
 
     @Override
@@ -72,6 +72,7 @@ public class PlayState extends GameState{
     public void draw() {
         sb.setProjectionMatrix(escapeGame.cam.combined);
         mapManager.render();
+        mapManager.checkDoors(dungeonMapManager);
         sb.begin();
         player.sprite.draw(sb);
         sb.end();

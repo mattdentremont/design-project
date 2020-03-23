@@ -17,7 +17,13 @@ public class Player extends Character {
     {
         super(texture, damage, health,posX,posY);
         this.sprite = new Sprite(texture);
-        sprite.setScale(1f);
+        this.damage= damage;
+        this.health = health;
+        this.posX = posX;
+        this.posY = posY;
+        this.isDead = false;
+        this.sprite.setScale(1f);
+        this.sprite.setPosition(posX,posY);
     }
 
     @Override
@@ -52,10 +58,13 @@ public class Player extends Character {
     }
 
     public float getPosX()
-    {return posX;}
+    {
+        return posX;
+    }
 
     public float getPosY()
     {
+
         return posY;
     }
 }
