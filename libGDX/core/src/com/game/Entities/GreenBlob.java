@@ -2,6 +2,8 @@ package com.game.Entities;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.game.AI.AI;
+import com.game.AI.targetPlayer;
 
 public class GreenBlob extends Enemy {
 
@@ -10,6 +12,7 @@ public class GreenBlob extends Enemy {
     }
 
     float movementSpeed = 1; //Probably make me bigger
+    AI movementPattern =  new targetPlayer();
 
     @Override
     public void attack(Player player) {
@@ -28,22 +31,8 @@ public class GreenBlob extends Enemy {
     }
 
     @Override
-    public void move(Sprite target) {
-        float targetX = target.getX();
-        float targetY = target.getY();
-        float myX = this.sprite.getX();
-        float myY = this.sprite.getY();
-        if(targetX < myX){
-            this.sprite.setPosition(myX - this.movementSpeed, myY);
-        }
-        else{
-            this.sprite.setPosition(myX + this.movementSpeed, myY);
-        }
-        if(targetY< myY){
-            this.sprite.setPosition(myX, myY - this.movementSpeed);
-        }
-        else{
-            this.sprite.setPosition(myX, myY + this.movementSpeed);
-        }
+    public void move(Player player, int movementSpeed) {
+        this.movementPattern.move(this.sprite, player, this.movementSpeed);
     }
+
 }

@@ -2,6 +2,8 @@ package com.game.Entities;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.game.AI.AI;
+import com.game.main.escapeGame;
 
 public abstract class Enemy {
     public int damageValue;
@@ -9,6 +11,7 @@ public abstract class Enemy {
     public float movementSpeed;
     Sprite sprite;
     boolean isDead;
+    public AI movementPattern;
 
     Enemy(Texture texture, int damageValue, int currentHealth)
     {
@@ -21,6 +24,5 @@ public abstract class Enemy {
 
     public abstract void takeDamage(int damageTaken);
 
-    public abstract void move(Sprite p); //Take in PlayerPos as param
-
+    public abstract void move(Player player, int movementSpeed);
 }
