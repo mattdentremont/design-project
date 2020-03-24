@@ -1,6 +1,7 @@
 package com.game.States;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -24,20 +25,16 @@ import com.game.main.escapeGame;
 
 public class PlayState extends GameState{
 
-    private escapeGame game;
     private SpriteBatch sb;
     public static OrthographicCamera cam;
     public int WIDTH = 800;
     public int HEIGHT = 480;
     private Room currentRoom;
-    private TmxMapLoader mapLoader;
-    private TiledMap map;
-    private OrthogonalTiledMapRenderer renderer;
     private Texture playerTexture;
     private Player player;
     private Texture enemyTexture;
     private Enemy enemy;
-    private String roomPath;
+    private Preferences prefs;
 
     public DungeonMapManager dungeonMapManager;
     public GameInputProcessor inputProcessor;
@@ -64,6 +61,7 @@ public class PlayState extends GameState{
         mapManager = new TiledMapManager(currentRoom.mapName,game,player);
         cam = game.cam;
         HUD = new UI(player,cam);
+        prefs = Gdx.app.getPreferences("GameStorage");
     }
 
     @Override
@@ -93,10 +91,26 @@ public class PlayState extends GameState{
 
     @Override
     public void dispose() {
+        saveHighScore();
         sb.dispose();
         playerTexture.dispose();
         enemyTexture.dispose();
         mapManager.dispose();
         HUD.dispose();
+    }
+
+
+    public void saveHighScore()
+    {
+        int currentScore = player.getScore();
+        int highScore = prefs.getInteger("highScore");
+
+        if(currentScore > highScore){
+            prefs.putInteger("highScore",currentScore);
+            prefs.putInteger("Rooms Visited", player.getRoomsVisited());
+            prefs.putInteger("Enemies Defeated", player.getEnemiesDefeated());
+            prefs.flush();
+        }
+
     }
 }

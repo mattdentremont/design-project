@@ -13,7 +13,7 @@ import com.game.main.escapeGame;
 public class MenuState extends GameState {
 
     private SpriteBatch sb;
-
+    private escapeGame game;
     private BitmapFont titleFont;
     private BitmapFont font;
     private final String title = "Dungeon Escape";
@@ -45,7 +45,7 @@ public class MenuState extends GameState {
 
     @Override
     public void draw() {
-        sb.setProjectionMatrix(escapeGame.cam.combined);
+        sb.setProjectionMatrix(game.cam.combined);
         sb.begin();
         layout.setText(titleFont,title);
         float fontWidth = layout.width;
@@ -89,7 +89,7 @@ public class MenuState extends GameState {
                 gsm.setState(GameStateManager.PLAY);
             }
             else if(currentItem == 1) {
-                //make high scores state   gsm.setState(GameStateManager.HIGHSCORES);
+               gsm.setState(GameStateManager.HIGHSCORES);
             }
             else if(currentItem == 2){
                 Gdx.app.exit();

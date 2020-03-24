@@ -1,6 +1,7 @@
 package com.game.Managers;
 
 import com.game.States.GameState;
+import com.game.States.HighScoreState;
 import com.game.States.MenuState;
 import com.game.States.PlayState;
 import com.game.main.escapeGame;
@@ -12,7 +13,7 @@ public class GameStateManager {
 
     public static final int MENU = 0;
     public static final int PLAY = 1;
-    //public static final int HIGHSCORES = 2;
+    public static final int HIGHSCORES = 2;
 
     public GameStateManager(escapeGame g) {
         setState(MENU);//Start in MENU state.
@@ -32,9 +33,10 @@ public class GameStateManager {
             currentState = new PlayState(this);
         }
 
-      /*  if(state==HIGHSCORES){
+        if(state==HIGHSCORES) {
             //switch to play state
-            currentState = new PlayState(this);*/
+            currentState = new HighScoreState(this);
+        }
     }
 
 
