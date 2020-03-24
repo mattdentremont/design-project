@@ -2,8 +2,8 @@ package com.game.Entities;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.game.AI.AI;
-import com.game.AI.targetPlayer;
+import com.game.Behaviors.AI;
+import com.game.Behaviors.targetPlayer;
 
 public class GreenBlob extends Enemy {
 

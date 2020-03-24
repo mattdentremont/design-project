@@ -1,4 +1,4 @@
-package com.game.AI;
+package com.game.Behaviors;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.game.Entities.Player;
@@ -17,6 +17,7 @@ public class targetPlayer extends AI{
         float myY = enemy.getY();
 
         //either change to vectors or nested ifs for diagonals and smoother moving.
+        //or just keep as cardinal???
 
         if(targetX < myX){
             enemy.setPosition(myX - (movementSpeed*dt), myY);

@@ -1,4 +1,4 @@
-package com.game.AI;
+package com.game.Behaviors;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.game.Entities.Player;
