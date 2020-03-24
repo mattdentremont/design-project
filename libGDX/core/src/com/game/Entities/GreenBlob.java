@@ -7,11 +7,19 @@ import com.game.AI.targetPlayer;
 
 public class GreenBlob extends Enemy {
 
-    GreenBlob(Texture texture, int damageValue, int currentHealth, int movementSpeed) {
-        super(texture, damageValue, currentHealth); //because damage and health scale with progression
+    public GreenBlob(Texture texture, int damageValue, int currentHealth, float posX, float posY)
+    {
+        super(texture, damageValue, currentHealth, posX, posY);//because damage and health scale with progression
+        this.sprite = new Sprite(texture);
+        this.damageValue = damageValue;
+        this.currentHealth = currentHealth;
+        this.posX = posX;
+        this.posY = posY;
+        this.isDead = false;
+        this.sprite.setPosition(posX, posY);
     }
 
-    float movementSpeed = 1; //Probably make me bigger
+    float movementSpeed = 100f; //Probably make me bigger
     AI movementPattern =  new targetPlayer();
 
     @Override
@@ -31,8 +39,8 @@ public class GreenBlob extends Enemy {
     }
 
     @Override
-    public void move(Player player, int movementSpeed) {
-        this.movementPattern.move(this.sprite, player, this.movementSpeed);
+    public void move(Player player, float movementSpeed, float dt) {
+        this.movementPattern.move(this.sprite, player, this.movementSpeed, dt);
     }
 
 }

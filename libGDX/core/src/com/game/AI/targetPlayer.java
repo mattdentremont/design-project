@@ -10,22 +10,28 @@ public class targetPlayer extends AI{
     }
 
     @Override
-    public void move(Sprite enemy, Player player, float movementSpeed) {
+    public void move(Sprite enemy, Player player, float movementSpeed, float dt) {
         float targetX = player.sprite.getX();
         float targetY = player.sprite.getY();
         float myX = enemy.getX();
         float myY = enemy.getY();
         if(targetX < myX){
-            enemy.setPosition(myX - movementSpeed, myY);
+            enemy.setPosition(myX - (movementSpeed*dt), myY);
         }
-        else{
-            enemy.setPosition(myX + movementSpeed, myY);
+        if(targetX == myX){
+            enemy.setPosition(myX, myY);
+        }
+        if(targetX > myX){
+            enemy.setPosition(myX + (movementSpeed*dt), myY);
         }
         if(targetY< myY){
-            enemy.setPosition(myX, myY - movementSpeed);
+            enemy.setPosition(myX, myY - (movementSpeed*dt));
         }
-        else{
-            enemy.setPosition(myX, myY + movementSpeed);
+        if(targetY == myX){
+            enemy.setPosition(myX, myY);
+        }
+        if(targetY > myY){
+            enemy.setPosition(myX, myY + (movementSpeed*dt));
         }
     }
 }

@@ -8,6 +8,6 @@ public abstract class AI {
     AI(){
     }
 
-    public abstract void move(Sprite enemy, Player player, float movementSpeed);
+    public abstract void move(Sprite enemy, Player player, float movementSpeed, float dt);
 
 }

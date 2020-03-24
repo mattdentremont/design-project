@@ -15,6 +15,8 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.game.Entities.Enemy;
+import com.game.Entities.GreenBlob;
 import com.game.Entities.Player;
 import com.game.Entities.Room;
 import com.game.Managers.*;
@@ -33,6 +35,8 @@ public class PlayState extends GameState{
     private OrthogonalTiledMapRenderer renderer;
     private Texture playerTexture;
     private Player player;
+    private Texture enemyTexture;
+    private Enemy enemy;
     private String roomPath;
 
     public DungeonMapManager dungeonMapManager;
@@ -51,6 +55,8 @@ public class PlayState extends GameState{
         HEIGHT = game.HEIGHT;
         playerTexture = new Texture(Gdx.files.internal("Protag.png"));
         player = new Player(playerTexture,10,100,WIDTH/2,HEIGHT/2);
+        enemyTexture = new Texture(Gdx.files.internal("BobbyBlob.png"));
+        enemy = new GreenBlob(enemyTexture, 10, 20, 640, HEIGHT/2);
         inputProcessor = new GameInputProcessor(player,this.gsm,game);
         String[] maps = {"maps/UP.tmx","maps/DOWN.tmx"};
         dungeonMapManager = new DungeonMapManager(maps,5,5,player);//5x5 dungeon of maps.
@@ -62,6 +68,7 @@ public class PlayState extends GameState{
 
     @Override
     public void update(float dt) {
+        enemy.move(player,enemy.movementSpeed,dt);
         handleInput(dt);
         cam.update();
         mapManager.updateCam();
@@ -75,6 +82,7 @@ public class PlayState extends GameState{
         sb.begin();
         HUD.draw(sb);
         player.sprite.draw(sb);
+        enemy.sprite.draw(sb);
         sb.end();
     }
 
@@ -87,6 +95,7 @@ public class PlayState extends GameState{
     public void dispose() {
         sb.dispose();
         playerTexture.dispose();
+        enemyTexture.dispose();
         mapManager.dispose();
         HUD.dispose();
     }

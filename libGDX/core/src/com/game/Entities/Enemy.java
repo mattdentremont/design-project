@@ -9,11 +9,13 @@ public abstract class Enemy {
     public int damageValue;
     public int currentHealth;
     public float movementSpeed;
-    Sprite sprite;
+    public float posX;
+    public float posY;
+    public Sprite sprite;
     boolean isDead;
     public AI movementPattern;
 
-    Enemy(Texture texture, int damageValue, int currentHealth)
+    Enemy(Texture texture, int damageValue, int currentHealth, float posX, float posY)
     {
         sprite = new Sprite(texture);
         this.damageValue = damageValue;
@@ -24,5 +26,5 @@ public abstract class Enemy {
 
     public abstract void takeDamage(int damageTaken);
 
-    public abstract void move(Player player, int movementSpeed);
+    public abstract void move(Player player, float movementSpeed, float dt);
 }
