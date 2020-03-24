@@ -16,20 +16,24 @@ public class targetPlayer extends AI{
         float myX = enemy.getX();
         float myY = enemy.getY();
 
-        //either change to vectors or nested ifs for diagonals and smoother moving.
-        //or just keep as cardinal???
+        if(targetX < myX && ((myX - targetX ) > 3)){
+            if(targetY > myY && ((targetY - myY ) > 3))
+                enemy.setPosition(myX - (float) (.7071) *(movementSpeed*dt),myY + (float) (.7071) *(movementSpeed*dt));
+            else if(targetY< myY && ((myY - targetY) > 3))
+                enemy.setPosition( myX - (float) (.7071) *(movementSpeed*dt),myY - (float) (.7071) *(movementSpeed*dt));
+            else enemy.setPosition(myX - (movementSpeed*dt), myY);
+        }
+        else if(targetX > myX &&((targetX - myX ) > 3)){
+            if(targetY > myY && ((targetY - myY ) > 3))
+                enemy.setPosition(myX + (float) (.7071) *(movementSpeed*dt),myY + (float) (.7071) *(movementSpeed*dt));
+            else if(targetY< myY && ((myY - targetY) > 3))
+                enemy.setPosition(myX + (float) (.7071) *(movementSpeed*dt),myY - (float) (.7071) *(movementSpeed*dt));
+            else enemy.setPosition(myX + (movementSpeed*dt), myY);
+        }
+        else if(targetY > myY && ((targetY - myY ) > 3))
+            enemy.setPosition(myX,myY + (movementSpeed*dt));
+        else if(targetY< myY && ((myY - targetY) > 3))
+            enemy.setPosition(myX,myY - (movementSpeed*dt));
 
-        if(targetX < myX){
-            enemy.setPosition(myX - (movementSpeed*dt), myY);
-        }
-        if(targetX > myX){
-            enemy.setPosition(myX + (movementSpeed*dt), myY);
-        }
-        if(targetY< myY && ((myY - targetY) > 3)){
-            enemy.setPosition(myX, myY - (movementSpeed*dt));
-        }
-        if(targetY > myY && ((targetY - myY ) > 3)){
-            enemy.setPosition(myX, myY + (movementSpeed*dt));
-        }
     }
 }
