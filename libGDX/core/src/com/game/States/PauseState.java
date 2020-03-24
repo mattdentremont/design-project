@@ -61,7 +61,9 @@ public class PauseState extends GameState {
             if(x != null)
                 x.sprite.draw(sb);
         }*/ //enemies need to be in array. Once that array is no longer null then this should work.
-        font.draw(sb,"PAUSED. PRESS ENTER TO RESUME GAME!",0,game.HEIGHT/2 );
+        font.draw(sb,"PAUSED",400,game.HEIGHT/2 );
+        font.draw(sb,"PRESS ENTER TO RETURN TO THE GAME",50,game.HEIGHT/2 -50);
+        font.draw(sb,"PRESS M TO RETURN TO THE MENU",50,game.HEIGHT/2 -100);
         sb.end();
 
     }
@@ -70,6 +72,9 @@ public class PauseState extends GameState {
     public void handleInput(float dt) {
         if(Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
             gsm.unpauseGame(currentGameState);
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.M)) {
+            gsm.setState(gsm.MENU);
         }
     }
 

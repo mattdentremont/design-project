@@ -6,6 +6,7 @@ import com.game.Behaviors.AI;
 
 public abstract class Enemy {
     public int damageValue;
+    public int maxHealth;
     public int currentHealth;
     public float movementSpeed;
     public float posX;
@@ -14,11 +15,10 @@ public abstract class Enemy {
     boolean isDead;
     public AI movementPattern;
 
-    Enemy(Texture texture, int damageValue, int currentHealth, float posX, float posY)
+    Enemy(float posX, float posY)
     {
-        sprite = new Sprite(texture);
-        this.damageValue = damageValue;
-        this.currentHealth = currentHealth;
+        this.posY = posY;
+        this.posX = posX;
         this.isDead = false;
     }
     public abstract void attack(Player player);

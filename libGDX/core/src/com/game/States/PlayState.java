@@ -53,7 +53,7 @@ public class PlayState extends GameState{
         playerTexture = new Texture(Gdx.files.internal("Protag.png"));
         player = new Player(playerTexture,10,100,WIDTH/2,HEIGHT/2);
         enemyTexture = new Texture(Gdx.files.internal("BobbyBlob.png"));
-        enemy = new GreenBlob(enemyTexture, 10, 20, 640, HEIGHT/2);
+        enemy = new GreenBlob(640, HEIGHT/2);
         inputProcessor = new GameInputProcessor(player,this.gsm,game);
         String[] maps = {"maps/UP.tmx","maps/DOWN.tmx"};
         dungeonMapManager = new DungeonMapManager(maps,5,5,player);//5x5 dungeon of maps.
