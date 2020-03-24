@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.game.Entities.Enemy;
 import com.game.Entities.Player;
 import com.game.States.GameState;
 import com.game.main.escapeGame;
@@ -27,6 +28,7 @@ public class GameInputProcessor extends InputAdapter {
 
     public void movePlayer(float dt)
     {
+        String attackDirection;
         if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {//TODO: PAUSE MENU IMPLEMENTATION
             gsm.setState(GameStateManager.MENU);
         }
@@ -61,6 +63,16 @@ public class GameInputProcessor extends InputAdapter {
         {
             if(player.getPosY() >= 0)
                 player.translatePlayer(0,-speed*dt);
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) //ATTACK RIGHT //TODO: Up and Down
+        {
+//            attackDirection = "RIGHT";
+//            player.attack(player.sprite, attackDirection); //TODO: Maybe Implement Later I guess
+            for(Enemy x: enemyList){
+                if(x.getPosX() - player.getPosX() < 20){
+                    player.gotHit(x.damageValue);
+                }
+            }
         }
         //TODO: COLLISION MANAGER - Maybe in another class.
         //TODO: MAP COLLISIONS - NOT ENEMY HIT DETECTION
