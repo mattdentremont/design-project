@@ -28,30 +28,25 @@ public class GameInputProcessor extends InputAdapter {
 
     public void movePlayer(float dt)
     {
-        String attackDirection;
-        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {//TODO: PAUSE MENU IMPLEMENTATION
-            gsm.setState(GameStateManager.MENU);
+        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+            gsm.pauseGame(gsm.getCurrentState());
         }
-        if((Gdx.input.isKeyPressed(Input.Keys.A)) || Gdx.input.isKeyPressed(Input.Keys.D)) {
+        if((Gdx.input.isKeyPressed(Input.Keys.A))&&(player.getPosX() >= 0) || Gdx.input.isKeyPressed(Input.Keys.D)&& (player.getPosX() <= WIDTH - player.sprite.getWidth())) {
             if (Gdx.input.isKeyPressed(Input.Keys.A))//MOVE LEFT
             {
-                if (player.getPosX() >= 0) {
-                    if (Gdx.input.isKeyPressed(Input.Keys.W))
+                    if (Gdx.input.isKeyPressed(Input.Keys.W) && player.getPosY() <= HEIGHT-player.sprite.getHeight())
                         player.translatePlayer((float) (.7071) * (-1) * speed * dt, (float) (.7071) * speed * dt);
-                    else if (Gdx.input.isKeyPressed(Input.Keys.S))
+                    else if (Gdx.input.isKeyPressed(Input.Keys.S) && player.getPosY() >= 0)
                         player.translatePlayer((float) (.7071) * (-1) * speed * dt, (float) (.7071) * (-1) * speed * dt);
                     else player.translatePlayer(-speed * dt, 0);
-                }
             }
             if (Gdx.input.isKeyPressed(Input.Keys.D))//MOVE RIGHT
             {
-                if (player.getPosX() <= WIDTH - player.sprite.getWidth()) {
-                    if (Gdx.input.isKeyPressed(Input.Keys.W))
+                    if (Gdx.input.isKeyPressed(Input.Keys.W) && player.getPosY() <= HEIGHT-player.sprite.getHeight())
                         player.translatePlayer((float) (.7071) * speed * dt, (float) (.7071) * speed * dt);
-                    else if (Gdx.input.isKeyPressed(Input.Keys.S))
+                    else if (Gdx.input.isKeyPressed(Input.Keys.S) && player.getPosY() >= 0)
                         player.translatePlayer((float) (.7071) * speed * dt, (float) (.7071) * (-1) * speed * dt);
                     else player.translatePlayer(speed * dt, 0);
-                }
             }
         }
         else if(Gdx.input.isKeyPressed(Input.Keys.W))//MOVE UP
@@ -64,19 +59,6 @@ public class GameInputProcessor extends InputAdapter {
             if(player.getPosY() >= 0)
                 player.translatePlayer(0,-speed*dt);
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) //ATTACK RIGHT //TODO: Up and Down
-        {
-//            attackDirection = "RIGHT";
-//            player.attack(player.sprite, attackDirection); //TODO: Maybe Implement Later I guess
-            for(Enemy x: enemyList){
-                if(x.getPosX() - player.getPosX() < 20){
-                    player.gotHit(x.damageValue);
-                }
-            }
-        }
-        //TODO: COLLISION MANAGER - Maybe in another class.
-        //TODO: MAP COLLISIONS - NOT ENEMY HIT DETECTION
-
     }
 
 }

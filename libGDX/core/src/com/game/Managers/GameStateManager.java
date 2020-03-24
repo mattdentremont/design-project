@@ -1,9 +1,10 @@
 package com.game.Managers;
 
-import com.game.States.GameState;
-import com.game.States.HighScoreState;
-import com.game.States.MenuState;
-import com.game.States.PlayState;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.game.Entities.Enemy;
+import com.game.Entities.Player;
+import com.game.States.*;
 import com.game.main.escapeGame;
 
 public class GameStateManager {
@@ -14,6 +15,7 @@ public class GameStateManager {
     public static final int MENU = 0;
     public static final int PLAY = 1;
     public static final int HIGHSCORES = 2;
+    public static final int PAUSE = 3;
 
     public GameStateManager(escapeGame g) {
         setState(MENU);//Start in MENU state.
@@ -39,12 +41,27 @@ public class GameStateManager {
         }
     }
 
+    public void pauseGame(GameState currentGameState)
+    {
+        currentState = new PauseState(this,currentGameState,currentGameState.getPlayer(), currentGameState.getEnemies(), currentGameState.getHUD(), currentGameState.getmapManager());
+    }
+
+    public void unpauseGame(GameState desiredState)
+    {
+        currentState = desiredState;
+    }
+
 
     public void update(float dt){
         currentState.update(dt);
     }
     public void draw(){
         currentState.draw();
+    }
+
+    public GameState getCurrentState()
+    {
+        return currentState;
     }
 
 

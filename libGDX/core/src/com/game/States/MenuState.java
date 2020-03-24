@@ -6,8 +6,12 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.game.Entities.Enemy;
+import com.game.Entities.Player;
 import com.game.Managers.GameStateManager;
 import com.badlogic.gdx.Input;
+import com.game.Managers.TiledMapManager;
+import com.game.Managers.UI;
 import com.game.main.escapeGame;
 
 public class MenuState extends GameState {
@@ -102,5 +106,25 @@ public class MenuState extends GameState {
         sb.dispose();
         titleFont.dispose();
         font.dispose();
+    }
+
+    @Override
+    public TiledMapManager getmapManager() {
+        return null;
+    }
+
+    @Override
+    public Enemy[] getEnemies() {
+        return new Enemy[0];
+    }
+
+    @Override
+    public Player getPlayer() {
+        return null;
+    }
+
+    @Override
+    public UI getHUD() {
+        return null;
     }
 }

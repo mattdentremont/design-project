@@ -1,5 +1,6 @@
 package com.game.Entities;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.game.Behaviors.AI;
@@ -7,20 +8,20 @@ import com.game.Behaviors.targetPlayer;
 
 public class GreenBlob extends Enemy {
 
-    public GreenBlob(Texture texture, int damageValue, int currentHealth, float posX, float posY)
+    public GreenBlob(float posX, float posY)
     {
-        super(texture, damageValue, currentHealth, posX, posY);//because damage and health scale with progression
-        this.sprite = new Sprite(texture);
-        this.damageValue = damageValue;
-        this.currentHealth = currentHealth;
+        super(posX, posY);//because damage and health scale with progression
+        this.sprite = new Sprite(new Texture(Gdx.files.internal("BobbyBlob.png")));
+        this.damageValue = 10;
+        this.maxHealth = 20;
+        this.movementSpeed = 100f;
+        this.movementPattern = new targetPlayer();
+        this.currentHealth = this.maxHealth;
         this.posX = posX;
         this.posY = posY;
         this.isDead = false;
         this.sprite.setPosition(posX, posY);
     }
-
-    float movementSpeed = 100f; //Probably make me bigger
-    AI movementPattern =  new targetPlayer();
 
     @Override
     public void attack(Player player) {
