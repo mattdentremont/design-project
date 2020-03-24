@@ -15,22 +15,19 @@ public class targetPlayer extends AI{
         float targetY = player.sprite.getY();
         float myX = enemy.getX();
         float myY = enemy.getY();
+
+        //either change to vectors or nested ifs for diagonals and smoother moving.
+
         if(targetX < myX){
             enemy.setPosition(myX - (movementSpeed*dt), myY);
-        }
-        if(targetX == myX){
-            enemy.setPosition(myX, myY);
         }
         if(targetX > myX){
             enemy.setPosition(myX + (movementSpeed*dt), myY);
         }
-        if(targetY< myY){
+        if(targetY< myY && ((myY - targetY) > 3)){
             enemy.setPosition(myX, myY - (movementSpeed*dt));
         }
-        if(targetY == myX){
-            enemy.setPosition(myX, myY);
-        }
-        if(targetY > myY){
+        if(targetY > myY && ((targetY - myY ) > 3)){
             enemy.setPosition(myX, myY + (movementSpeed*dt));
         }
     }
