@@ -1,6 +1,10 @@
 package com.game.States;
 
+import com.game.Entities.Enemy;
+import com.game.Entities.Player;
 import com.game.Managers.GameStateManager;
+import com.game.Managers.TiledMapManager;
+import com.game.Managers.UI;
 import com.game.main.escapeGame;
 
 public abstract class GameState {
@@ -20,5 +24,9 @@ public abstract class GameState {
     public abstract void draw();
     public abstract void handleInput(float dt);
     public abstract void dispose();
+    public abstract TiledMapManager getmapManager();
+    public abstract Enemy[] getEnemies();
+    public abstract Player getPlayer();
+    public abstract UI getHUD();
 
 }

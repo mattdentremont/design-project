@@ -113,4 +113,20 @@ public class PlayState extends GameState{
         }
 
     }
+    //GameStateManager gsm,GameState currentGameState,Player player, Enemy[] enemies, UI HUD, TiledMapManager mapManager
+    public TiledMapManager getmapManager(){
+        return mapManager;
+    }
+
+    public Enemy[] getEnemies(){
+        return currentRoom.getEnemies();
+    }
+    public Player getPlayer()
+    {
+        return player;
+    }
+    public UI getHUD()
+    {
+        return HUD;
+    }
 }
