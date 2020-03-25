@@ -20,7 +20,7 @@ public class UI {
         layout = new GlyphLayout();
         font = new BitmapFont();
         font.getData().setScale(1f);
-        font.setColor(Color.BLACK);
+        font.setColor(Color.PINK);
         this.cam = cam;
         this.player= player;
     }

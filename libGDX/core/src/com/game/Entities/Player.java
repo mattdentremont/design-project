@@ -3,8 +3,6 @@ package com.game.Entities;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.game.Behaviors.Attack;
-import com.game.Behaviors.Cardinal;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class Player extends Character {
     public Sprite sprite;
@@ -18,7 +16,8 @@ public class Player extends Character {
     public int score;
     public int roomsVisited;
     public int enemiesDefeated;
-   public Player(Texture texture, int damage, int health,int posX,int posY)
+
+    public Player(Texture texture, int damage, int health,int posX,int posY)
     {
         super(texture, damage, health,posX,posY);
         this.sprite = new Sprite(texture);
@@ -34,8 +33,6 @@ public class Player extends Character {
         this.roomsVisited = 1;
         this.enemiesDefeated = 0;
     }
-
-    Attack attackType = new Cardinal();
 
 
     public void translatePlayer(float x,float y) {
@@ -108,6 +105,14 @@ public class Player extends Character {
     public void gotHit(float damageTaken)
     {
         this.health -= damageTaken;
-        //TODO: go to main menu state
+        if (this.health <= 0)
+        {
+            this.isDead = true;
+        }
+    }
+
+    public boolean checkDead()
+    {
+        return this.isDead;
     }
 }

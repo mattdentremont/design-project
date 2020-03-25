@@ -39,7 +39,7 @@ public class PlayState extends GameState{
         sb = new SpriteBatch();
         WIDTH = game.WIDTH;
         HEIGHT = game.HEIGHT;
-        playerTexture = new Texture(Gdx.files.internal("protag.png"));
+        playerTexture = new Texture(Gdx.files.internal("Protag.png"));
         player = new Player(playerTexture,10,100,WIDTH/2,HEIGHT/2);
         String[] maps = {"maps/generic.tmx","maps/satanic.tmx"};
         dungeonMapManager = new DungeonMapManager(maps,5,5,player);//5x5 dungeon of maps.
@@ -55,8 +55,12 @@ public class PlayState extends GameState{
     public void update(float dt) {
         for (Enemy x :mapManager.getEnemyList()){
             x.move(player,x.movementSpeed,dt);
+            x.attack(player, dt); //TODO: Implement Attack Delay
         }
         handleInput(dt);
+        if(player.checkDead()){
+            gsm.setState(gsm.MENU);
+        }
         ArrayList<Enemy> enemies = mapManager.getEnemyList();
         Iterator<Enemy> iterator = enemies.iterator();
         while(iterator.hasNext()){
