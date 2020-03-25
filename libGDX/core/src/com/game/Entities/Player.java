@@ -2,6 +2,8 @@ package com.game.Entities;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.game.Behaviors.Attack;
+import com.game.Behaviors.Cardinal;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class Player extends Character {
@@ -32,13 +34,15 @@ public class Player extends Character {
         this.enemiesDefeated = 0;
     }
 
-    @Override
-    public void hit(int dmg) {
-        this.health -= dmg;
-        if(health <= 0){
-            isDead = true;
-        }
-    }
+    Attack attackType = new Cardinal();
+
+//    @Override //TODO: Check for death and stuff
+//    public void attack(Sprite player, String attackDirection) {
+//        this.attackType.attack(player, attackDirection);
+//        if(health <= 0){
+//            isDead = true;
+//        }
+//    }
 
     public void translatePlayer(float x,float y) {
        if(x<0 && flipSprite==false)
@@ -104,5 +108,9 @@ public class Player extends Character {
     public void incrementRoomsVisited()
     {
         this.roomsVisited++;
+    }
+    public void gotHit(float damageTaken)
+    {
+        this.health -= damageTaken;
     }
 }

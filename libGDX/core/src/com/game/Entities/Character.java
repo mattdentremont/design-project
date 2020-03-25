@@ -20,6 +20,6 @@ public abstract class Character {
         this.posY = posY;
         this.isDead = false;
     }
-    public abstract void hit(int dmg);
+    //public abstract void attack(Sprite player, String attackDirection);
 
 }

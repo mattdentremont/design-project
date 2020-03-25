@@ -23,7 +23,11 @@ public abstract class Enemy {
     }
     public abstract void attack(Player player);
 
-    public abstract void takeDamage(int damageTaken);
+    public abstract boolean takeDamage(int damageTaken);
 
     public abstract void move(Player player, float movementSpeed, float dt);
+
+    public abstract float getPosX();
+
+    public abstract float getPosY();
 }

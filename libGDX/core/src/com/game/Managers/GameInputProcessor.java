@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.game.Entities.Enemy;
 import com.game.Entities.Player;
 import com.game.States.GameState;
 import com.game.main.escapeGame;
@@ -57,6 +58,30 @@ public class GameInputProcessor extends InputAdapter {
         {
             if(player.getPosY() >= 0)
                 player.translatePlayer(0,-speed*dt);
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT))//ATTACK RIGHT
+        {
+            for(Enemy x: enemyList) {
+                if((x.getPosX() - player.getPosX()) >= 20f)
+                {
+                    if(x.takeDamage(player.damage) == true)
+                    {
+                        enemyList.remove(x);
+                    }
+                }
+            }
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.LEFT))//ATTACK LEFT
+        {
+            for(Enemy x: enemyList) {
+                if((player.getPosX() - x.getPosX()) >= 20f)
+                {
+                    if(x.takeDamage(player.damage) == true)
+                    {
+                        enemyList.remove(x);
+                    }
+                }
+            }
         }
     }
 
