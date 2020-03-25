@@ -142,55 +142,45 @@ public class TiledMapManager {
 
     public void checkDoors(DungeonMapManager dungeonMapManager)
     {
-        if(dungeon == null)
-        {
-            this.dungeon = dungeonMapManager;
-        }
-        Rectangle upDoor = getUpDoorRectangle();
-        Rectangle DownDoor = getDownDoorRectangle();
-        Rectangle LeftDoor = getLeftDoorRectangle();
-        Rectangle RightDoor = getRightDoorRectangle();
-
-        if(player.sprite.getBoundingRectangle().overlaps(upDoor))
-        {
-            int currentX = dungeon.getxPos();
-            int currentY = dungeon.getyPos();
-            if(currentY +1 < dungeon.getHeight()) {
-                dungeonMapManager.setCurrentRoom(currentX, currentY + 1,false);
-                changeRoom(dungeonMapManager.getCurrentRoom().mapName,"UP");
+        if(enemies.size() == 0) {
+            if (dungeon == null) {
+                this.dungeon = dungeonMapManager;
             }
-        }
+            Rectangle upDoor = getUpDoorRectangle();
+            Rectangle DownDoor = getDownDoorRectangle();
+            Rectangle LeftDoor = getLeftDoorRectangle();
+            Rectangle RightDoor = getRightDoorRectangle();
 
-        else if(player.sprite.getBoundingRectangle().overlaps(DownDoor))
-        {
-            int currentX = dungeon.getxPos();
-            int currentY = dungeon.getyPos();
-            if(currentY -1 >=0) {
-                dungeonMapManager.setCurrentRoom(currentX, currentY - 1,false);
-                changeRoom(dungeonMapManager.getCurrentRoom().mapName,"DOWN");
-            }
+            if (player.sprite.getBoundingRectangle().overlaps(upDoor)) {
+                int currentX = dungeon.getxPos();
+                int currentY = dungeon.getyPos();
+                if (currentY + 1 < dungeon.getHeight()) {
+                    dungeonMapManager.setCurrentRoom(currentX, currentY + 1, false);
+                    changeRoom(dungeonMapManager.getCurrentRoom().mapName, "UP");
+                }
+            } else if (player.sprite.getBoundingRectangle().overlaps(DownDoor)) {
+                int currentX = dungeon.getxPos();
+                int currentY = dungeon.getyPos();
+                if (currentY - 1 >= 0) {
+                    dungeonMapManager.setCurrentRoom(currentX, currentY - 1, false);
+                    changeRoom(dungeonMapManager.getCurrentRoom().mapName, "DOWN");
+                }
+            } else if (player.sprite.getBoundingRectangle().overlaps(LeftDoor)) {
+                int currentX = dungeon.getxPos();
+                int currentY = dungeon.getyPos();
+                if (currentX - 1 >= 0) {
+                    dungeonMapManager.setCurrentRoom(currentX - 1, currentY, false);
+                    changeRoom(dungeonMapManager.getCurrentRoom().mapName, "LEFT");
+                }
+            } else if (player.sprite.getBoundingRectangle().overlaps(RightDoor)) {
+                int currentX = dungeon.getxPos();
+                int currentY = dungeon.getyPos();
+                if (currentX + 1 < dungeon.getWidth()) {
+                    dungeonMapManager.setCurrentRoom(currentX + 1, currentY, false);
+                    changeRoom(dungeonMapManager.getCurrentRoom().mapName, "RIGHT");
+                }
+            } else return;
         }
-
-        else if(player.sprite.getBoundingRectangle().overlaps(LeftDoor))
-        {
-            int currentX = dungeon.getxPos();
-            int currentY = dungeon.getyPos();
-            if(currentX -1 >=0) {
-                dungeonMapManager.setCurrentRoom(currentX - 1, currentY,false);
-                changeRoom(dungeonMapManager.getCurrentRoom().mapName,"LEFT");
-            }
-        }
-
-        else if(player.sprite.getBoundingRectangle().overlaps(RightDoor))
-        {
-            int currentX = dungeon.getxPos();
-            int currentY = dungeon.getyPos();
-            if(currentX +1 < dungeon.getWidth()) {
-                dungeonMapManager.setCurrentRoom(currentX + 1, currentY,false);
-                changeRoom(dungeonMapManager.getCurrentRoom().mapName,"RIGHT");
-            }
-        }
-        else return;
     }
 
     public ArrayList<Enemy> getEnemies(){
