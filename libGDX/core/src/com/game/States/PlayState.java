@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.game.Entities.Enemy;
-import com.game.Entities.GreenBlob;
 import com.game.Entities.Player;
 import com.game.Entities.Room;
 import com.game.Managers.*;
@@ -40,7 +39,7 @@ public class PlayState extends GameState{
         sb = new SpriteBatch();
         WIDTH = game.WIDTH;
         HEIGHT = game.HEIGHT;
-        playerTexture = new Texture(Gdx.files.internal("Protag.png"));
+        playerTexture = new Texture(Gdx.files.internal("protag.png"));
         player = new Player(playerTexture,10,100,WIDTH/2,HEIGHT/2);
         String[] maps = {"maps/generic.tmx","maps/satanic.tmx"};
         dungeonMapManager = new DungeonMapManager(maps,5,5,player);//5x5 dungeon of maps.
@@ -61,8 +60,11 @@ public class PlayState extends GameState{
         ArrayList<Enemy> enemies = mapManager.getEnemyList();
         Iterator<Enemy> iterator = enemies.iterator();
         while(iterator.hasNext()){
-            if(iterator.next().checkDead())
+            if(iterator.next().checkDead()) {
                 iterator.remove();
+                player.incrementScore(10);
+                player.enemiesDefeated++;
+            }
         }
         cam.update();
         mapManager.updateCam();

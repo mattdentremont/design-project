@@ -6,12 +6,16 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.game.Behaviors.AI;
 import com.game.Behaviors.targetPlayer;
 
+import java.util.Random;
+
 public class GreenBlob extends Enemy {
 
     public GreenBlob(float posX, float posY)
     {
         super(posX, posY);//because damage and health scale with progression
-        this.sprite = new Sprite(new Texture(Gdx.files.internal("BobbyBlob.png")));
+        String[] enemyTextures = {"BobbyBlob.png","JohnWick.png","jamil.png"};
+        int rand = new Random().nextInt(enemyTextures.length);
+        this.sprite = new Sprite(new Texture(Gdx.files.internal(enemyTextures[rand])));
         this.damageValue = 10;
         this.maxHealth = 20;
         this.movementSpeed = 100f;
