@@ -32,16 +32,31 @@ public class GreenBlob extends Enemy {
     }
 
     @Override
-    public void takeDamage(int damageTaken) {
+    public boolean takeDamage(int damageTaken) {
         this.currentHealth -= damageTaken;
         if (this.currentHealth <= 0){
             isDead = true;
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 
     @Override
     public void move(Player player, float movementSpeed, float dt) {
         this.movementPattern.move(this.sprite, player, this.movementSpeed, dt);
+    }
+
+    @Override
+    public float getPosX() {
+        return this.posX;
+    }
+
+    @Override
+    public float getPosY() {
+        return this.posY;
     }
 
 }

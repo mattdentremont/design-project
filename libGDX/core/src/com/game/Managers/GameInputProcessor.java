@@ -59,6 +59,30 @@ public class GameInputProcessor extends InputAdapter {
             if(player.getPosY() >= 0)
                 player.translatePlayer(0,-speed*dt);
         }
+        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT))//ATTACK RIGHT
+        {
+            for(Enemy x: enemyList) {
+                if((x.getPosX() - player.getPosX()) >= 20f)
+                {
+                    if(x.takeDamage(player.damage) == true)
+                    {
+                        enemyList.remove(x);
+                    }
+                }
+            }
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.LEFT))//ATTACK LEFT
+        {
+            for(Enemy x: enemyList) {
+                if((player.getPosX() - x.getPosX()) >= 20f)
+                {
+                    if(x.takeDamage(player.damage) == true)
+                    {
+                        enemyList.remove(x);
+                    }
+                }
+            }
+        }
     }
 
 }
