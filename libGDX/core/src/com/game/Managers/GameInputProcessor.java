@@ -83,6 +83,26 @@ public class GameInputProcessor extends InputAdapter {
                 }
             }
         }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.UP))//ATTACK UP
+        {
+            for(Enemy x: enemyList) {
+                if((x.getPosY()>=player.getPosY()) &&x.getPosY() <= player.getPosY() +75f)
+                {
+                    if((x.getPosX() > player.getPosX() &&(x.getPosX() - player.getPosX()) <= 50f) ||(x.getPosY() <= player.getPosY() &&(x.getPosX() - player.getPosX()) <= 50f))
+                        x.takeDamage(player.damage);
+                }
+            }
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN))//ATTACK DOWN
+        {
+            for(Enemy x: enemyList) {
+                if((x.getPosY()<=player.getPosY()) && x.getPosY() >= player.getPosY() -75f)
+                {
+                    if((x.getPosX() > player.getPosX() &&(x.getPosX() - player.getPosX()) <= 50f) ||(x.getPosY() <= player.getPosY() &&(x.getPosX() - player.getPosX()) <= 50f))
+                        x.takeDamage(player.damage);
+                }
+            }
+        }
     }
 
 }
