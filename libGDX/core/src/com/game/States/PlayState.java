@@ -2,8 +2,10 @@ package com.game.States;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.game.Entities.Enemy;
 import com.game.Entities.Player;
@@ -33,6 +35,8 @@ public class PlayState extends GameState{
     {
         super(gsm);
     }
+    private Sprite menuSprite;
+    private Music music;
 
     @Override
     public void init() {
@@ -49,6 +53,10 @@ public class PlayState extends GameState{
         cam = game.cam;
         HUD = new UI(player,cam);
         prefs = Gdx.app.getPreferences("GameStorage");
+        music = Gdx.audio.newMusic(Gdx.files.internal("menuMusic.mp3"));
+        music.setLooping(true);
+        music.setVolume(.2f);
+        music.play();
     }
 
     @Override
