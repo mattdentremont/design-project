@@ -1,5 +1,4 @@
 package com.game.States;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Music;
@@ -104,6 +103,7 @@ public class PlayState extends GameState{
         playerTexture.dispose();
         mapManager.dispose();
         HUD.dispose();
+        music.dispose();
     }
 
 

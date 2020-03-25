@@ -3,6 +3,7 @@ package com.game.States;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -27,6 +28,7 @@ public class HighScoreState extends GameState {
     private Preferences prefs;
     private Texture menuTexture;
     private Sprite menuSprite;
+    private Music music;
 
     public HighScoreState(GameStateManager gsm) {
         super(gsm);
@@ -46,6 +48,10 @@ public class HighScoreState extends GameState {
         prefs = Gdx.app.getPreferences("GameStorage");
         menuTexture = new Texture(Gdx.files.internal("menuBackground.jpg"));
         menuSprite = new Sprite(menuTexture);
+        music = Gdx.audio.newMusic(Gdx.files.internal("menuMusic.mp3"));
+        music.setLooping(true);
+        music.setVolume(.2f);
+        music.play();
     }
 
     @Override
@@ -85,6 +91,7 @@ public class HighScoreState extends GameState {
     public void dispose() {
         font.dispose();
         font2.dispose();
+        music.dispose();
     }
 
     @Override
