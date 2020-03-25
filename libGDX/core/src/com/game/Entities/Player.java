@@ -99,12 +99,15 @@ public class Player extends Character {
     {
         this.score+=scoreAdded;
     }
+
     public void incrementRoomsVisited()
     {
         this.roomsVisited++;
     }
+
     public void gotHit(float damageTaken)
     {
         this.health -= damageTaken;
+        //TODO: go to main menu state
     }
 }
