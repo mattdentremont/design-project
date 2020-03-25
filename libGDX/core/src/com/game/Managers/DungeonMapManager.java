@@ -73,6 +73,8 @@ public class DungeonMapManager {
     public void setCurrentRoom(int x, int y,boolean isFirst)
     {
         if(x>=0 && x < this.width && y>=0 && y < this.height) {
+            if(currentRoom != null)
+            currentRoom.setHasBeenVisited();
             currentRoom = dungeon[x][y];
             this.xPos = x;
             this.yPos = y;
@@ -82,11 +84,9 @@ public class DungeonMapManager {
             }
             if(currentRoom.hasBeenVisited == false)
             {
-                player.incrementScore(10);
-                currentRoom.setHasBeenVisited();
+                player.incrementScore(50);
                 player.incrementRoomsVisited();
                 System.out.println("Score: "+ player.getScore() + " Health: "+ player.health+ " Rooms Visited: "+ player.roomsVisited);
-                //10 for new room,50 for enemy,500
             }
         }
         else return;

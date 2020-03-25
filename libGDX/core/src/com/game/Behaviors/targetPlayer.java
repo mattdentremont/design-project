@@ -1,6 +1,7 @@
 package com.game.Behaviors;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.game.Entities.Enemy;
 import com.game.Entities.Player;
 
 public class targetPlayer extends AI{
@@ -10,11 +11,11 @@ public class targetPlayer extends AI{
     }
 
     @Override
-    public void move(Sprite enemy, Player player, float movementSpeed, float dt) {
-        float targetX = player.sprite.getX();
-        float targetY = player.sprite.getY();
-        float myX = enemy.getX();
-        float myY = enemy.getY();
+    public void move(Enemy enemy, Player player, float movementSpeed, float dt) {
+        float targetX = player.getPosX();
+        float targetY = player.getPosY();
+        float myX = enemy.getPosX();
+        float myY = enemy.getPosY();
 
         if(targetX < myX && ((myX - targetX ) > 3)){
             if(targetY > myY && ((targetY - myY ) > 3))

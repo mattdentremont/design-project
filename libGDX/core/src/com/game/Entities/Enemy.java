@@ -14,12 +14,14 @@ public abstract class Enemy {
     public Sprite sprite;
     boolean isDead;
     public AI movementPattern;
+    public boolean flipSprite;
 
     Enemy(float posX, float posY)
     {
         this.posY = posY;
         this.posX = posX;
         this.isDead = false;
+        this.flipSprite = false;
     }
     public abstract void attack(Player player);
 
@@ -31,4 +33,5 @@ public abstract class Enemy {
 
     public abstract float getPosY();
     public abstract boolean checkDead();
+    public abstract void setPosition(float x,float y);
 }

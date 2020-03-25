@@ -22,6 +22,7 @@ public class Player extends Character {
     {
         super(texture, damage, health,posX,posY);
         this.sprite = new Sprite(texture);
+        this.sprite.setScale(2);
         this.damage= damage;
         this.health = health;
         this.posX = posX;
@@ -36,13 +37,6 @@ public class Player extends Character {
 
     Attack attackType = new Cardinal();
 
-//    @Override //TODO: Check for death and stuff
-//    public void attack(Sprite player, String attackDirection) {
-//        this.attackType.attack(player, attackDirection);
-//        if(health <= 0){
-//            isDead = true;
-//        }
-//    }
 
     public void translatePlayer(float x,float y) {
        if(x<0 && flipSprite==false)
@@ -105,12 +99,15 @@ public class Player extends Character {
     {
         this.score+=scoreAdded;
     }
+
     public void incrementRoomsVisited()
     {
         this.roomsVisited++;
     }
+
     public void gotHit(float damageTaken)
     {
         this.health -= damageTaken;
+        //TODO: go to main menu state
     }
 }
