@@ -14,6 +14,8 @@ import com.game.Managers.TiledMapManager;
 import com.game.Managers.UI;
 import com.game.main.escapeGame;
 
+import java.util.ArrayList;
+
 public class MenuState extends GameState {
 
     private SpriteBatch sb;
@@ -108,14 +110,13 @@ public class MenuState extends GameState {
         font.dispose();
     }
 
-    @Override
     public TiledMapManager getmapManager() {
         return null;
     }
 
     @Override
-    public Enemy[] getEnemies() {
-        return new Enemy[0];
+    public ArrayList<Enemy> getEnemies() {
+        return null;
     }
 
     @Override

@@ -7,6 +7,8 @@ import com.game.Managers.TiledMapManager;
 import com.game.Managers.UI;
 import com.game.main.escapeGame;
 
+import java.util.ArrayList;
+
 public abstract class GameState {
 
     protected GameStateManager gsm;
@@ -25,7 +27,7 @@ public abstract class GameState {
     public abstract void handleInput(float dt);
     public abstract void dispose();
     public abstract TiledMapManager getmapManager();
-    public abstract Enemy[] getEnemies();
+    public abstract ArrayList<Enemy> getEnemies();
     public abstract Player getPlayer();
     public abstract UI getHUD();
 

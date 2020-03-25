@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.game.Entities.Enemy;
 import com.game.Entities.Player;
 import com.game.Managers.*;
+import java.util.ArrayList;
 
 public class PauseState extends GameState {
 
@@ -23,9 +24,9 @@ public class PauseState extends GameState {
     public TiledMapManager mapManager;
     public UI HUD;
     private Player player;
-    private Enemy[] enemies;
+    private ArrayList<Enemy> enemies;
 
-    public PauseState(GameStateManager gsm,GameState currentGameState,Player player, Enemy[] enemies, UI HUD, TiledMapManager mapManager)
+    public PauseState(GameStateManager gsm, GameState currentGameState, Player player, ArrayList<Enemy> enemies, UI HUD, TiledMapManager mapManager)
     {
         super(gsm);
         this.currentGameState = currentGameState;
@@ -57,10 +58,10 @@ public class PauseState extends GameState {
         sb.begin();
         HUD.draw(sb);
         player.sprite.draw(sb);
-       /* for(Enemy x : enemies) {
+        for(Enemy x : enemies) {
             if(x != null)
                 x.sprite.draw(sb);
-        }*/ //enemies need to be in array. Once that array is no longer null then this should work.
+        } //enemies need to be in array. Once that array is no longer null then this should work.
         font.draw(sb,"PAUSED",400,game.HEIGHT/2 );
         font.draw(sb,"PRESS ENTER TO RETURN TO THE GAME",50,game.HEIGHT/2 -50);
         font.draw(sb,"PRESS M TO RETURN TO THE MENU",50,game.HEIGHT/2 -100);
@@ -84,14 +85,13 @@ public class PauseState extends GameState {
 
     }
 
-    @Override
     public TiledMapManager getmapManager() {
         return null;
     }
 
     @Override
-    public Enemy[] getEnemies() {
-        return new Enemy[0];
+    public ArrayList<Enemy> getEnemies() {
+        return null;
     }
 
     @Override

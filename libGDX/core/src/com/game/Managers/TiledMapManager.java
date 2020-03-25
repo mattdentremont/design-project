@@ -6,15 +6,22 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.game.Entities.Enemy;
+import com.game.Entities.GreenBlob;
 import com.game.Entities.Player;
 import com.game.Entities.Room;
 import com.game.main.escapeGame;
+import org.w3c.dom.css.Rect;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class TiledMapManager {
     public static OrthographicCamera cam;
@@ -31,6 +38,8 @@ public class TiledMapManager {
     private DungeonMapManager dungeon;
 
     private MapLayer Doors;//doors to different rooms. may be null.
+    private MapLayer EnemySpawns;
+    private ArrayList<Enemy> enemies;
 
 
 
@@ -45,7 +54,10 @@ public class TiledMapManager {
         map = mapLoader.load(currentRoom.mapName);
         renderer = new OrthogonalTiledMapRenderer(map);
         Doors = map.getLayers().get("Doors");
+        EnemySpawns = map.getLayers().get("EnemySpawns");
+        enemies = new ArrayList<>();
 
+        spawnEnemies();
     }
 
     public void updateCam()
@@ -63,6 +75,9 @@ public class TiledMapManager {
         map = mapLoader.load(mapPath);
         renderer = new OrthogonalTiledMapRenderer(map);
         Doors = map.getLayers().get("Doors");
+        EnemySpawns = map.getLayers().get("EnemySpawns");
+        spawnEnemies();
+
         if(Direction == "UP") {
             player.setPosition(player.getPosX(), getDownDoorRectangle().height +5);
         }
@@ -81,6 +96,23 @@ public class TiledMapManager {
     {
         return Doors;
     }
+
+    public void spawnEnemies()
+    {
+        MapObjects spawnLocations = EnemySpawns.getObjects();
+        for(RectangleMapObject location: spawnLocations.getByType(RectangleMapObject.class))
+        {
+           float xPos =  location.getRectangle().getX();
+           float yPos = location.getRectangle().getY();
+           enemies.add(new GreenBlob(xPos,yPos));
+        }
+    }
+
+    public ArrayList<Enemy> getEnemyList()
+    {
+        return enemies;
+    }
+
 
     public Rectangle getUpDoorRectangle()
     {
@@ -160,6 +192,10 @@ public class TiledMapManager {
             }
         }
         else return;
+    }
+
+    public ArrayList<Enemy> getEnemies(){
+        return enemies;
     }
 
 

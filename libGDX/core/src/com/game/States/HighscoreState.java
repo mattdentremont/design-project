@@ -13,6 +13,8 @@ import com.game.Managers.GameStateManager;
 import com.game.Managers.TiledMapManager;
 import com.game.Managers.UI;
 
+import java.util.ArrayList;
+
 
 public class HighScoreState extends GameState {
 
@@ -85,8 +87,8 @@ public class HighScoreState extends GameState {
     }
 
     @Override
-    public Enemy[] getEnemies() {
-        return new Enemy[0];
+    public ArrayList<Enemy> getEnemies() {
+        return null;
     }
 
     @Override
@@ -98,4 +100,6 @@ public class HighScoreState extends GameState {
     public UI getHUD() {
         return null;
     }
+
+
 }

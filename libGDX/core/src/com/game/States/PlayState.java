@@ -12,6 +12,8 @@ import com.game.Entities.Room;
 import com.game.Managers.*;
 import com.game.main.escapeGame;
 
+import java.util.ArrayList;
+
 public class PlayState extends GameState{
 
     private SpriteBatch sb;
@@ -21,8 +23,6 @@ public class PlayState extends GameState{
     private Room currentRoom;
     private Texture playerTexture;
     private Player player;
-    private Texture enemyTexture;
-    private Enemy enemy;
     private Preferences prefs;
 
     public DungeonMapManager dungeonMapManager;
@@ -41,10 +41,8 @@ public class PlayState extends GameState{
         HEIGHT = game.HEIGHT;
         playerTexture = new Texture(Gdx.files.internal("Protag.png"));
         player = new Player(playerTexture,10,100,WIDTH/2,HEIGHT/2);
-        enemyTexture = new Texture(Gdx.files.internal("BobbyBlob.png"));
-        enemy = new GreenBlob(640, HEIGHT/2);
         inputProcessor = new GameInputProcessor(player,this.gsm,game);
-        String[] maps = {"maps/UP.tmx","maps/DOWN.tmx"};
+        String[] maps = {"maps/generic.tmx","maps/satanic.tmx"};
         dungeonMapManager = new DungeonMapManager(maps,5,5,player);//5x5 dungeon of maps.
         currentRoom = dungeonMapManager.getCurrentRoom();
         mapManager = new TiledMapManager(currentRoom.mapName,game,player);
@@ -55,7 +53,9 @@ public class PlayState extends GameState{
 
     @Override
     public void update(float dt) {
-        enemy.move(player,enemy.movementSpeed,dt);
+        for (Enemy x :mapManager.getEnemyList()){
+            x.move(player,x.movementSpeed,dt);
+        }
         handleInput(dt);
         cam.update();
         mapManager.updateCam();
@@ -69,7 +69,9 @@ public class PlayState extends GameState{
         sb.begin();
         HUD.draw(sb);
         player.sprite.draw(sb);
-        enemy.sprite.draw(sb);
+        for (Enemy x :mapManager.getEnemyList()){
+           x.sprite.draw(sb);
+        }
         sb.end();
     }
 
@@ -83,7 +85,6 @@ public class PlayState extends GameState{
         saveHighScore();
         sb.dispose();
         playerTexture.dispose();
-        enemyTexture.dispose();
         mapManager.dispose();
         HUD.dispose();
     }
@@ -107,8 +108,8 @@ public class PlayState extends GameState{
         return mapManager;
     }
 
-    public Enemy[] getEnemies(){
-        return currentRoom.getEnemies();
+    public ArrayList<Enemy> getEnemies(){
+        return mapManager.getEnemies();
     }
     public Player getPlayer()
     {
