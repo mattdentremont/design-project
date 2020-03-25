@@ -13,6 +13,7 @@ import com.game.Managers.*;
 import com.game.main.escapeGame;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class PlayState extends GameState{
 
@@ -41,11 +42,11 @@ public class PlayState extends GameState{
         HEIGHT = game.HEIGHT;
         playerTexture = new Texture(Gdx.files.internal("Protag.png"));
         player = new Player(playerTexture,10,100,WIDTH/2,HEIGHT/2);
-        inputProcessor = new GameInputProcessor(player,this.gsm,game);
         String[] maps = {"maps/generic.tmx","maps/satanic.tmx"};
         dungeonMapManager = new DungeonMapManager(maps,5,5,player);//5x5 dungeon of maps.
         currentRoom = dungeonMapManager.getCurrentRoom();
         mapManager = new TiledMapManager(currentRoom.mapName,game,player);
+        inputProcessor = new GameInputProcessor(player,this.gsm,game,mapManager.getEnemyList());
         cam = game.cam;
         HUD = new UI(player,cam);
         prefs = Gdx.app.getPreferences("GameStorage");
@@ -57,6 +58,12 @@ public class PlayState extends GameState{
             x.move(player,x.movementSpeed,dt);
         }
         handleInput(dt);
+        ArrayList<Enemy> enemies = mapManager.getEnemyList();
+        Iterator<Enemy> iterator = enemies.iterator();
+        while(iterator.hasNext()){
+            if(iterator.next().checkDead())
+                iterator.remove();
+        }
         cam.update();
         mapManager.updateCam();
     }

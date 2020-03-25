@@ -56,7 +56,6 @@ public class TiledMapManager {
         Doors = map.getLayers().get("Doors");
         EnemySpawns = map.getLayers().get("EnemySpawns");
         enemies = new ArrayList<>();
-
         spawnEnemies();
     }
 

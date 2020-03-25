@@ -45,6 +45,13 @@ public class GreenBlob extends Enemy {
     }
 
     @Override
+    public boolean checkDead()
+    {
+        return isDead;
+    }
+
+
+    @Override
     public void move(Player player, float movementSpeed, float dt) {
         this.movementPattern.move(this.sprite, player, this.movementSpeed, dt);
     }

@@ -30,4 +30,5 @@ public abstract class Enemy {
     public abstract float getPosX();
 
     public abstract float getPosY();
+    public abstract boolean checkDead();
 }

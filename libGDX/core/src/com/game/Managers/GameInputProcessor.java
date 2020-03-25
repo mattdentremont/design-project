@@ -9,6 +9,8 @@ import com.game.Entities.Player;
 import com.game.States.GameState;
 import com.game.main.escapeGame;
 
+import java.util.ArrayList;
+
 public class GameInputProcessor extends InputAdapter {
     public Player player;
     public escapeGame game;
@@ -16,14 +18,16 @@ public class GameInputProcessor extends InputAdapter {
     public static int WIDTH;
     public static int HEIGHT;
     public static final float speed = 200f;
+    private ArrayList<Enemy> enemyList;
 
-   public GameInputProcessor(Player player, GameStateManager gsm, escapeGame game)
+   public GameInputProcessor(Player player, GameStateManager gsm, escapeGame game, ArrayList<Enemy> enemyList)
     {
         this.player = player;
         this.gsm = gsm;
         this.game = game;
         WIDTH = game.WIDTH;
         HEIGHT = game.HEIGHT;
+        this.enemyList = enemyList;
     }
 
     public void movePlayer(float dt)
@@ -64,10 +68,7 @@ public class GameInputProcessor extends InputAdapter {
             for(Enemy x: enemyList) {
                 if((x.getPosX() - player.getPosX()) >= 20f)
                 {
-                    if(x.takeDamage(player.damage) == true)
-                    {
-                        enemyList.remove(x);
-                    }
+                    x.takeDamage(player.damage);
                 }
             }
         }
@@ -76,10 +77,7 @@ public class GameInputProcessor extends InputAdapter {
             for(Enemy x: enemyList) {
                 if((player.getPosX() - x.getPosX()) >= 20f)
                 {
-                    if(x.takeDamage(player.damage) == true)
-                    {
-                        enemyList.remove(x);
-                    }
+                    x.takeDamage(player.damage);
                 }
             }
         }
