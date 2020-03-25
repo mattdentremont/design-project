@@ -4,61 +4,83 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.game.Entities.Enemy;
+import com.game.Entities.Player;
+import com.game.States.GameState;
+import com.game.main.escapeGame;
+
+import java.util.ArrayList;
 
 public class GameInputProcessor extends InputAdapter {
-    Sprite playerSprite;
+    public Player player;
+    public escapeGame game;
+    public GameStateManager gsm;
     public static int WIDTH;
     public static int HEIGHT;
+    public static final float speed = 200f;
+    private ArrayList<Enemy> enemyList;
 
-   GameInputProcessor(Sprite x, int width, int height)
+   public GameInputProcessor(Player player, GameStateManager gsm, escapeGame game, ArrayList<Enemy> enemyList)
     {
-        playerSprite = x;
-        WIDTH = width;
-        HEIGHT = height;
+        this.player = player;
+        this.gsm = gsm;
+        this.game = game;
+        WIDTH = game.WIDTH;
+        HEIGHT = game.HEIGHT;
+        this.enemyList = enemyList;
     }
 
-    public void movePlayer()
+    public void movePlayer(float dt)
     {
-        if(Gdx.input.isKeyPressed(Input.Keys.A))
-        {
-            if(!playerSprite.isFlipX()) {
-                playerSprite.flip(true, false);
+        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+            gsm.pauseGame(gsm.getCurrentState());
+        }
+        if((Gdx.input.isKeyPressed(Input.Keys.A))&&(player.getPosX() >= 0) || Gdx.input.isKeyPressed(Input.Keys.D)&& (player.getPosX() <= WIDTH - player.sprite.getWidth())) {
+            if (Gdx.input.isKeyPressed(Input.Keys.A))//MOVE LEFT
+            {
+                    if (Gdx.input.isKeyPressed(Input.Keys.W) && player.getPosY() <= HEIGHT-player.sprite.getHeight())
+                        player.translatePlayer((float) (.7071) * (-1) * speed * dt, (float) (.7071) * speed * dt);
+                    else if (Gdx.input.isKeyPressed(Input.Keys.S) && player.getPosY() >= 0)
+                        player.translatePlayer((float) (.7071) * (-1) * speed * dt, (float) (.7071) * (-1) * speed * dt);
+                    else player.translatePlayer(-speed * dt, 0);
             }
-            playerSprite.translateX(-10.0f);
-        }
-        else if(Gdx.input.isKeyPressed(Input.Keys.D))
-        {
-            if(playerSprite.isFlipX()) {
-                playerSprite.flip(true, false);
+            if (Gdx.input.isKeyPressed(Input.Keys.D))//MOVE RIGHT
+            {
+                    if (Gdx.input.isKeyPressed(Input.Keys.W) && player.getPosY() <= HEIGHT-player.sprite.getHeight())
+                        player.translatePlayer((float) (.7071) * speed * dt, (float) (.7071) * speed * dt);
+                    else if (Gdx.input.isKeyPressed(Input.Keys.S) && player.getPosY() >= 0)
+                        player.translatePlayer((float) (.7071) * speed * dt, (float) (.7071) * (-1) * speed * dt);
+                    else player.translatePlayer(speed * dt, 0);
             }
-            playerSprite.translateX(10.0f);
         }
-        else if(Gdx.input.isKeyPressed(Input.Keys.W))
+        else if(Gdx.input.isKeyPressed(Input.Keys.W))//MOVE UP
         {
-            playerSprite.translateY(10.0f);
+            if(player.getPosY() <= HEIGHT-player.sprite.getHeight())
+            player.translatePlayer(0,speed*dt);
         }
-        else if(Gdx.input.isKeyPressed(Input.Keys.S))
+        else if(Gdx.input.isKeyPressed(Input.Keys.S))//MOVE DOWN
         {
-            playerSprite.translateY(-10.0f);
+            if(player.getPosY() >= 0)
+                player.translatePlayer(0,-speed*dt);
         }
-
-        if(playerSprite.getX() <= 0)
+        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT))//ATTACK RIGHT
         {
-            playerSprite.setPosition(0,playerSprite.getY());
+            for(Enemy x: enemyList) {
+                if((x.getPosX() - player.getPosX()) >= 20f)
+                {
+                    x.takeDamage(player.damage);
+                }
+            }
         }
-        else if(playerSprite.getX() >= 1920-playerSprite.getWidth())
+        if(Gdx.input.isKeyPressed(Input.Keys.LEFT))//ATTACK LEFT
         {
-            playerSprite.setPosition(1920-playerSprite.getWidth(),playerSprite.getY());
+            for(Enemy x: enemyList) {
+                if((player.getPosX() - x.getPosX()) >= 20f)
+                {
+                    x.takeDamage(player.damage);
+                }
+            }
         }
-        if(playerSprite.getY() <= 0)
-        {
-            playerSprite.setPosition(playerSprite.getX(),0);
-        }
-        else if(playerSprite.getY() >= 1080-playerSprite.getHeight())
-        {
-            playerSprite.setPosition(playerSprite.getX(),1080-playerSprite.getHeight());
-        }
-
     }
 
 }

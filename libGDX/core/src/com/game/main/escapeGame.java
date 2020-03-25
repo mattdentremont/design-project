@@ -27,19 +27,19 @@ public class escapeGame extends ApplicationAdapter {
 	public static OrthographicCamera cam;
 	private GameStateManager gsm;
 
-	SpriteBatch batch;
+	//SpriteBatch batch;
 
 
 	@Override
 	public void create() {
-		WIDTH = 1920;
-		HEIGHT = 1080;
+		WIDTH = 800;
+		HEIGHT = 480;
 		cam = new OrthographicCamera(WIDTH, HEIGHT);
 		cam.translate(WIDTH / 2, HEIGHT / 2);
 		cam.update();
 
-		batch = new SpriteBatch();
-		gsm = new GameStateManager();
+		//batch = new SpriteBatch();
+		gsm = new GameStateManager(this);
 	}
 
 	@Override
@@ -54,6 +54,6 @@ public class escapeGame extends ApplicationAdapter {
 	}
 		@Override
 		public void dispose () {
-			batch.dispose();
+			//batch.dispose();
 		}
 }
