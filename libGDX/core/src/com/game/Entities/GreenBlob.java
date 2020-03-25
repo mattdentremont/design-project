@@ -14,7 +14,7 @@ public class GreenBlob extends Enemy {
     public GreenBlob(float posX, float posY)
     {
         super(posX, posY);//because damage and health scale with progression
-        String[] enemyTextures = {"BobbyBlob.png","JohnWick.png","jamil.png"};
+        String[] enemyTextures = {"BobbyBlob.png","JohnWick.png","jamil.png","integral.png"};
         int rand = new Random().nextInt(enemyTextures.length);
         this.sprite = new Sprite(new Texture(Gdx.files.internal(enemyTextures[rand])));
         this.damageValue = 10;

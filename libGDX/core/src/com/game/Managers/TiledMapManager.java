@@ -1,15 +1,11 @@
 package com.game.Managers;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
@@ -18,9 +14,6 @@ import com.game.Entities.GreenBlob;
 import com.game.Entities.Player;
 import com.game.Entities.Room;
 import com.game.main.escapeGame;
-import org.w3c.dom.css.Rect;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class TiledMapManager {
@@ -75,6 +68,7 @@ public class TiledMapManager {
         renderer = new OrthogonalTiledMapRenderer(map);
         Doors = map.getLayers().get("Doors");
         EnemySpawns = map.getLayers().get("EnemySpawns");
+        if(dungeon.getCurrentRoom().hasBeenVisited == false)
         spawnEnemies();
 
         if(Direction == "UP") {
