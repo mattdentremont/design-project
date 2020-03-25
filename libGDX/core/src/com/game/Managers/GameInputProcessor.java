@@ -63,20 +63,22 @@ public class GameInputProcessor extends InputAdapter {
             if(player.getPosY() >= 0)
                 player.translatePlayer(0,-speed*dt);
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT))//ATTACK RIGHT
+        if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT))//ATTACK RIGHT
         {
             for(Enemy x: enemyList) {
-                if((x.getPosX() - player.getPosX()) >= 20f)
+                if((x.getPosX()>=player.getPosX()) &&x.getPosX() <= player.getPosX() +75f)
                 {
-                    x.takeDamage(player.damage);
+                    if((x.getPosY() > player.getPosY() &&(x.getPosY() - player.getPosY()) <= 50f) ||(x.getPosY() <= player.getPosY() &&(x.getPosY() - player.getPosY()) <= 50f))
+                        x.takeDamage(player.damage);
                 }
             }
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.LEFT))//ATTACK LEFT
+        if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT))//ATTACK LEFT
         {
             for(Enemy x: enemyList) {
-                if((player.getPosX() - x.getPosX()) >= 20f)
+                if((x.getPosX()<=player.getPosX()) && x.getPosX() >= player.getPosX() -75f)
                 {
+                    if((x.getPosY() > player.getPosY() &&(x.getPosY() - player.getPosY()) <= 50f) ||(x.getPosY() <= player.getPosY() &&(x.getPosY() - player.getPosY()) <= 50f))
                     x.takeDamage(player.damage);
                 }
             }
