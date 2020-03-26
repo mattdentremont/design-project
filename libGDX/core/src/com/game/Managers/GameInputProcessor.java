@@ -3,6 +3,7 @@ package com.game.Managers;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.game.Entities.Enemy;
 import com.game.Entities.Player;
@@ -19,6 +20,7 @@ public class GameInputProcessor extends InputAdapter {
     public static int HEIGHT;
     public static final float speed = 200f;
     private ArrayList<Enemy> enemyList;
+    public Texture attackTexture;
 
    public GameInputProcessor(Player player, GameStateManager gsm, escapeGame game, ArrayList<Enemy> enemyList)
     {
@@ -65,6 +67,8 @@ public class GameInputProcessor extends InputAdapter {
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT))//ATTACK RIGHT
         {
+//            attackTexture = new Texture(Gdx.files.internal("PRight.png"));
+//            player.sprite.setTexture(attackTexture);
             for(Enemy x: enemyList) {
                 if((x.getPosX()>=player.getPosX()) &&x.getPosX() <= player.getPosX() +75f)
                 {

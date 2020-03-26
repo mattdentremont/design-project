@@ -62,12 +62,13 @@ public class PlayState extends GameState{
     public void update(float dt) {
         for (Enemy x :mapManager.getEnemyList()){
             x.move(player,x.movementSpeed,dt);
-            x.attack(player, dt); //TODO: Implement Attack Delay
+            x.attack(player, dt);
         }
         handleInput(dt);
         if(player.checkDead()){
             gsm.setState(gsm.MENU);
         }
+        //player.sprite.setTexture(playerTexture);
         ArrayList<Enemy> enemies = mapManager.getEnemyList();
         Iterator<Enemy> iterator = enemies.iterator();
         while(iterator.hasNext()){

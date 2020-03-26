@@ -17,6 +17,8 @@ public abstract class Enemy {
     public AI movementPattern;
     public Attack attackPattern;
     public boolean flipSprite;
+    public float attackDelayCnt;
+    public float attackDelayTime;
 
     Enemy(float posX, float posY)
     {
