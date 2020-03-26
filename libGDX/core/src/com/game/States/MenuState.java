@@ -1,9 +1,12 @@
 package com.game.States;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.game.Entities.Enemy;
@@ -26,6 +29,9 @@ public class MenuState extends GameState {
     private int currentItem;
     private String[] menuItems;
     private GlyphLayout layout;
+    private Texture menuTexture;
+    private Sprite menuSprite;
+    private Music music;
 
     public MenuState(GameStateManager gsm)
     {
@@ -42,6 +48,12 @@ public class MenuState extends GameState {
        font.getData().setScale(2);
         font.setColor(Color.WHITE);
         menuItems = new String[] {"Play Game", "Highscores", "Quit"};
+        menuTexture = new Texture(Gdx.files.internal("menuBackground.jpg"));
+        menuSprite = new Sprite(menuTexture);
+        music = Gdx.audio.newMusic(Gdx.files.internal("menuMusic.mp3"));
+        music.setLooping(true);
+        music.setVolume(.2f);
+        music.play();
     }
 
     @Override
@@ -57,6 +69,7 @@ public class MenuState extends GameState {
         float fontWidth = layout.width;
         float fontHeight = layout.height;
         //draw title
+        menuSprite.draw(sb);
         titleFont.draw(sb,title,(escapeGame.WIDTH-fontWidth)/2,900);
         //draw menu
         for(int i = 0; i < menuItems.length; i++){
@@ -68,7 +81,7 @@ public class MenuState extends GameState {
             else{
                 font.setColor(Color.WHITE);
             }
-            font.draw(sb,menuItems[i],(escapeGame.WIDTH-fontWidth)/2, 200-35*i);
+            font.draw(sb,menuItems[i],escapeGame.WIDTH/2-75, 200-35*i);
         }
         sb.end();
     }
@@ -108,6 +121,7 @@ public class MenuState extends GameState {
         sb.dispose();
         titleFont.dispose();
         font.dispose();
+        music.dispose();
     }
 
     public TiledMapManager getmapManager() {

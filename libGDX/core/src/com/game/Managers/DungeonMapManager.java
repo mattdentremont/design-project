@@ -37,6 +37,7 @@ public class DungeonMapManager {
         this.xPos = x/2;
         this.yPos = y/2;
         setCurrentRoom(xPos,yPos,true);
+        currentRoom.setHasBeenVisited();
     }
 
     public Room[][] getDungeon() {

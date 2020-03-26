@@ -1,9 +1,10 @@
 package com.game.States;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.game.Entities.Enemy;
 import com.game.Entities.Player;
@@ -33,6 +34,8 @@ public class PlayState extends GameState{
     {
         super(gsm);
     }
+    private Sprite menuSprite;
+    private Music music;
 
     @Override
     public void init() {
@@ -42,13 +45,17 @@ public class PlayState extends GameState{
         playerTexture = new Texture(Gdx.files.internal("Protag.png"));
         player = new Player(playerTexture,10,100,WIDTH/2,HEIGHT/2);
         String[] maps = {"maps/generic.tmx","maps/satanic.tmx"};
-        dungeonMapManager = new DungeonMapManager(maps,5,5,player);//5x5 dungeon of maps.
+        dungeonMapManager = new DungeonMapManager(maps,15,15,player);//225 dungeon rooms total.
         currentRoom = dungeonMapManager.getCurrentRoom();
         mapManager = new TiledMapManager(currentRoom.mapName,game,player);
         inputProcessor = new GameInputProcessor(player,this.gsm,game,mapManager.getEnemyList());
         cam = game.cam;
         HUD = new UI(player,cam);
         prefs = Gdx.app.getPreferences("GameStorage");
+        music = Gdx.audio.newMusic(Gdx.files.internal("menuMusic.mp3"));
+        music.setLooping(true);
+        music.setVolume(.2f);
+        music.play();
     }
 
     @Override
@@ -100,6 +107,7 @@ public class PlayState extends GameState{
         playerTexture.dispose();
         mapManager.dispose();
         HUD.dispose();
+        music.dispose();
     }
 
 
