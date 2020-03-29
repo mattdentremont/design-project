@@ -16,6 +16,7 @@ public class GameStateManager {
     public static final int PLAY = 1;
     public static final int HIGHSCORES = 2;
     public static final int PAUSE = 3;
+    public static final int DEAD = 3;
 
     public GameStateManager(escapeGame g) {
         setState(MENU);//Start in MENU state.
@@ -45,6 +46,11 @@ public class GameStateManager {
     {
         currentState = new PauseState(this,currentGameState,currentGameState.getPlayer(), currentGameState.getEnemies(), currentGameState.getHUD(), currentGameState.getmapManager());
     }
+    public void playerDied(GameState currentGameState)
+    {
+        currentState = new DeadState(this,currentGameState,currentGameState.getPlayer(), currentGameState.getEnemies(), currentGameState.getHUD(), currentGameState.getmapManager());
+    }
+
 
     public void unpauseGame(GameState desiredState)
     {

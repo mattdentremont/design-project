@@ -66,7 +66,8 @@ public class PlayState extends GameState{
         }
         handleInput(dt);
         if(player.checkDead()){
-            gsm.setState(gsm.MENU);
+           // gsm.setState(gsm.MENU);
+            gsm.playerDied(gsm.getCurrentState());
         }
         //player.sprite.setTexture(playerTexture);
         ArrayList<Enemy> enemies = mapManager.getEnemyList();
