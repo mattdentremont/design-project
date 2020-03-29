@@ -31,9 +31,6 @@ public class GreenBlob extends Enemy {
         this.attackDelayTime = 1f;
     }
 
-    //attack time
-    //attack time end
-
     @Override //TODO: Implement Attack Delay
     public void attack(Player player, float dt) {
         this.attackDelayCnt += dt;
