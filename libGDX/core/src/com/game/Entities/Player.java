@@ -10,6 +10,7 @@ public class Player extends Character {
     boolean isDead;
 
     public int damage;
+    public int maxHealth;
     public int health;
     public float posX;
     public float posY;
@@ -24,6 +25,7 @@ public class Player extends Character {
         this.sprite.setScale(2);
         this.damage= damage;
         this.health = health;
+        this.maxHealth = health;
         this.posX = posX;
         this.posY = posY;
         this.isDead = false;
@@ -49,6 +51,12 @@ public class Player extends Character {
         posX = posX + x;
         posY = posY + y;
         sprite.setPosition(posX,posY);
+    }
+
+    public void regenHealth(int healthAdded)//regenerate player health.
+    {
+        if(healthAdded + health <= maxHealth)
+            health+=healthAdded;
     }
 
     public void setPosition(float x, float y)

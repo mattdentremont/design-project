@@ -68,8 +68,10 @@ public class TiledMapManager {
         renderer = new OrthogonalTiledMapRenderer(map);
         Doors = map.getLayers().get("Doors");
         EnemySpawns = map.getLayers().get("EnemySpawns");
-        if(dungeon.getCurrentRoom().hasBeenVisited == false)
-        spawnEnemies();
+        if(dungeon.getCurrentRoom().hasBeenVisited == false) {
+            spawnEnemies();
+            player.regenHealth(10);
+        }
 
         if(Direction == "UP") {
             player.setPosition(player.getPosX(), getDownDoorRectangle().height +5);
