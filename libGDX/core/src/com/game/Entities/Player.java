@@ -57,6 +57,8 @@ public class Player extends Character {
     {
         if(healthAdded + health <= maxHealth)
             health+=healthAdded;
+        else
+            health = maxHealth;
     }
 
     public void setPosition(float x, float y)
