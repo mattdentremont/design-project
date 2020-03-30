@@ -15,63 +15,52 @@ public class WallBounce extends AI
         float myY = enemy.getPosY();
         float mul = (movementSpeed*dt);
 
-        String heading = enemy.heading;
+        int heading = enemy.heading;
         if(myY <= 0f)
         {
-            if (heading == "SE"){
-                enemy.setPosition((myX + mul), myY + mul);
-                enemy.heading = "NE";
+            if (heading == 4){
+                enemy.heading = 1;
             }
             else {
-                enemy.setPosition((myX - mul), myY + mul);
-                enemy.heading = "NW";
+                enemy.heading = 2;
             }
         }
-        else if (myY >= HEIGHT){
-            if (heading == "NE"){
-                enemy.setPosition((myX + mul), (myY - mul));
-                enemy.heading = "SE";
+        else if (myY + enemy.sprite.getHeight() >= HEIGHT){
+            if (heading == 1){
+                enemy.heading = 4;
             }
             else {
-                enemy.setPosition((myX - mul), myY - mul);
-                enemy.heading = "SW";
+                enemy.heading = 3;
             }
         }
         else if (myX <= 0f)
         {
-            if (heading == "NW"){
-                enemy.setPosition((myX + mul), myY + mul);
-                enemy.heading = "NE";
+            if (heading == 2){
+                enemy.heading = 1;
             }
             else {
-                enemy.setPosition((myX + mul), myY - mul);
-                enemy.heading = "SE";
+                enemy.heading = 4;
             }
         }
-        else { //myX >= WIDTH
-            if (heading == "NE"){
-                enemy.setPosition((myX - mul), myY + mul);
-                enemy.heading = "NW";
+        else if (myX + enemy.sprite.getWidth() >= WIDTH){ //myX >= WIDTH
+            if (heading == 1){
+                enemy.heading = 2;
             }
             else {
-                enemy.setPosition((myX - mul), myY - mul);
-                enemy.heading = "SW";
+                enemy.heading = 3;
             }
         }
-        if(enemy.heading == "NE"){
+        if(enemy.heading == 1){
             enemy.setPosition((myX + mul), myY + mul);
         }
-        else if(enemy.heading == "NW"){
+        else if(enemy.heading == 2){
             enemy.setPosition((myX - mul), myY + mul);
         }
-        else if(enemy.heading == "SE"){
+        else if(enemy.heading == 4){
             enemy.setPosition((myX + mul), myY - mul);
         }
-        else /*if(heading == "SW")*/{
-            enemy.setPosition((myX + mul), myY + mul);
+        else if(heading == 3){
+            enemy.setPosition((myX - mul), myY - mul);
         }
-//        else{
-//            enemy.setPosition(0, 0);
-//        }
     }
 }

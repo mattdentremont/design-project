@@ -1,6 +1,5 @@
 package com.game.Entities;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.game.Behaviors.AI;
 import com.game.Behaviors.Attack;
@@ -19,7 +18,7 @@ public abstract class Enemy {
     public boolean flipSprite;
     public float attackDelayCnt;
     public float attackDelayTime;
-    public String heading;
+    public int heading;
 
     Enemy(float posX, float posY)
     {

@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.game.Entities.DVDemon;
+//import com.game.Entities.DVDemon;
 import com.game.Entities.Enemy;
 import com.game.Entities.Player;
 import com.game.Entities.Room;
@@ -27,7 +27,7 @@ public class PlayState extends GameState{
     private Player player;
     private Preferences prefs;
 
-    public Enemy boss;
+    //public Enemy boss;
     public DungeonMapManager dungeonMapManager;
     public GameInputProcessor inputProcessor;
     public TiledMapManager mapManager;
@@ -50,7 +50,7 @@ public class PlayState extends GameState{
         dungeonMapManager = new DungeonMapManager(maps,25,25,player);//225 dungeon rooms total.
         currentRoom = dungeonMapManager.getCurrentRoom();
         mapManager = new TiledMapManager(currentRoom.mapName,game,player);
-        //boss = new DVDemon(WIDTH*075f, HEIGHT/2);
+        //boss = new DVDemon(WIDTH/6, HEIGHT/2);
         inputProcessor = new GameInputProcessor(player,this.gsm,game,mapManager.getEnemyList());
         cam = game.cam;
         HUD = new UI(player,cam);
@@ -68,6 +68,7 @@ public class PlayState extends GameState{
             x.attack(player, dt);
         }
         //boss.move(player,boss.movementSpeed,dt);
+        //boss.attack(player, dt);
         handleInput(dt);
         if(player.checkDead()){
            // gsm.setState(gsm.MENU);

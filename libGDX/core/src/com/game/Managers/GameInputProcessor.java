@@ -107,7 +107,7 @@ public class GameInputProcessor extends InputAdapter {
                 }
             }
         }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.Q))//ULT
+        if(Gdx.input.isKeyJustPressed(Input.Keys.F))//ULT
         {
             for(Enemy x: enemyList) {
                 x.takeDamage(100);

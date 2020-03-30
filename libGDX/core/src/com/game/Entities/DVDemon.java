@@ -24,9 +24,9 @@ public class DVDemon extends Enemy
         this.sprite.setPosition(posX, posY);
         this.attackDelayCnt = 0;
         this.attackDelayTime = 0.5f;
+        this.heading = 4;
     }
 
-    public String heading = "SE";
 
     @Override
     public void attack(Player player, float dt) {
@@ -75,16 +75,6 @@ public class DVDemon extends Enemy
     @Override
     public void setPosition(float x, float y)
     {
-        if(x<0 && flipSprite==false)
-        {
-            flipSprite = true;
-            sprite.flip(true,false);
-        }
-        else if(x>0 && flipSprite == true)
-        {
-            flipSprite = false;
-            sprite.flip(true,false);
-        }
         posX = x;
         posY = y;
         sprite.setPosition(posX,posY);
