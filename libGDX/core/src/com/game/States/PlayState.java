@@ -2,6 +2,7 @@ package com.game.States;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -38,6 +39,7 @@ public class PlayState extends GameState{
     }
     private Sprite menuSprite;
     private Music music;
+    private Sound deathSound = Gdx.audio.newSound(Gdx.files.internal("bigOof.mp3"));
 
     @Override
     public void init() {
@@ -71,8 +73,8 @@ public class PlayState extends GameState{
         //boss.attack(player, dt);
         handleInput(dt);
         if(player.checkDead()){
-           // gsm.setState(gsm.MENU);
             gsm.playerDied(gsm.getCurrentState());
+           long deathID =  deathSound.play(1.0f);
         }
         ArrayList<Enemy> enemies = mapManager.getEnemyList();
         Iterator<Enemy> iterator = enemies.iterator();
@@ -115,6 +117,7 @@ public class PlayState extends GameState{
         mapManager.dispose();
         HUD.dispose();
         music.dispose();
+        deathSound.dispose();
     }
 
 

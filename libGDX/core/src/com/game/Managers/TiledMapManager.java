@@ -71,6 +71,13 @@ public class TiledMapManager {
         if(dungeon.getCurrentRoom().hasBeenVisited == false) {
             spawnEnemies();
             player.regenHealth(10);
+            if(player.getRoomsVisited() > 10)
+            {
+                //TODO: rebalance enemies/increase player damage?
+                //TODO: Add simple modifiers to do this...
+                //maybe add parameter to spawnEnemies for like difficulty of enemies....
+                //bosses should prob always be the same difficulty ...
+            }
         }
 
         if(Direction == "UP") {
@@ -182,8 +189,6 @@ public class TiledMapManager {
     public ArrayList<Enemy> getEnemies(){
         return enemies;
     }
-
-
 
     public void dispose(){
         map.dispose();
