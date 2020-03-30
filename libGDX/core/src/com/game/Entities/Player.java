@@ -125,4 +125,8 @@ public class Player extends Character {
     {
         return this.isDead;
     }
+
+//    public void ult(float dt){
+//
+//    }
 }
