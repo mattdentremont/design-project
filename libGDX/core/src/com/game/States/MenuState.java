@@ -70,7 +70,7 @@ public class MenuState extends GameState {
         float fontHeight = layout.height;
         //draw title
         menuSprite.draw(sb);
-        titleFont.draw(sb,title,(escapeGame.WIDTH-fontWidth)/2,900);
+        titleFont.draw(sb,title,(escapeGame.WIDTH-fontWidth)/2,escapeGame.HEIGHT - 100);
         //draw menu
         for(int i = 0; i < menuItems.length; i++){
             layout.setText(titleFont,menuItems[i]);

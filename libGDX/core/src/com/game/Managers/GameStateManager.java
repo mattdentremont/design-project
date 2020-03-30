@@ -14,6 +14,7 @@ public class GameStateManager {
 
     public static final int MENU = 0;
     public static final int PLAY = 1;
+    public static final int CHARACTERS = 4;
     public static final int HIGHSCORES = 2;
     public static final int PAUSE = 3;
     public static final int DEAD = 3;
