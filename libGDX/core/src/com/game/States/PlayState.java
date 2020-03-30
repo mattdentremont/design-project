@@ -47,7 +47,7 @@ public class PlayState extends GameState{
         playerTexture = new Texture(Gdx.files.internal("Protag.png"));
         player = new Player(playerTexture,10,100,WIDTH/2,HEIGHT/2);
         String[] maps = {"maps/generic.tmx","maps/satanic.tmx"};
-        dungeonMapManager = new DungeonMapManager(maps,15,15,player);//225 dungeon rooms total.
+        dungeonMapManager = new DungeonMapManager(maps,25,25,player);//225 dungeon rooms total.
         currentRoom = dungeonMapManager.getCurrentRoom();
         mapManager = new TiledMapManager(currentRoom.mapName,game,player);
         //boss = new DVDemon(WIDTH*075f, HEIGHT/2);
@@ -70,7 +70,8 @@ public class PlayState extends GameState{
         //boss.move(player,boss.movementSpeed,dt);
         handleInput(dt);
         if(player.checkDead()){
-            gsm.setState(gsm.MENU);
+           // gsm.setState(gsm.MENU);
+            gsm.playerDied(gsm.getCurrentState());
         }
         ArrayList<Enemy> enemies = mapManager.getEnemyList();
         Iterator<Enemy> iterator = enemies.iterator();

@@ -12,7 +12,7 @@ import com.game.Entities.Player;
 import com.game.Managers.*;
 import java.util.ArrayList;
 
-public class PauseState extends GameState {
+public class DeadState extends GameState {
 
     private GameState currentGameState;
     private BitmapFont font;
@@ -25,7 +25,7 @@ public class PauseState extends GameState {
     private Player player;
     private ArrayList<Enemy> enemies;
 
-    public PauseState(GameStateManager gsm, GameState currentGameState, Player player, ArrayList<Enemy> enemies, UI HUD, TiledMapManager mapManager)
+    public DeadState(GameStateManager gsm, GameState currentGameState, Player player, ArrayList<Enemy> enemies, UI HUD, TiledMapManager mapManager)
     {
         super(gsm);
         this.currentGameState = currentGameState;
@@ -56,14 +56,14 @@ public class PauseState extends GameState {
         mapManager.render();
         sb.begin();
         HUD.draw(sb);
-        player.sprite.draw(sb);
+        //player.sprite.draw(sb);
         for(Enemy x : enemies) {
             if(x != null)
                 x.sprite.draw(sb);
         } //enemies need to be in array. Once that array is no longer null then this should work.
-        font.draw(sb,"PAUSED",400,game.HEIGHT/2 );
-        font.draw(sb,"PRESS ENTER TO RETURN TO THE GAME",50,game.HEIGHT/2 -50);
-        font.draw(sb,"PRESS M TO RETURN TO THE MENU",50,game.HEIGHT/2 -100);
+        font.draw(sb,"YOU DIED!",400,game.HEIGHT/2 );
+        font.draw(sb,"PRESS ENTER TO START A NEW GAME",50,game.HEIGHT/2 -50);
+        font.draw(sb,"PRESS ESC TO RETURN TO THE MAIN MENU",50,game.HEIGHT/2 -100);
         sb.end();
 
     }
@@ -71,9 +71,9 @@ public class PauseState extends GameState {
     @Override
     public void handleInput(float dt) {
         if(Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
-            gsm.unpauseGame(currentGameState);
+            gsm.setState(gsm.PLAY);
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.M)) {
+        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
             gsm.setState(gsm.MENU);
         }
     }
