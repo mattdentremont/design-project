@@ -19,6 +19,7 @@ public abstract class Enemy {
     public boolean flipSprite;
     public float attackDelayCnt;
     public float attackDelayTime;
+    public String heading;
 
     Enemy(float posX, float posY)
     {

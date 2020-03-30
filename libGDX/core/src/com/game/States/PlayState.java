@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.game.Entities.DVDemon;
 import com.game.Entities.Enemy;
 import com.game.Entities.Player;
 import com.game.Entities.Room;
@@ -26,6 +27,7 @@ public class PlayState extends GameState{
     private Player player;
     private Preferences prefs;
 
+    public Enemy boss;
     public DungeonMapManager dungeonMapManager;
     public GameInputProcessor inputProcessor;
     public TiledMapManager mapManager;
@@ -48,6 +50,7 @@ public class PlayState extends GameState{
         dungeonMapManager = new DungeonMapManager(maps,15,15,player);//225 dungeon rooms total.
         currentRoom = dungeonMapManager.getCurrentRoom();
         mapManager = new TiledMapManager(currentRoom.mapName,game,player);
+        //boss = new DVDemon(WIDTH*075f, HEIGHT/2);
         inputProcessor = new GameInputProcessor(player,this.gsm,game,mapManager.getEnemyList());
         cam = game.cam;
         HUD = new UI(player,cam);
@@ -64,11 +67,11 @@ public class PlayState extends GameState{
             x.move(player,x.movementSpeed,dt);
             x.attack(player, dt);
         }
+        //boss.move(player,boss.movementSpeed,dt);
         handleInput(dt);
         if(player.checkDead()){
             gsm.setState(gsm.MENU);
         }
-        //player.sprite.setTexture(playerTexture);
         ArrayList<Enemy> enemies = mapManager.getEnemyList();
         Iterator<Enemy> iterator = enemies.iterator();
         while(iterator.hasNext()){
@@ -90,6 +93,7 @@ public class PlayState extends GameState{
         sb.begin();
         HUD.draw(sb);
         player.sprite.draw(sb);
+        //boss.sprite.draw(sb);
         for (Enemy x :mapManager.getEnemyList()){
            x.sprite.draw(sb);
         }
