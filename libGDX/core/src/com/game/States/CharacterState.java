@@ -1,6 +1,7 @@
 package com.game.States;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -26,9 +27,16 @@ public class CharacterState extends GameState {
     private final String title = "Choose Your Fighter";
     private int currentItem;
     private String[] menuItems;
+    private String[] damages;
+    private String[] speeds;
+    private String[] healths;
     private GlyphLayout layout;
     private Texture menuTexture;
     private Sprite menuSprite;
+    private Texture p1Texture;
+    private Sprite p1Sprite;
+    private Texture p2Texture;
+    private Sprite p2Sprite;
     private Music music;
 
     public CharacterState(GameStateManager gsm)
@@ -43,12 +51,24 @@ public class CharacterState extends GameState {
         sb = new SpriteBatch();
         titleFont = new BitmapFont();
         font = new BitmapFont();
-        font.getData().setScale(3);
+        titleFont.getData().setScale(3);
+        font.getData().setScale(2);
         font.setColor(Color.WHITE);
         menuItems = new String[] {"Dingus", "Jim"};
-        menuTexture = new Texture(Gdx.files.internal("menuBackground.png"));
+        damages = new String[] {"Damage: 10", "Damage: 5"};
+        speeds = new String[] {"Speed: 100", "Speed: 100"};
+        healths = new String[] {"Health: 100", "Health: 150"};
+        menuTexture = new Texture(Gdx.files.internal("menuBackground.jpg"));
         menuSprite = new Sprite(menuTexture);
-        music = Gdx.audio.newMusic(Gdx.files.internal("menuMusic.mp3"));
+        p1Texture = new Texture(Gdx.files.internal("Protag.png"));
+        p1Sprite = new Sprite(p1Texture);
+        p1Sprite.setPosition((escapeGame.WIDTH/3) + (p1Sprite.getWidth()/2),  escapeGame.HEIGHT/2);
+        p1Sprite.setScale(2f);
+        p2Texture = new Texture(Gdx.files.internal("Jim.png"));
+        p2Sprite = new Sprite(p2Texture);
+        p2Sprite.setPosition(2*(escapeGame.WIDTH/3) + (p1Sprite.getWidth()/2),  escapeGame.HEIGHT/2);
+        p2Sprite.setScale(2f);
+        music = Gdx.audio.newMusic(Gdx.files.internal("Doom.mp3"));
         music.setLooping(true);
         music.setVolume(.2f);
         music.play();
@@ -70,21 +90,61 @@ public class CharacterState extends GameState {
 
         //draw Title
         menuSprite.draw(sb);
-        titleFont.draw(sb,title,((escapeGame.WIDTH-fontWidth)/2), (escapeGame.HEIGHT - 100));
+        titleFont.draw(sb,title,((escapeGame.WIDTH-fontWidth)/2), (escapeGame.HEIGHT - 75));
 
         //draw menu
+        for(int i = 0; i < menuItems.length; i++){
+            layout.setText(font, menuItems[i]);
 
-
+            if(currentItem == i) {
+                font.setColor(Color.PURPLE);
+            }
+            else {
+                font.setColor(Color.WHITE);
+            }
+            p1Sprite.draw(sb);
+            p2Sprite.draw(sb);
+            float menuSpread = ((escapeGame.WIDTH/3) + ((escapeGame.WIDTH/3)*i));
+            font.draw(sb, menuItems[i], menuSpread, 2*(escapeGame.HEIGHT/3));
+        }
+        sb.end();
     }
 
     @Override
     public void handleInput(float dt) {
+        if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT)){
+            if(currentItem > 0) {
+                currentItem--;
+            }
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)){
+            if (currentItem < menuItems.length - 1) {
+                currentItem++;
+            }
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+            charSelect();
+        }
+    }
 
+    private void charSelect(){
+        if(currentItem == 0) {
+            gsm.setState(GameStateManager.PLAY);
+        }
+        else if(currentItem == 1) {
+            gsm.setState(GameStateManager.PLAY);
+        }
+//        else if(currentItem == 2) {
+//            gsm.setState(GameStateManager.MENU);
+//        }
     }
 
     @Override
     public void dispose() {
-
+        sb.dispose();
+        titleFont.dispose();
+        font.dispose();
+        music.dispose();
     }
 
     @Override

@@ -105,7 +105,7 @@ public class MenuState extends GameState {
         private void select(){
             //Switch to play state
             if(currentItem == 0) {
-                gsm.setState(GameStateManager.PLAY);
+                gsm.setState(GameStateManager.CHARACTERS);
             }
             else if(currentItem == 1) {
                gsm.setState(GameStateManager.HIGHSCORES);

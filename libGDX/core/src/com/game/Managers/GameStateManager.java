@@ -38,8 +38,12 @@ public class GameStateManager {
         }
 
         if(state==HIGHSCORES) {
-            //switch to play state
+            //switch to highscore state
             currentState = new HighScoreState(this);
+        }
+        if(state==CHARACTERS) {
+            //switch to character state
+            currentState = new CharacterState(this);
         }
     }
 
