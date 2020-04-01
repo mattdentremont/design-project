@@ -3,9 +3,12 @@ package com.game.States;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.game.Entities.Enemy;
 import com.game.Entities.Player;
@@ -23,9 +26,13 @@ public class HighScoreState extends GameState {
     private GlyphLayout layout;
     private SpriteBatch sb;
     private Preferences prefs;
+    private Texture menuTexture;
+    private Sprite menuSprite;
+    private Music music;
 
     public HighScoreState(GameStateManager gsm) {
         super(gsm);
+        init();
         layout = new GlyphLayout();
     }
 
@@ -40,6 +47,12 @@ public class HighScoreState extends GameState {
         font2.getData().setScale(2f);
         font2.setColor(Color.GREEN);
         prefs = Gdx.app.getPreferences("GameStorage");
+        menuTexture = new Texture(Gdx.files.internal("menuBackground.jpg"));
+        menuSprite = new Sprite(menuTexture);
+        music = Gdx.audio.newMusic(Gdx.files.internal("menuMusic.mp3"));
+        music.setLooping(true);
+        music.setVolume(.2f);
+        music.play();
     }
 
     @Override
@@ -59,7 +72,7 @@ public class HighScoreState extends GameState {
         String scoreLine = "High Score: " + Score;
         String roomsLine = "Rooms Visited on this run: " + roomsVisited;
         String enemiesLine = "Enemies Defeated on this run: " + enemiesDefeated;
-
+        menuSprite.draw(sb);
         layout.setText(font,scoreLine);
         font.draw(sb,scoreLine,0,game.HEIGHT/2 + 50);
         font.draw(sb,roomsLine,0,game.HEIGHT/2 );
@@ -79,6 +92,7 @@ public class HighScoreState extends GameState {
     public void dispose() {
         font.dispose();
         font2.dispose();
+        music.dispose();
     }
 
     @Override

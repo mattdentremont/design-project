@@ -18,7 +18,6 @@ public abstract class GameState {
     {
         this.gsm = gsm;
         this.game = gsm.game;
-        init();
     }
 
    public abstract void init();

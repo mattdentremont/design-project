@@ -9,12 +9,10 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
-import com.game.Entities.Enemy;
-import com.game.Entities.GreenBlob;
-import com.game.Entities.Player;
-import com.game.Entities.Room;
+import com.game.Entities.*;
 import com.game.main.escapeGame;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class TiledMapManager {
     public static OrthographicCamera cam;
@@ -33,6 +31,7 @@ public class TiledMapManager {
     private MapLayer Doors;//doors to different rooms. may be null.
     private MapLayer EnemySpawns;
     private ArrayList<Enemy> enemies;
+    private ArrayList<Item> items;
 
 
 
@@ -49,7 +48,8 @@ public class TiledMapManager {
         Doors = map.getLayers().get("Doors");
         EnemySpawns = map.getLayers().get("EnemySpawns");
         enemies = new ArrayList<>();
-        spawnEnemies();
+        items = new ArrayList<>();
+       // spawnEnemies();
     }
 
     public void updateCam()
@@ -64,12 +64,29 @@ public class TiledMapManager {
 
     public void changeRoom(String mapPath,String Direction)
     {
+        items = new ArrayList<>();
         map = mapLoader.load(mapPath);
         renderer = new OrthogonalTiledMapRenderer(map);
         Doors = map.getLayers().get("Doors");
         EnemySpawns = map.getLayers().get("EnemySpawns");
-        if(dungeon.getCurrentRoom().hasBeenVisited == false)
-        spawnEnemies();
+        if(dungeon.getCurrentRoom().hasBeenVisited == false) {
+            spawnItems();
+            player.regenHealth(10);
+            if(player.getRoomsVisited() > 10)
+            {
+                //TODO: rebalance enemies/increase player damage?
+                //TODO: Add simple modifiers to do this...
+                //maybe add parameter to spawnEnemies for like difficulty of enemies....
+                //bosses should prob always be the same difficulty ...
+            }
+            if(dungeon.getCurrentRoom().isDVDemon)
+            {
+                spawnDVDemon();
+            }
+            else {
+                spawnEnemies();
+            }
+        }
 
         if(Direction == "UP") {
             player.setPosition(player.getPosX(), getDownDoorRectangle().height +5);
@@ -101,9 +118,42 @@ public class TiledMapManager {
         }
     }
 
+    public void spawnDVDemon()
+    {
+        enemies.add(new DVDemon(WIDTH/3, HEIGHT/2));
+    }
+
+    public void spawnItems()
+    {
+        MapObjects spawnLocations = EnemySpawns.getObjects();
+        for(RectangleMapObject location: spawnLocations.getByType(RectangleMapObject.class))
+        {
+            int rand = new Random().nextInt(10);//random number from 0-9 inclusive.
+            int randItem = new Random().nextInt(2);//random number from 0-1 inclusive.
+            if(rand == 0) {//10% chance of item spawning
+                float xPos = location.getRectangle().getX();
+                float yPos = location.getRectangle().getY();
+                if(randItem == 0)//50% chance for beer, 50% chance for GFuel.
+                    items.add(new Beer(player,xPos, yPos));
+                else
+                    items.add(new RedBull(player,xPos,yPos));
+            }
+        }
+    }
+
     public ArrayList<Enemy> getEnemyList()
     {
         return enemies;
+    }
+
+    public ArrayList<Item> getItemList()
+    {
+        return items;
+    }
+
+    public void addItem(Item newItem){
+        if(newItem !=null)
+            items.add(newItem);
     }
 
 
@@ -180,8 +230,6 @@ public class TiledMapManager {
     public ArrayList<Enemy> getEnemies(){
         return enemies;
     }
-
-
 
     public void dispose(){
         map.dispose();

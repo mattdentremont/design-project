@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.game.Behaviors.AI;
+import com.game.Behaviors.Contact;
 import com.game.Behaviors.targetPlayer;
 
 import java.util.Random;
@@ -20,20 +21,25 @@ public class GreenBlob extends Enemy {
         this.maxHealth = 20;
         this.movementSpeed = 100f;
         this.movementPattern = new targetPlayer();
+        this.attackPattern = new Contact();
         this.currentHealth = this.maxHealth;
         this.posX = posX;
         this.posY = posY;
         this.isDead = false;
         this.sprite.setPosition(posX, posY);
+        this.attackDelayCnt = 0;
+        this.attackDelayTime = 1f;
     }
 
-    @Override
-    public void attack(Player player) {
-        player.health -= this.damageValue;
-        if (player.health <= 0){
-            player.isDead = true;
+    @Override //TODO: Implement Attack Delay
+    public void attack(Player player, float dt) {
+        this.attackDelayCnt += dt;
+        if (this.attackDelayCnt >= this.attackDelayTime) {
+            this.attackPattern.attack(player, this);
+            this.attackDelayCnt = 0;
         }
     }
+
 
     @Override
     public boolean takeDamage(int damageTaken) {

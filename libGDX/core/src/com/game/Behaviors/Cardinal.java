@@ -1,14 +1,14 @@
-package com.game.Behaviors;
-
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Rectangle;
-import com.game.Entities.Enemy;
-
-public class Cardinal extends Attack {
-
-    public Cardinal(){
-
-    }
+//package com.game.Behaviors;
+//
+//import com.badlogic.gdx.graphics.g2d.Sprite;
+//import com.badlogic.gdx.math.Rectangle;
+//import com.game.Entities.Enemy;
+//
+//public class Cardinal extends Attack {
+//
+//    public Cardinal(){
+//
+//    }
 
 
 //    @Override
@@ -28,4 +28,4 @@ public class Cardinal extends Attack {
 //        }
 //        }
 //    }
-}
+//}

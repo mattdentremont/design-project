@@ -1,15 +1,7 @@
 package com.game.Managers;
 
-import com.badlogic.gdx.maps.MapLayer;
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Rectangle;
 import com.game.Entities.Player;
 import com.game.Entities.Room;
-import java.io.File;
 import java.util.Random;
 
 public class DungeonMapManager {
@@ -36,7 +28,16 @@ public class DungeonMapManager {
         }
         this.xPos = x/2;
         this.yPos = y/2;
+        int randx = new Random().nextInt(x);
+        int randy = new Random().nextInt(y);
+        while(xPos == randx && yPos == randy)//avoid dvdemon in first room
+        {
+             randx = new Random().nextInt(x);
+             randy = new Random().nextInt(y);
+        }
+        dungeon[randx][randy].isDVDemon = true;
         setCurrentRoom(xPos,yPos,true);
+        currentRoom.setHasBeenVisited();
     }
 
     public Room[][] getDungeon() {

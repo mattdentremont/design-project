@@ -28,6 +28,7 @@ public class PauseState extends GameState {
     public PauseState(GameStateManager gsm, GameState currentGameState, Player player, ArrayList<Enemy> enemies, UI HUD, TiledMapManager mapManager)
     {
         super(gsm);
+        init();
         this.currentGameState = currentGameState;
         layout = new GlyphLayout();
         this.player = player;
@@ -81,7 +82,7 @@ public class PauseState extends GameState {
     @Override
     public void dispose() {
         font.dispose();
-
+        currentGameState.dispose();
     }
 
     public TiledMapManager getmapManager() {

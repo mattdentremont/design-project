@@ -1,8 +1,8 @@
 package com.game.Entities;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.game.Behaviors.AI;
+import com.game.Behaviors.Attack;
 
 public abstract class Enemy {
     public int damageValue;
@@ -14,7 +14,12 @@ public abstract class Enemy {
     public Sprite sprite;
     boolean isDead;
     public AI movementPattern;
+    public Attack attackPattern;
     public boolean flipSprite;
+    public float attackDelayCnt;
+    public float attackDelayTime;
+    public int heading;
+    public boolean isBoss;
 
     Enemy(float posX, float posY)
     {
@@ -22,8 +27,9 @@ public abstract class Enemy {
         this.posX = posX;
         this.isDead = false;
         this.flipSprite = false;
+        this.isBoss = false;
     }
-    public abstract void attack(Player player);
+    public abstract void attack(Player player, float dt);
 
     public abstract boolean takeDamage(int damageTaken);
 
