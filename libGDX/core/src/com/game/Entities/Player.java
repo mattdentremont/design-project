@@ -9,6 +9,7 @@ public class Player extends Character {
     public boolean flipSprite;//false when facing right. true when facing left.
     boolean isDead;
 
+    public  float speed = 200f;
     public int damage;
     public int maxHealth;
     public int health;

@@ -16,8 +16,13 @@ public class RedBull extends Item {
 
     @Override
     public void use() {
-        //increase player's max health
-        //set health to this value
-        //decrease back to normal after a time period (e.g. 10s)
+        player.speed = 400f;
+        player.damage = 20;
+    }
+
+    @Override
+    public void end() {
+        player.speed = 200f;
+        player.damage = 10;
     }
 }

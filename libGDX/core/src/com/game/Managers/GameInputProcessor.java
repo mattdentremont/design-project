@@ -5,7 +5,9 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.game.Entities.Beer;
 import com.game.Entities.Enemy;
+import com.game.Entities.Item;
 import com.game.Entities.Player;
 import com.game.States.GameState;
 import com.game.main.escapeGame;
@@ -18,22 +20,33 @@ public class GameInputProcessor extends InputAdapter {
     public GameStateManager gsm;
     public static int WIDTH;
     public static int HEIGHT;
-    public static final float speed = 200f;
+    public  float speed;
     private ArrayList<Enemy> enemyList;
     public Texture attackTexture;
+
+    public boolean usedRedBull;
+    private float RedBullTimer;
+    public boolean usedBeer;
+    private float BeerTimer;
 
    public GameInputProcessor(Player player, GameStateManager gsm, escapeGame game, ArrayList<Enemy> enemyList)
     {
         this.player = player;
+        this.speed = player.speed;
         this.gsm = gsm;
         this.game = game;
         WIDTH = game.WIDTH;
         HEIGHT = game.HEIGHT;
         this.enemyList = enemyList;
+        this.usedBeer = false;
+        this.usedRedBull = false;
     }
 
     public void movePlayer(float dt)
     {
+        Item beer = player.getInventory()[0];
+        Item redbull = player.getInventory()[1];
+
         if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
             gsm.pauseGame(gsm.getCurrentState());
         }
@@ -112,6 +125,54 @@ public class GameInputProcessor extends InputAdapter {
             for(Enemy x: enemyList) {
                 x.takeDamage(100);
             }
+        }
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.Q))//DRINK BEER - starts timer
+        {
+            if(beer != null)//if you have a beer
+            {
+                if (BeerTimer ==0) {//and timer hasn't started
+                    BeerTimer += dt;//start the timer
+                    beer.use();//use beer effects
+                }
+            }
+        }
+        if(BeerTimer > 0)
+        {
+            if (BeerTimer <=10) {
+                BeerTimer += dt;
+                beer.use();
+            }
+            else{
+                BeerTimer = 0;
+                beer.end();
+                player.getInventory()[0] = null;
+            }
+
+        }
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.E))//DRINK REDBULL - starts timer
+        {
+            if(redbull != null)//if you have a redbull
+            {
+                if (RedBullTimer <= 10) {
+                    RedBullTimer += dt;
+                    redbull.use();
+                }
+            }
+        }
+        if(RedBullTimer > 0)
+        {
+            if (RedBullTimer <=10) {
+                RedBullTimer += dt;
+                redbull.use();
+            }
+            else{
+                RedBullTimer = 0;
+                redbull.end();
+                player.getInventory()[1] = null;
+            }
+
         }
     }
 

@@ -35,9 +35,10 @@ public class UI {
     {
         String Score = Integer.toString(player.getScore());
         String Health = Integer.toString(player.getHealth());
+        String damage = Integer.toString(player.damage);
         String roomsVisited = Integer.toString(player.getRoomsVisited());
         String enemiesDefeated = Integer.toString(player.getEnemiesDefeated());
-        String toPrint = "Score:" + Score +" Health:" + Health ;
+        String toPrint = "Score:" + Score +" Health:" + Health + " Damage:"+damage;
         String toPrint2 = "Rooms Visited:" + roomsVisited + " Enemies Defeated: " + enemiesDefeated;
         String toPrint3 = "Inventory: ";
         String empty = "Empty";

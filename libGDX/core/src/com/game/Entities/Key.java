@@ -17,4 +17,9 @@ public class Key extends Item {
     public void use() {
 
     }
+
+    @Override
+    public void end() {
+
+    }
 }
