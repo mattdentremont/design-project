@@ -25,7 +25,7 @@ public class UI {
         layout = new GlyphLayout();
         font = new BitmapFont();
         font.getData().setScale(1f);
-        font.setColor(Color.PINK);
+        font.setColor(Color.WHITE);
         this.ip = ip;
         this.cam = cam;
         this.player= player;
@@ -90,11 +90,11 @@ public class UI {
         float fontHeight3 = layout.height;
         font.draw(sb,toPrint3,0,escapeGame.HEIGHT - fontHeight3-15);
 
-        //Print Counters
+        //Print Counters For consumable effects
         if(ip.checkUsedBeer() || ip.checkUsedRedBull())
         {
-            String BeerCounter = "Increased Health: " +Integer.toString(5-(int)ip.getBeerTimer());
-            String RedBullCounter = "Jacked Up: " + Integer.toString(5-(int)ip.getRedBullTimer());
+            String BeerCounter = "Numb: " +Integer.toString((int)(ip.getBeerEffectLength()-(int)ip.getBeerTimer()));
+            String RedBullCounter = "Jacked Up: " + Integer.toString((int)(ip.getRedBullEffectLength()-(int)ip.getRedBullTimer()));
             float fontWidthBeer;
             float fontHeightBeer;
             float fontWidthRedBull;

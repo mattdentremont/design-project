@@ -29,6 +29,9 @@ public class GameInputProcessor extends InputAdapter {
     public boolean usedBeer;
     private float BeerTimer;
 
+    private float BeerEffectLength;
+    private float RedBullEffectLength;
+
    public GameInputProcessor(Player player, GameStateManager gsm, escapeGame game, ArrayList<Enemy> enemyList)
     {
         this.player = player;
@@ -40,6 +43,8 @@ public class GameInputProcessor extends InputAdapter {
         this.enemyList = enemyList;
         this.usedBeer = false;
         this.usedRedBull = false;
+        this.BeerEffectLength = 10f;
+        this.RedBullEffectLength = 10f;
     }
 
     public void movePlayer(float dt)
@@ -143,7 +148,7 @@ public class GameInputProcessor extends InputAdapter {
         if(usedBeer)//if a redbull has been consumed
         {
             BeerTimer+= dt;
-            if (BeerTimer >=5) {
+            if (BeerTimer >=BeerEffectLength) {
                 BeerTimer = 0;
                 player.endUseBeer();
                 usedBeer = false;
@@ -166,7 +171,7 @@ public class GameInputProcessor extends InputAdapter {
         if(usedRedBull)//if a redbull has been consumed
         {
             RedBullTimer += dt;
-            if (RedBullTimer >=5) {
+            if (RedBullTimer >=RedBullEffectLength) {
                 RedBullTimer = 0;
                 usedRedBull = false;
                 player.endUseRedBull();
@@ -192,6 +197,15 @@ public class GameInputProcessor extends InputAdapter {
     public float getRedBullTimer()
     {
         return RedBullTimer;
+    }
+
+    public float getBeerEffectLength()
+    {
+        return this.BeerEffectLength;
+    }
+    public float getRedBullEffectLength()
+    {
+        return this.RedBullEffectLength;
     }
 
 

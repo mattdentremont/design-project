@@ -115,7 +115,7 @@ public class TiledMapManager {
         MapObjects spawnLocations = EnemySpawns.getObjects();
         for(RectangleMapObject location: spawnLocations.getByType(RectangleMapObject.class))
         {
-            int rand = new Random().nextInt(10);//random number from 0-9 inclusive.
+            int rand = new Random().nextInt(1);//random number from 0-9 inclusive.
             int randItem = new Random().nextInt(2);//random number from 0-1 inclusive.
             if(rand == 0) {//10% chance of item spawning
                 float xPos = location.getRectangle().getX();
