@@ -58,25 +58,16 @@ public class Player extends Character {
 
     //pick up new item and return the dropped item.
     //can return null.
-    public Item pickUp(Item item)
+    public void pickUp(Item item)
     {
-        Item temp;
         item.setPickedUp(true);
         if(item.type == "BEER")
         {
-            temp = inventory[0];
             inventory[0] = item;
         }
         else{
-            temp = inventory[1];
             inventory[1] = item;
         }
-        if(temp != null)
-        {
-            temp.setPickedUp(false);
-            temp.setPosition(this.getPosX() + 30, this.getPosY() + 0);
-        }
-        return temp;
     }
 
     public Item[] getInventory(){

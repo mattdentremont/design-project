@@ -39,7 +39,6 @@ public class PlayState extends GameState{
     private Sprite menuSprite;
     private Music music;
     private Sound deathSound = Gdx.audio.newSound(Gdx.files.internal("bigOof.mp3"));
-    private Item dropped = null;
 
     @Override
     public void init() {
@@ -67,6 +66,7 @@ public class PlayState extends GameState{
     public void update(float dt) {
         ArrayList<Enemy> enemies = mapManager.getEnemyList();
         ArrayList<Item> items = mapManager.getItemList();
+        Item[] playerInventory = player.getInventory();
         Iterator<Enemy> iterator = enemies.iterator();
         Iterator<Item> iteratorItems = items.iterator();
         Rectangle playerHitBox = player.sprite.getBoundingRectangle();
@@ -78,12 +78,20 @@ public class PlayState extends GameState{
         }
         for(Item x : items){
             if(playerHitBox.overlaps(x.sprite.getBoundingRectangle())){
-                toPickup = x;
+                if (x.type == "BEER") {
+                    if (playerInventory[0] == null) {
+                        toPickup = x;
+                    }
+                }
+                else
+                if (playerInventory[1] == null) {
+                    toPickup = x;
+                }
             }
         }
         if(toPickup != null)
         {
-            dropped = player.pickUp(toPickup);
+            player.pickUp(toPickup);
         }
 
         while(iteratorItems.hasNext()){
@@ -109,7 +117,6 @@ public class PlayState extends GameState{
 
     @Override
     public void draw() {
-        mapManager.addItem(dropped);
         sb.setProjectionMatrix(escapeGame.cam.combined);
         mapManager.render();
         mapManager.checkDoors(dungeonMapManager);
