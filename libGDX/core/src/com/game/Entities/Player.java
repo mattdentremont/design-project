@@ -8,7 +8,7 @@ public class Player extends Character {
     public Sprite sprite;
     public boolean flipSprite;//false when facing right. true when facing left.
     boolean isDead;
-
+    public float speed;
     public int damage;
     public int maxHealth;
     public int health;
@@ -18,13 +18,23 @@ public class Player extends Character {
     public int roomsVisited;
     public int enemiesDefeated;
 
-    public Player(Texture texture, int damage, int health,int posX,int posY)
+    public int normalDamage;
+    public float normalSpeed;
+    public int normalHealth;
+
+    private Item[] inventory;
+
+    public Player(Texture texture, float speed, int damage, int health,int posX,int posY)
     {
         super(texture, damage, health,posX,posY);
         this.sprite = new Sprite(texture);
         this.sprite.setScale(2);
+        this.normalDamage = damage;
         this.damage= damage;
+        this.normalSpeed = speed;
+        this.speed = speed;
         this.health = health;
+        this.normalHealth = health;
         this.maxHealth = health;
         this.posX = posX;
         this.posY = posY;
@@ -34,6 +44,7 @@ public class Player extends Character {
         this.score = 0;
         this.roomsVisited = 1;
         this.enemiesDefeated = 0;
+        this.inventory = new Item[2];
     }
 
 
@@ -51,6 +62,24 @@ public class Player extends Character {
         posX = posX + x;
         posY = posY + y;
         sprite.setPosition(posX,posY);
+    }
+
+    //pick up new item and return the dropped item.
+    //can return null.
+    public void pickUp(Item item)
+    {
+        item.setPickedUp(true);
+        if(item.type == "BEER")
+        {
+            inventory[0] = item;
+        }
+        else{
+            inventory[1] = item;
+        }
+    }
+
+    public Item[] getInventory(){
+        return inventory;
     }
 
     public void regenHealth(int healthAdded)//regenerate player health.
@@ -125,6 +154,32 @@ public class Player extends Character {
     {
         return this.isDead;
     }
+
+    public void useRedBull()
+    {
+        this.speed = 2*normalSpeed;
+        this.damage = 2*normalDamage;
+    }
+
+    public void endUseRedBull()
+    {
+        this.speed = normalSpeed;
+        this.damage = normalDamage;
+    }
+
+    public void useBeer()
+    {
+        this.maxHealth = 2*normalHealth;
+        this.health = 2*normalHealth;
+    }
+
+    public void endUseBeer()
+    {
+        this.maxHealth = normalHealth;
+        if(health > normalHealth)
+            this.health = normalHealth;
+    }
+
 
 //    public void ult(float dt){
 //
