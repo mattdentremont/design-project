@@ -122,13 +122,13 @@ public class PlayState extends GameState{
         mapManager.checkDoors(dungeonMapManager);
         sb.begin();
         HUD.draw(sb);
+        for(Item x : mapManager.getItemList()){
+            x.sprite.draw(sb);
+        }
         player.sprite.draw(sb);
       //  boss.sprite.draw(sb);
         for (Enemy x :mapManager.getEnemyList()){
            x.sprite.draw(sb);
-        }
-        for(Item x : mapManager.getItemList()){
-            x.sprite.draw(sb);
         }
         sb.end();
     }
