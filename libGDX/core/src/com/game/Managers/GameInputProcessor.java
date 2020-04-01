@@ -46,6 +46,7 @@ public class GameInputProcessor extends InputAdapter {
     {
         Item beer = player.getInventory()[0];
         Item redbull = player.getInventory()[1];
+        this.speed = player.speed;
 
         if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
             gsm.pauseGame(gsm.getCurrentState());
@@ -133,44 +134,38 @@ public class GameInputProcessor extends InputAdapter {
             {
                 if (BeerTimer ==0) {//and timer hasn't started
                     BeerTimer += dt;//start the timer
-                    beer.use();//use beer effects
+                    player.useBeer();//use beer effects
+                    player.getInventory()[0] = null;
                 }
             }
         }
-        if(BeerTimer > 0)
+        if(BeerTimer > 0)//if a redbull has been consumed
         {
-            if (BeerTimer <=10) {
-                BeerTimer += dt;
-                beer.use();
-            }
-            else{
+            BeerTimer+= dt;
+            if (BeerTimer >=10) {
                 BeerTimer = 0;
-                beer.end();
-                player.getInventory()[0] = null;
+                player.endUseBeer();
             }
 
         }
 
-        if(Gdx.input.isKeyJustPressed(Input.Keys.E))//DRINK REDBULL - starts timer
+        if(Gdx.input.isKeyJustPressed(Input.Keys.E))//DRINK REDBULL - starts timer if you have a redbull.
         {
             if(redbull != null)//if you have a redbull
             {
-                if (RedBullTimer <= 10) {
+                if (RedBullTimer == 0) {
                     RedBullTimer += dt;
-                    redbull.use();
+                    player.useRedBull();
+                    player.getInventory()[1] = null;
                 }
             }
         }
-        if(RedBullTimer > 0)
+        if(RedBullTimer > 0)//if a redbull has been consumed
         {
-            if (RedBullTimer <=10) {
-                RedBullTimer += dt;
-                redbull.use();
-            }
-            else{
+            RedBullTimer += dt;
+            if (RedBullTimer >=10) {
                 RedBullTimer = 0;
-                redbull.end();
-                player.getInventory()[1] = null;
+                player.endUseRedBull();
             }
 
         }

@@ -8,8 +8,7 @@ public class Player extends Character {
     public Sprite sprite;
     public boolean flipSprite;//false when facing right. true when facing left.
     boolean isDead;
-
-    public  float speed = 200f;
+    public float speed;
     public int damage;
     public int maxHealth;
     public int health;
@@ -19,15 +18,23 @@ public class Player extends Character {
     public int roomsVisited;
     public int enemiesDefeated;
 
+    public int normalDamage;
+    public float normalSpeed;
+    public int normalHealth;
+
     private Item[] inventory;
 
-    public Player(Texture texture, int damage, int health,int posX,int posY)
+    public Player(Texture texture, float speed, int damage, int health,int posX,int posY)
     {
         super(texture, damage, health,posX,posY);
         this.sprite = new Sprite(texture);
         this.sprite.setScale(2);
+        this.normalDamage = damage;
         this.damage= damage;
+        this.normalSpeed = speed;
+        this.speed = speed;
         this.health = health;
+        this.normalHealth = health;
         this.maxHealth = health;
         this.posX = posX;
         this.posY = posY;
@@ -147,6 +154,32 @@ public class Player extends Character {
     {
         return this.isDead;
     }
+
+    public void useRedBull()
+    {
+        this.speed = 2*normalSpeed;
+        this.damage = 2*normalDamage;
+    }
+
+    public void endUseRedBull()
+    {
+        this.speed = normalSpeed;
+        this.damage = normalDamage;
+    }
+
+    public void useBeer()
+    {
+        this.maxHealth = 2*normalHealth;
+        this.health = 2*normalHealth;
+    }
+
+    public void endUseBeer()
+    {
+        this.maxHealth = normalHealth;
+        if(health > normalHealth)
+            this.health = normalHealth;
+    }
+
 
 //    public void ult(float dt){
 //
