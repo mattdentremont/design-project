@@ -24,6 +24,7 @@ public class CharacterState extends GameState {
     private escapeGame game;
     private BitmapFont font;
     private BitmapFont titleFont;
+    private BitmapFont charsFont;
     private final String title = "Choose Your Fighter";
     private int currentItem;
     private String[] menuItems;
@@ -42,6 +43,7 @@ public class CharacterState extends GameState {
     public CharacterState(GameStateManager gsm)
     {
         super(gsm);
+        init();
         layout = new GlyphLayout();
     }
 
@@ -49,10 +51,12 @@ public class CharacterState extends GameState {
     public void init() {
 
         sb = new SpriteBatch();
+        charsFont = new BitmapFont();
         titleFont = new BitmapFont();
         font = new BitmapFont();
         titleFont.getData().setScale(3);
-        font.getData().setScale(2);
+        charsFont.setColor(Color.WHITE);
+        charsFont.getData().setScale(2);
         font.setColor(Color.WHITE);
         menuItems = new String[] {"Dingus", "Jim"};
         damages = new String[] {"Damage: 10", "Damage: 5"};
@@ -66,9 +70,9 @@ public class CharacterState extends GameState {
         p1Sprite.setScale(2f);
         p2Texture = new Texture(Gdx.files.internal("Jim.png"));
         p2Sprite = new Sprite(p2Texture);
-        p2Sprite.setPosition(2*(escapeGame.WIDTH/3) + (p1Sprite.getWidth()/2),  escapeGame.HEIGHT/2);
-        p2Sprite.setScale(2f);
-        music = Gdx.audio.newMusic(Gdx.files.internal("Doom.mp3"));
+        p2Sprite.setPosition(2*(escapeGame.WIDTH/3) - (p2Sprite.getWidth()/2),  escapeGame.HEIGHT/2);
+        p2Sprite.setScale(0.5f);
+        music = Gdx.audio.newMusic(Gdx.files.internal("menuMusic.mp3"));
         music.setLooping(true);
         music.setVolume(.2f);
         music.play();
@@ -92,20 +96,27 @@ public class CharacterState extends GameState {
         menuSprite.draw(sb);
         titleFont.draw(sb,title,((escapeGame.WIDTH-fontWidth)/2), (escapeGame.HEIGHT - 75));
 
+        font.draw(sb, damages[0], escapeGame.WIDTH/3, escapeGame.HEIGHT/2 - 25);
+        font.draw(sb, damages[1], 2*escapeGame.WIDTH/3, escapeGame.HEIGHT/2 - 25);
+        font.draw(sb, speeds[0], escapeGame.WIDTH/3, escapeGame.HEIGHT/2 - 50);
+        font.draw(sb, speeds[1], 2*escapeGame.WIDTH/3, escapeGame.HEIGHT/2 - 50);
+        font.draw(sb, healths[0], escapeGame.WIDTH/3, escapeGame.HEIGHT/2 - 75);
+        font.draw(sb, healths[1], 2*escapeGame.WIDTH/3, escapeGame.HEIGHT/2 - 75);
+        p1Sprite.draw(sb);
+        p2Sprite.draw(sb);
+
         //draw menu
         for(int i = 0; i < menuItems.length; i++){
             layout.setText(font, menuItems[i]);
 
             if(currentItem == i) {
-                font.setColor(Color.PURPLE);
+                charsFont.setColor(Color.PURPLE);
             }
             else {
-                font.setColor(Color.WHITE);
+                charsFont.setColor(Color.WHITE);
             }
-            p1Sprite.draw(sb);
-            p2Sprite.draw(sb);
             float menuSpread = ((escapeGame.WIDTH/3) + ((escapeGame.WIDTH/3)*i));
-            font.draw(sb, menuItems[i], menuSpread, 2*(escapeGame.HEIGHT/3));
+            charsFont.draw(sb, menuItems[i], menuSpread, 2*(escapeGame.HEIGHT/3));
         }
         sb.end();
     }
@@ -129,10 +140,10 @@ public class CharacterState extends GameState {
 
     private void charSelect(){
         if(currentItem == 0) {
-            gsm.setState(GameStateManager.PLAY);
+            gsm.setPlayState("Protag.png", 200, 100, 10);
         }
         else if(currentItem == 1) {
-            gsm.setState(GameStateManager.PLAY);
+            gsm.setPlayState("Jim.png", 250, 200, 5);
         }
 //        else if(currentItem == 2) {
 //            gsm.setState(GameStateManager.MENU);

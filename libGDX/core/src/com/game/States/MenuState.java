@@ -36,6 +36,7 @@ public class MenuState extends GameState {
     public MenuState(GameStateManager gsm)
     {
         super(gsm);
+        init();
         layout = new GlyphLayout();
     }
     @Override

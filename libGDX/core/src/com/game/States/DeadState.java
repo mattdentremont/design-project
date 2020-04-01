@@ -28,6 +28,7 @@ public class DeadState extends GameState {
     public DeadState(GameStateManager gsm, GameState currentGameState, Player player, ArrayList<Enemy> enemies, UI HUD, TiledMapManager mapManager)
     {
         super(gsm);
+        init();
         this.currentGameState = currentGameState;
         layout = new GlyphLayout();
         this.player = player;
@@ -71,7 +72,7 @@ public class DeadState extends GameState {
     @Override
     public void handleInput(float dt) {
         if(Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
-            gsm.setState(gsm.PLAY);
+            gsm.setState(gsm.CHARACTERS);
         }
         if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
             gsm.setState(gsm.MENU);

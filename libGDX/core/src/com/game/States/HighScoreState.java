@@ -32,6 +32,7 @@ public class HighScoreState extends GameState {
 
     public HighScoreState(GameStateManager gsm) {
         super(gsm);
+        init();
         layout = new GlyphLayout();
     }
 

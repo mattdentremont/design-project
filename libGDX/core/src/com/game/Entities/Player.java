@@ -26,7 +26,7 @@ public class Player extends Character {
 
     public Player(Texture texture, float speed, int damage, int health,int posX,int posY)
     {
-        super(texture, damage, health,posX,posY);
+        super(texture, speed, damage, health,posX,posY);
         this.sprite = new Sprite(texture);
         this.sprite.setScale(2);
         this.normalDamage = damage;

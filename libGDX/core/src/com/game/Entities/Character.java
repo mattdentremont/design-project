@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public abstract class Character {
+    public float speed;
     public int damage;
     public int health;
     public int posX;
@@ -11,9 +12,10 @@ public abstract class Character {
     public Sprite sprite;
     boolean isDead;
 
-    Character(Texture texture, int damage, int health,int posX, int posY)
+    Character(Texture texture, float speed, int damage, int health,int posX, int posY)
     {
         this.sprite = new Sprite(texture);
+        this.speed = speed;
         this.damage= damage;
         this.health = health;
         this.posX = posX;

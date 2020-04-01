@@ -32,9 +32,12 @@ public class PlayState extends GameState{
     public GameInputProcessor inputProcessor;
     public TiledMapManager mapManager;
     public UI HUD;
-    public PlayState(GameStateManager gsm)
+    public PlayState(GameStateManager gsm, String t, float s, int h, int d)
     {
         super(gsm);
+        playerConstructor(t, s, h, d);
+        init();
+        //playerConstructor(t, s, h, d);
     }
     private Sprite menuSprite;
     private Music music;
@@ -45,8 +48,6 @@ public class PlayState extends GameState{
         sb = new SpriteBatch();
         WIDTH = game.WIDTH;
         HEIGHT = game.HEIGHT;
-        playerTexture = new Texture(Gdx.files.internal("Protag.png"));
-        player = new Player(playerTexture,200f,10,100,WIDTH/2,HEIGHT/2);
         String[] maps = {"maps/generic.tmx","maps/satanic.tmx"};
         dungeonMapManager = new DungeonMapManager(maps,25,25,player);//225 dungeon rooms total.
         currentRoom = dungeonMapManager.getCurrentRoom();
@@ -56,7 +57,7 @@ public class PlayState extends GameState{
         cam = game.cam;
         HUD = new UI(player,cam);
         prefs = Gdx.app.getPreferences("GameStorage");
-        music = Gdx.audio.newMusic(Gdx.files.internal("menuMusic.mp3"));
+        music = Gdx.audio.newMusic(Gdx.files.internal("Doom.mp3"));
         music.setLooping(true);
         music.setVolume(.2f);
         music.play();
@@ -178,5 +179,10 @@ public class PlayState extends GameState{
     public UI getHUD()
     {
         return HUD;
+    }
+
+    public void playerConstructor(String p, float s, int h, int d){
+        playerTexture = new Texture(Gdx.files.internal(p));
+        player = new Player(playerTexture,s,d,h,WIDTH/2,HEIGHT/2);
     }
 }
