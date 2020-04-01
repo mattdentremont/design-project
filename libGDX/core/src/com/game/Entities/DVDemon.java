@@ -13,7 +13,7 @@ public class DVDemon extends Enemy
         super(posX, posY);
         this.sprite = new Sprite(new Texture(Gdx.files.internal("DVDemon.png")));
         this.damageValue = 20;
-        this.maxHealth = 200;
+        this.maxHealth = 10;
         this.movementSpeed = 200f;
         this.movementPattern = new WallBounce();
         this.attackPattern = new Contact();
@@ -25,6 +25,7 @@ public class DVDemon extends Enemy
         this.attackDelayCnt = 0;
         this.attackDelayTime = 0.5f;
         this.heading = 4;
+        this.isBoss = true;
     }
 
 

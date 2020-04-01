@@ -143,7 +143,7 @@ public class CharacterState extends GameState {
             gsm.setPlayState("Protag.png", 200, 100, 10);
         }
         else if(currentItem == 1) {
-            gsm.setPlayState("Jim.png", 250, 200, 5);
+            gsm.setPlayState("Jim.png", 250, 150, 5);
         }
 //        else if(currentItem == 2) {
 //            gsm.setState(GameStateManager.MENU);
