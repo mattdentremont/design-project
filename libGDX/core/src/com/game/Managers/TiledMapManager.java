@@ -64,13 +64,13 @@ public class TiledMapManager {
 
     public void changeRoom(String mapPath,String Direction)
     {
+        items = new ArrayList<>();
         map = mapLoader.load(mapPath);
         renderer = new OrthogonalTiledMapRenderer(map);
         Doors = map.getLayers().get("Doors");
         EnemySpawns = map.getLayers().get("EnemySpawns");
         if(dungeon.getCurrentRoom().hasBeenVisited == false) {
             spawnItems();
-            spawnEnemies();
             player.regenHealth(10);
             if(player.getRoomsVisited() > 10)
             {
@@ -78,6 +78,13 @@ public class TiledMapManager {
                 //TODO: Add simple modifiers to do this...
                 //maybe add parameter to spawnEnemies for like difficulty of enemies....
                 //bosses should prob always be the same difficulty ...
+            }
+            if(dungeon.getCurrentRoom().isDVDemon)
+            {
+                spawnDVDemon();
+            }
+            else {
+                spawnEnemies();
             }
         }
 
@@ -110,12 +117,18 @@ public class TiledMapManager {
            enemies.add(new GreenBlob(xPos,yPos));
         }
     }
+
+    public void spawnDVDemon()
+    {
+        enemies.add(new DVDemon(WIDTH/3, HEIGHT/2));
+    }
+
     public void spawnItems()
     {
         MapObjects spawnLocations = EnemySpawns.getObjects();
         for(RectangleMapObject location: spawnLocations.getByType(RectangleMapObject.class))
         {
-            int rand = new Random().nextInt(1);//random number from 0-9 inclusive.
+            int rand = new Random().nextInt(10);//random number from 0-9 inclusive.
             int randItem = new Random().nextInt(2);//random number from 0-1 inclusive.
             if(rand == 0) {//10% chance of item spawning
                 float xPos = location.getRectangle().getX();

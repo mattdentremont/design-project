@@ -49,10 +49,9 @@ public class PlayState extends GameState{
         WIDTH = game.WIDTH;
         HEIGHT = game.HEIGHT;
         String[] maps = {"maps/generic.tmx","maps/satanic.tmx"};
-        dungeonMapManager = new DungeonMapManager(maps,25,25,player);//225 dungeon rooms total.
+        dungeonMapManager = new DungeonMapManager(maps,10,10,player);//225 dungeon rooms total.
         currentRoom = dungeonMapManager.getCurrentRoom();
         mapManager = new TiledMapManager(currentRoom.mapName,game,player);
-        //boss = new DVDemon(WIDTH/6, HEIGHT/2);
         inputProcessor = new GameInputProcessor(player,this.gsm,game,mapManager.getEnemyList());
         cam = game.cam;
         HUD = new UI(player,cam,inputProcessor);
@@ -101,11 +100,19 @@ public class PlayState extends GameState{
             }
         }
         while(iterator.hasNext()){
-            if(iterator.next().checkDead()) {
+            Enemy x = iterator.next();
+            if(x.checkDead()) {
                 iterator.remove();
-                player.incrementScore(10);
+                if(x.isBoss)
+                {
+                    player.incrementScore(100);
+                }
+                else {
+                    player.incrementScore(10);
+                }
                 player.enemiesDefeated++;
             }
+
         }
         if(player.checkDead()){
             gsm.playerDied(gsm.getCurrentState());

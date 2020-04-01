@@ -19,6 +19,7 @@ public abstract class Enemy {
     public float attackDelayCnt;
     public float attackDelayTime;
     public int heading;
+    public boolean isBoss;
 
     Enemy(float posX, float posY)
     {
@@ -26,6 +27,7 @@ public abstract class Enemy {
         this.posX = posX;
         this.isDead = false;
         this.flipSprite = false;
+        this.isBoss = false;
     }
     public abstract void attack(Player player, float dt);
 
