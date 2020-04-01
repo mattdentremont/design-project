@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.game.Entities.Beer;
 import com.game.Entities.Item;
 import com.game.Entities.Player;
 import com.game.main.escapeGame;
@@ -17,13 +18,15 @@ public class UI {
     private OrthographicCamera cam;
     private boolean hasBeer;
     private boolean hasRedBull;
+    private GameInputProcessor ip;
 
-    public UI(Player player, OrthographicCamera cam)
+    public UI(Player player, OrthographicCamera cam,GameInputProcessor ip)
     {
         layout = new GlyphLayout();
         font = new BitmapFont();
         font.getData().setScale(1f);
         font.setColor(Color.PINK);
+        this.ip = ip;
         this.cam = cam;
         this.player= player;
         this.hasBeer = false;
@@ -86,6 +89,48 @@ public class UI {
         float fontWidth3 = layout.width;
         float fontHeight3 = layout.height;
         font.draw(sb,toPrint3,0,escapeGame.HEIGHT - fontHeight3-15);
+
+        //Print Counters
+        if(ip.checkUsedBeer() || ip.checkUsedRedBull())
+        {
+            String BeerCounter = "Increased Health: " +Integer.toString(5-(int)ip.getBeerTimer());
+            String RedBullCounter = "Jacked Up: " + Integer.toString(5-(int)ip.getRedBullTimer());
+            float fontWidthBeer;
+            float fontHeightBeer;
+            float fontWidthRedBull;
+            float fontHeightRedBull;
+            if(ip.checkUsedBeer() && ip.checkUsedRedBull()) {
+                layout.setText(font, BeerCounter);
+                fontWidthBeer = layout.width;
+                fontHeightBeer = layout.height;
+                font.draw(sb, BeerCounter, escapeGame.WIDTH - fontWidthBeer, escapeGame.HEIGHT - fontHeightBeer - 15);
+                layout.setText(font, BeerCounter);
+
+                layout.setText(font, RedBullCounter);
+                fontWidthRedBull = layout.width;
+                fontHeightRedBull = layout.height;
+                font.draw(sb, RedBullCounter, escapeGame.WIDTH - fontWidthRedBull, escapeGame.HEIGHT - fontHeightRedBull - 30);
+                layout.setText(font, BeerCounter);
+            }
+            else if(ip.checkUsedBeer() && !ip.checkUsedRedBull()) {
+                layout.setText(font, BeerCounter);
+                fontWidthBeer = layout.width;
+                fontHeightBeer = layout.height;
+                font.draw(sb, BeerCounter, escapeGame.WIDTH - fontWidthBeer, escapeGame.HEIGHT - fontHeightBeer - 15);
+                layout.setText(font, BeerCounter);
+
+            }
+            else if(!ip.checkUsedBeer() && ip.checkUsedRedBull()) {
+                layout.setText(font, RedBullCounter);
+                fontWidthRedBull = layout.width;
+                fontHeightRedBull = layout.height;
+                font.draw(sb, RedBullCounter, escapeGame.WIDTH - fontWidthRedBull, escapeGame.HEIGHT - fontHeightRedBull - 15);
+                layout.setText(font, BeerCounter);
+
+            }
+        }
+
+
         }
 
         public void dispose()

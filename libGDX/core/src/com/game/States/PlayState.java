@@ -54,7 +54,7 @@ public class PlayState extends GameState{
         //boss = new DVDemon(WIDTH/6, HEIGHT/2);
         inputProcessor = new GameInputProcessor(player,this.gsm,game,mapManager.getEnemyList());
         cam = game.cam;
-        HUD = new UI(player,cam);
+        HUD = new UI(player,cam,inputProcessor);
         prefs = Gdx.app.getPreferences("GameStorage");
         music = Gdx.audio.newMusic(Gdx.files.internal("menuMusic.mp3"));
         music.setLooping(true);

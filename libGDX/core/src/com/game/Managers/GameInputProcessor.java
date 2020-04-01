@@ -133,18 +133,20 @@ public class GameInputProcessor extends InputAdapter {
             if(beer != null)//if you have a beer
             {
                 if (BeerTimer ==0) {//and timer hasn't started
+                    usedBeer = true;
                     BeerTimer += dt;//start the timer
                     player.useBeer();//use beer effects
                     player.getInventory()[0] = null;
                 }
             }
         }
-        if(BeerTimer > 0)//if a redbull has been consumed
+        if(usedBeer)//if a redbull has been consumed
         {
             BeerTimer+= dt;
-            if (BeerTimer >=10) {
+            if (BeerTimer >=5) {
                 BeerTimer = 0;
                 player.endUseBeer();
+                usedBeer = false;
             }
 
         }
@@ -154,21 +156,43 @@ public class GameInputProcessor extends InputAdapter {
             if(redbull != null)//if you have a redbull
             {
                 if (RedBullTimer == 0) {
+                    usedRedBull = true;
                     RedBullTimer += dt;
                     player.useRedBull();
                     player.getInventory()[1] = null;
                 }
             }
         }
-        if(RedBullTimer > 0)//if a redbull has been consumed
+        if(usedRedBull)//if a redbull has been consumed
         {
             RedBullTimer += dt;
-            if (RedBullTimer >=10) {
+            if (RedBullTimer >=5) {
                 RedBullTimer = 0;
+                usedRedBull = false;
                 player.endUseRedBull();
             }
 
         }
     }
+
+    public boolean checkUsedRedBull()
+    {
+        return usedRedBull;
+    }
+
+    public boolean checkUsedBeer()
+    {
+        return usedBeer;
+    }
+    public float getBeerTimer()
+    {
+        return BeerTimer;
+    }
+
+    public float getRedBullTimer()
+    {
+        return RedBullTimer;
+    }
+
 
 }
