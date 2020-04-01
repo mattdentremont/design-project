@@ -18,6 +18,8 @@ public class Player extends Character {
     public int roomsVisited;
     public int enemiesDefeated;
 
+    private Item[] inventory;
+
     public Player(Texture texture, int damage, int health,int posX,int posY)
     {
         super(texture, damage, health,posX,posY);
@@ -34,6 +36,7 @@ public class Player extends Character {
         this.score = 0;
         this.roomsVisited = 1;
         this.enemiesDefeated = 0;
+        this.inventory = new Item[2];
     }
 
 
@@ -51,6 +54,33 @@ public class Player extends Character {
         posX = posX + x;
         posY = posY + y;
         sprite.setPosition(posX,posY);
+    }
+
+    //pick up new item and return the dropped item.
+    //can return null.
+    public Item pickUp(Item item)
+    {
+        Item temp;
+        item.setPickedUp(true);
+        if(item.type == "BEER")
+        {
+            temp = inventory[0];
+            inventory[0] = item;
+        }
+        else{
+            temp = inventory[1];
+            inventory[1] = item;
+        }
+        if(temp != null)
+        {
+            temp.setPickedUp(false);
+            temp.setPosition(this.getPosX() + 30, this.getPosY() + 0);
+        }
+        return temp;
+    }
+
+    public Item[] getInventory(){
+        return inventory;
     }
 
     public void regenHealth(int healthAdded)//regenerate player health.

@@ -8,9 +8,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 //import com.game.Entities.DVDemon;
-import com.game.Entities.Enemy;
-import com.game.Entities.Player;
-import com.game.Entities.Room;
+import com.badlogic.gdx.math.Rectangle;
+import com.game.Entities.*;
 import com.game.Managers.*;
 import com.game.main.escapeGame;
 
@@ -28,7 +27,7 @@ public class PlayState extends GameState{
     private Player player;
     private Preferences prefs;
 
-    //public Enemy boss;
+    public Enemy boss;
     public DungeonMapManager dungeonMapManager;
     public GameInputProcessor inputProcessor;
     public TiledMapManager mapManager;
@@ -40,6 +39,7 @@ public class PlayState extends GameState{
     private Sprite menuSprite;
     private Music music;
     private Sound deathSound = Gdx.audio.newSound(Gdx.files.internal("bigOof.mp3"));
+    private Item dropped = null;
 
     @Override
     public void init() {
@@ -65,19 +65,32 @@ public class PlayState extends GameState{
 
     @Override
     public void update(float dt) {
-        for (Enemy x :mapManager.getEnemyList()){
+        ArrayList<Enemy> enemies = mapManager.getEnemyList();
+        ArrayList<Item> items = mapManager.getItemList();
+        Iterator<Enemy> iterator = enemies.iterator();
+        Iterator<Item> iteratorItems = items.iterator();
+        Rectangle playerHitBox = player.sprite.getBoundingRectangle();
+        Item toPickup = null;
+
+        for (Enemy x :enemies){
             x.move(player,x.movementSpeed,dt);
             x.attack(player, dt);
         }
-        //boss.move(player,boss.movementSpeed,dt);
-        //boss.attack(player, dt);
-        handleInput(dt);
-        if(player.checkDead()){
-            gsm.playerDied(gsm.getCurrentState());
-           long deathID =  deathSound.play(1.0f);
+        for(Item x : items){
+            if(playerHitBox.overlaps(x.sprite.getBoundingRectangle())){
+                toPickup = x;
+            }
         }
-        ArrayList<Enemy> enemies = mapManager.getEnemyList();
-        Iterator<Enemy> iterator = enemies.iterator();
+        if(toPickup != null)
+        {
+            dropped = player.pickUp(toPickup);
+        }
+
+        while(iteratorItems.hasNext()){
+            if(iteratorItems.next().isPickedUp) {
+                iteratorItems.remove();
+            }
+        }
         while(iterator.hasNext()){
             if(iterator.next().checkDead()) {
                 iterator.remove();
@@ -85,21 +98,30 @@ public class PlayState extends GameState{
                 player.enemiesDefeated++;
             }
         }
+        if(player.checkDead()){
+            gsm.playerDied(gsm.getCurrentState());
+            deathSound.play(1.0f);
+        }
         cam.update();
         mapManager.updateCam();
+        handleInput(dt);
     }
 
     @Override
     public void draw() {
+        mapManager.addItem(dropped);
         sb.setProjectionMatrix(escapeGame.cam.combined);
         mapManager.render();
         mapManager.checkDoors(dungeonMapManager);
         sb.begin();
         HUD.draw(sb);
         player.sprite.draw(sb);
-        //boss.sprite.draw(sb);
+      //  boss.sprite.draw(sb);
         for (Enemy x :mapManager.getEnemyList()){
            x.sprite.draw(sb);
+        }
+        for(Item x : mapManager.getItemList()){
+            x.sprite.draw(sb);
         }
         sb.end();
     }
