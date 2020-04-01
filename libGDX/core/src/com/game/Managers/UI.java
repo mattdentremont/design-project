@@ -64,15 +64,15 @@ public class UI {
         }
         else if(hasBeer && !hasRedBull)
         {
-            toPrint3 +="BEER";
+            toPrint3 +="BEER(Q)";
         }
         else if(!hasBeer && hasRedBull)
         {
-            toPrint3 +="REDBULL";
+            toPrint3 +="REDBULL(E)";
         }
         else if(hasBeer && hasRedBull)
         {
-            toPrint3 +="BEER AND REDBULL";
+            toPrint3 +="BEER(Q) AND REDBULL(E)";
         }
 
 
