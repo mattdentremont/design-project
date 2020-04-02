@@ -11,7 +11,7 @@ import java.util.Random;
 
 public class Wanderers extends Enemy {
 
-    Wanderers(float startPosX, float startPosY,int balancer) {
+    public Wanderers(float startPosX, float startPosY,int balancer) {
         super(startPosX, startPosY,balancer);
         String[] enemyTextures = {"RedBlob.png", "integral.png"};
         int rand =  new Random().nextInt(enemyTextures.length);

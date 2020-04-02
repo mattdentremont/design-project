@@ -62,8 +62,8 @@ public class PlayState extends GameState{
         WIDTH = game.WIDTH;
         HEIGHT = game.HEIGHT;
         String[] maps = {"maps/generic.tmx","maps/satanic.tmx"};
-        dungeonWidth = 3;
-        dungeonHeight = 1;
+        dungeonWidth = 10;
+        dungeonHeight = 10;
         dungeonMapManager = new DungeonMapManager(maps,dungeonWidth,dungeonHeight,player);
         currentRoom = dungeonMapManager.getCurrentRoom();
         mapManager = new TiledMapManager(currentRoom.mapName,game,player);
@@ -153,7 +153,6 @@ public class PlayState extends GameState{
 
         //Handles Animations for attacks now too
         handleInput(dt);
-
     }
 
     @Override
@@ -170,7 +169,12 @@ public class PlayState extends GameState{
       //boss.sprite.draw(sb);
         for (Enemy x :mapManager.getEnemyList()){
            x.sprite.draw(sb);
-           font.draw(sb,Integer.toString(x.currentHealth),(int)x.getPosX()+x.sprite.getWidth()/2-5, (int)x.getPosY()+x.sprite.getHeight()+5);
+           if(x.currentHealth >= 0) {
+               font.draw(sb, Integer.toString(x.currentHealth), (int) x.getPosX() + x.sprite.getWidth() / 2 - 5, (int) x.getPosY() + x.sprite.getHeight() + 5);
+           }
+           else{
+               font.draw(sb, Integer.toString(0), (int) x.getPosX() + x.sprite.getWidth() / 2 - 5, (int) x.getPosY() + x.sprite.getHeight() + 5);
+           }
             if(x.hasProjectiles)
             {
                 ArrayList<Projectile> list = x.getProjectiles(0);
@@ -193,7 +197,6 @@ public class PlayState extends GameState{
     public void dispose() {
         saveHighScore();
         sb.dispose();
-        playerTexture.dispose();
         mapManager.dispose();
         HUD.dispose();
         music.dispose();

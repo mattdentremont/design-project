@@ -89,7 +89,7 @@ public class TiledMapManager {
                 spawnProjectileEnemy();
             }
             else {
-                    int statIncrease = player.getRoomsVisited()/10 * 5;//every 10 rooms enemies gain 5 for each stat.
+                    int statIncrease = (int)Math.floor(player.getRoomsVisited()/10.0 * 5.0);//every 10 rooms enemies gain 5 for each stat.
                     //note that bosses difficulties are always the same.
                     spawnEnemies(statIncrease);
             }
@@ -121,7 +121,13 @@ public class TiledMapManager {
         {
            float xPos =  location.getRectangle().getX();
            float yPos = location.getRectangle().getY();
-           enemies.add(new GreenBlob(xPos,yPos,balancer));
+            int rand = new Random().nextInt(4);
+            if(rand == 0) {
+                enemies.add(new Wanderers(xPos,yPos,balancer));
+            }
+            else{
+                enemies.add(new GreenBlob(xPos, yPos, balancer));
+            }
         }
     }
 
