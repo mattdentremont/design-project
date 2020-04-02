@@ -89,7 +89,7 @@ public class TiledMapManager {
                 spawnProjectileEnemy();
             }
             else {
-                    int statIncrease = (int)Math.floor(player.getRoomsVisited()/10.0 * 5.0);//every 10 rooms enemies gain 5 for each stat.
+                    int statIncrease = (int)Math.floor(player.getRoomsVisited()/10.0)*5;//every 10 rooms enemies gain 5 for each stat.
                     //note that bosses difficulties are always the same.
                     spawnEnemies(statIncrease);
             }
