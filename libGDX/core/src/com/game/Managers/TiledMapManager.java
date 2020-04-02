@@ -83,6 +83,10 @@ public class TiledMapManager {
             {
                 spawnDVDemon();
             }
+            else if(dungeon.getCurrentRoom().isVHDL)
+            {
+                spawnVHDL();
+            }
             else {
                 spawnEnemies();
             }
@@ -118,9 +122,17 @@ public class TiledMapManager {
         }
     }
 
+
     public void spawnDVDemon()
     {
         enemies.add(new DVDemon(WIDTH/3, HEIGHT/2));
+    }
+    public void spawnVHDL()
+    {
+        enemies.add(new V(WIDTH/2, 2*HEIGHT/3));
+        enemies.add(new H(2*WIDTH/3, HEIGHT/2));
+        enemies.add(new D(WIDTH/2, HEIGHT/3));
+        enemies.add(new L(WIDTH/3, HEIGHT/2));
     }
 
     public void spawnItems()

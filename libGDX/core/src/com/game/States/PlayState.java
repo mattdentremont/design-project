@@ -30,12 +30,6 @@ public class PlayState extends GameState{
     private int dungeonWidth;
     private int dungeonHeight;
 
-    //debug
-    //public Enemy boss;
-    public Enemy V;
-    public Enemy H;
-    public Enemy D;
-    public Enemy L;
 
     public DungeonMapManager dungeonMapManager;
     public GameInputProcessor inputProcessor;
@@ -57,16 +51,12 @@ public class PlayState extends GameState{
         WIDTH = game.WIDTH;
         HEIGHT = game.HEIGHT;
         String[] maps = {"maps/generic.tmx","maps/satanic.tmx"};
-        this.dungeonWidth = 1;
-        this.dungeonHeight = 2;
+        this.dungeonWidth = 3;
+        this.dungeonHeight = 1;
         dungeonMapManager = new DungeonMapManager(maps,dungeonWidth,dungeonHeight,player);
         currentRoom = dungeonMapManager.getCurrentRoom();
         mapManager = new TiledMapManager(currentRoom.mapName,game,player);
         inputProcessor = new GameInputProcessor(player,this.gsm,game,mapManager.getEnemyList());
-        V = new V(WIDTH/2, 2*HEIGHT/3);
-        H = new H(2*WIDTH/3, HEIGHT/2);
-        D = new D(WIDTH/2, HEIGHT/3);
-        L = new L(WIDTH/3, HEIGHT/2);
         cam = game.cam;
         HUD = new UI(player,cam,inputProcessor);
         prefs = Gdx.app.getPreferences("GameStorage");
@@ -85,17 +75,6 @@ public class PlayState extends GameState{
         Iterator<Item> iteratorItems = items.iterator();
         Rectangle playerHitBox = player.sprite.getBoundingRectangle();
         Item toPickup = null;
-
-        V.move(player, V.movementSpeed, dt);
-        H.move(player, H.movementSpeed, dt);
-        D.move(player, D.movementSpeed, dt);
-        L.move(player, L.movementSpeed, dt);
-
-        V.attack(player, dt);
-        H.attack(player, dt);
-        D.attack(player, dt);
-        L.attack(player, dt);
-
 
         for (Enemy x :enemies){
             x.move(player,x.movementSpeed,dt);
@@ -164,10 +143,6 @@ public class PlayState extends GameState{
             x.sprite.draw(sb);
         }
         player.sprite.draw(sb);
-        V.sprite.draw(sb);
-        H.sprite.draw(sb);
-        D.sprite.draw(sb);
-        L.sprite.draw(sb);
       //boss.sprite.draw(sb);
         for (Enemy x :mapManager.getEnemyList()){
            x.sprite.draw(sb);
