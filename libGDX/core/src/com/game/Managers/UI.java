@@ -81,11 +81,11 @@ public class UI {
         float fontWidth = layout.width;
         float fontHeight = layout.height;
         //draw title
-        font.draw(sb,toPrint,0,escapeGame.HEIGHT - fontHeight);
+        font.draw(sb,toPrint,0,escapeGame.HEIGHT - fontHeight/2);
         layout.setText(font,toPrint2);
         float fontWidth2 = layout.width;
         float fontHeight2 = layout.height;
-        font.draw(sb,toPrint2,escapeGame.WIDTH-fontWidth2,escapeGame.HEIGHT - fontHeight2);
+        font.draw(sb,toPrint2,escapeGame.WIDTH-fontWidth2,escapeGame.HEIGHT - fontHeight2/2);
         layout.setText(font,toPrint3);
         float fontWidth3 = layout.width;
         float fontHeight3 = layout.height;
@@ -94,13 +94,13 @@ public class UI {
         layout.setText(font,Ult);
         float fontWidthUlt = layout.width;
         float fontHeightUlt = layout.height;
-        font.draw(sb,Ult,escapeGame.WIDTH/2-fontWidthUlt/2,escapeGame.HEIGHT - fontHeightUlt-10);
+        font.draw(sb,Ult,escapeGame.WIDTH/2-fontWidthUlt/2,escapeGame.HEIGHT - fontHeightUlt/2);
 
         //Print Counters For consumable effects
         if(ip.checkUsedBeer() || ip.checkUsedRedBull())
         {
-            String BeerCounter = "Numb: " +Integer.toString((int)(ip.getBeerEffectLength()-(int)ip.getBeerTimer()));
-            String RedBullCounter = "Jacked Up: " + Integer.toString((int)(ip.getRedBullEffectLength()-(int)ip.getRedBullTimer()));
+            String BeerCounter = "Increased Health:" +Integer.toString((int)(ip.getBeerEffectLength()-(int)ip.getBeerTimer()));
+            String RedBullCounter = "Jacked Up:" + Integer.toString((int)(ip.getRedBullEffectLength()-(int)ip.getRedBullTimer()));
             float fontWidthBeer;
             float fontHeightBeer;
             float fontWidthRedBull;
