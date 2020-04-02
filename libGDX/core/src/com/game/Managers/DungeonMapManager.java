@@ -28,14 +28,14 @@ public class DungeonMapManager {
         }
         this.xPos = x/2;
         this.yPos = y/2;
-        int randx = new Random().nextInt(x);
-        int randy = new Random().nextInt(y);
-        while(xPos == randx && yPos == randy)//avoid dvdemon in first room
+        int randxDVD = new Random().nextInt(x);
+        int randyDVD = new Random().nextInt(y);
+        while(xPos == randxDVD && yPos == randyDVD)//avoid dvdemon in first room
         {
-             randx = new Random().nextInt(x);
-             randy = new Random().nextInt(y);
+             randxDVD = new Random().nextInt(x);
+             randyDVD = new Random().nextInt(y);
         }
-        dungeon[randx][randy].isDVDemon = true;
+        dungeon[randxDVD][randyDVD].isDVDemon = true;
         setCurrentRoom(xPos,yPos,true);
         currentRoom.setHasBeenVisited();
     }

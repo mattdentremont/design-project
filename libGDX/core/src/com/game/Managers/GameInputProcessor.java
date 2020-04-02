@@ -49,6 +49,7 @@ public class GameInputProcessor extends InputAdapter {
 
     public void movePlayer(float dt)
     {
+        player.incrementUltCharge(dt);
         Item beer = player.getInventory()[0];
         Item redbull = player.getInventory()[1];
         this.speed = player.speed;
@@ -126,11 +127,12 @@ public class GameInputProcessor extends InputAdapter {
                 }
             }
         }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.F))//ULT
+        if(Gdx.input.isKeyJustPressed(Input.Keys.F) && player.canUlt())//ULT
         {
             for(Enemy x: enemyList) {
                 x.takeDamage(100);
             }
+            player.resetUlt();
         }
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.Q))//DRINK BEER - starts timer
