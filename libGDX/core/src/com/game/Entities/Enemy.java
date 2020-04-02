@@ -1,5 +1,7 @@
 package com.game.Entities;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.game.Behaviors.AI;
 import com.game.Behaviors.Attack;
@@ -26,6 +28,7 @@ public abstract class Enemy {
     public int heading;
     public boolean isBoss;
     public boolean hasProjectiles;
+    public Sound gotHitSound = Gdx.audio.newSound(Gdx.files.internal("sounds/hitEnemy.mp3"));
 
     Enemy(float posX, float posY,double balancer)
     {

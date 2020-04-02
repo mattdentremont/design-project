@@ -69,6 +69,7 @@ public class ProjectileEnemy extends Enemy{
 
     @Override
     public boolean takeDamage(int damageTaken) {
+        gotHitSound.play(1f);
         this.currentHealth -= damageTaken;
         if (this.currentHealth <= 0){
             isDead = true;

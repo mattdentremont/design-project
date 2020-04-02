@@ -35,6 +35,7 @@ public class Player extends Character {
     private Sound keyPickup = Gdx.audio.newSound(Gdx.files.internal("sounds/key.mp3"));
     private Sound beerPickup = Gdx.audio.newSound(Gdx.files.internal("sounds/beerPickup.mp3"));
     private Sound redbullPickup = Gdx.audio.newSound(Gdx.files.internal("sounds/redbullPickup.mp3"));
+    private Sound gotHitSound = Gdx.audio.newSound(Gdx.files.internal("sounds/playerOof.mp3"));
 
 
     public Player(String texturePath, float speed, int damage, int health,int posX,int posY)
@@ -198,6 +199,7 @@ public class Player extends Character {
 
     public void gotHit(float damageTaken)
     {
+        this.gotHitSound.play(1f);
         this.health -= damageTaken;
         if (this.health <= 0)
         {
