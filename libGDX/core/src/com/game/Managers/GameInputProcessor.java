@@ -38,6 +38,7 @@ public class GameInputProcessor extends InputAdapter {
     private boolean attacked;
     private boolean attacking;
     private Sound beerDrink = Gdx.audio.newSound(Gdx.files.internal("sounds/beerDrink.mp3"));
+    private Sound redbullDrink = Gdx.audio.newSound(Gdx.files.internal("sounds/redbullDrink.mp3"));
 
    public GameInputProcessor(Player player, GameStateManager gsm, escapeGame game, ArrayList<Enemy> enemyList)
     {
@@ -200,6 +201,7 @@ public class GameInputProcessor extends InputAdapter {
                     RedBullTimer += dt;
                     player.useRedBull();
                     player.getInventory()[1] = null;
+                    redbullDrink.play(1f);
                 }
             }
         }

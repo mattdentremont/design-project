@@ -34,6 +34,7 @@ public class Player extends Character {
     private Texture texture;
     private Sound keyPickup = Gdx.audio.newSound(Gdx.files.internal("sounds/key.mp3"));
     private Sound beerPickup = Gdx.audio.newSound(Gdx.files.internal("sounds/beerPickup.mp3"));
+    private Sound redbullPickup = Gdx.audio.newSound(Gdx.files.internal("sounds/redbullPickup.mp3"));
 
 
     public Player(String texturePath, float speed, int damage, int health,int posX,int posY)
@@ -91,6 +92,7 @@ public class Player extends Character {
         }
         else if(item.type == "REDBULL"){
             inventory[1] = item;
+            redbullPickup.play(1f);
         }
         else if(item.type == "KEY"){
             this.hasKey = true;//picked up this rooms key.
