@@ -61,7 +61,7 @@ public class PlayState extends GameState{
         font.setColor(Color.RED);
         WIDTH = game.WIDTH;
         HEIGHT = game.HEIGHT;
-        String[] maps = {"maps/generic.tmx","maps/satanic.tmx"};
+        String[] maps = {"maps/generic.tmx","maps/satanic.tmx","maps/level1.tmx"};
         dungeonWidth = 10;
         dungeonHeight = 10;
         dungeonMapManager = new DungeonMapManager(maps,dungeonWidth,dungeonHeight,player);
