@@ -35,7 +35,15 @@ public class DungeonMapManager {
              randxDVD = new Random().nextInt(x);
              randyDVD = new Random().nextInt(y);
         }
+        int randxVHDL = new Random().nextInt(x);
+        int randyVHDL = new Random().nextInt(y);
+        while(xPos == randxVHDL && yPos == randyVHDL ||randxDVD == randxVHDL && randyDVD == randyVHDL )//avoid first room & duplicate boss
+        {
+            randxVHDL = new Random().nextInt(x);
+            randyVHDL= new Random().nextInt(y);
+        }
         dungeon[randxDVD][randyDVD].isDVDemon = true;
+        dungeon[randxVHDL][randyVHDL].isVHDL = true;
         setCurrentRoom(xPos,yPos,true);
         currentRoom.setHasBeenVisited();
     }

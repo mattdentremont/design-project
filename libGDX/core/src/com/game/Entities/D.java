@@ -15,7 +15,7 @@ public class D extends Enemy {
         super(posX, posY);
         this.sprite = new Sprite(new Texture(Gdx.files.internal("Bosses/D.png")));
         this.damageValue = 20;
-        this.maxHealth = 10;
+        this.maxHealth = 50;
         this.movementSpeed = 150f;
         this.movementPattern = new targetPlayer();
         this.attackPattern = new Contact();
