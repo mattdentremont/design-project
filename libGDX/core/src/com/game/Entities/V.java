@@ -4,18 +4,17 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.game.Behaviors.Contact;
-import com.game.Behaviors.WallBounce;
+import com.game.Behaviors.targetPlayer;
 
-public class DVDemon extends Enemy
-{
-    public DVDemon(float posX, float posY)
-    {
+public class V extends Enemy {
+
+    public V(float posX, float posY) {
         super(posX, posY);
-        this.sprite = new Sprite(new Texture(Gdx.files.internal("Bosses/DVDemon.png")));
+        this.sprite = new Sprite(new Texture(Gdx.files.internal("Bosses/V.png")));
         this.damageValue = 20;
         this.maxHealth = 10;
-        this.movementSpeed = 200f;
-        this.movementPattern = new WallBounce();
+        this.movementSpeed = 150f;
+        this.movementPattern = new targetPlayer();
         this.attackPattern = new Contact();
         this.currentHealth = this.maxHealth;
         this.posX = posX;
@@ -24,10 +23,8 @@ public class DVDemon extends Enemy
         this.sprite.setPosition(posX, posY);
         this.attackDelayCnt = 0;
         this.attackDelayTime = 0.5f;
-        this.heading = 4;
         this.isBoss = true;
     }
-
 
     @Override
     public void attack(Player player, float dt) {
@@ -39,15 +36,14 @@ public class DVDemon extends Enemy
     }
 
     @Override
-    public boolean takeDamage(int damageTaken)
-    {
+    public boolean takeDamage(int damageTaken) {
         this.currentHealth -= damageTaken;
-        if (this.currentHealth <= 0)
-        {
+        if (this.currentHealth <= 0){
             isDead = true;
             return true;
         }
-        else {
+        else
+        {
             return false;
         }
     }
@@ -68,14 +64,22 @@ public class DVDemon extends Enemy
     }
 
     @Override
-    public boolean checkDead()
-    {
+    public boolean checkDead() {
         return isDead;
     }
 
     @Override
-    public void setPosition(float x, float y)
-    {
+    public void setPosition(float x, float y) {
+        if(x<0 && flipSprite==false)
+        {
+            flipSprite = true;
+            sprite.flip(true,false);
+        }
+        else if(x>0 && flipSprite == true)
+        {
+            flipSprite = false;
+            sprite.flip(true,false);
+        }
         posX = x;
         posY = y;
         sprite.setPosition(posX,posY);

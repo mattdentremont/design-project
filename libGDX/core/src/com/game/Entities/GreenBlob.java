@@ -29,9 +29,10 @@ public class GreenBlob extends Enemy {
         this.sprite.setPosition(posX, posY);
         this.attackDelayCnt = 0;
         this.attackDelayTime = 1f;
+        this.isBoss = false;
     }
 
-    @Override //TODO: Implement Attack Delay
+    @Override
     public void attack(Player player, float dt) {
         this.attackDelayCnt += dt;
         if (this.attackDelayCnt >= this.attackDelayTime) {
