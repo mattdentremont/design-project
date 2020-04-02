@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.game.Animation.Animation;
 import com.game.Entities.Enemy;
 import com.game.Entities.Item;
 import com.game.Entities.Player;
@@ -19,7 +21,6 @@ public class GameInputProcessor extends InputAdapter {
     public static int HEIGHT;
     public  float speed;
     private ArrayList<Enemy> enemyList;
-    public Texture attackTexture;
 
     public boolean usedRedBull;
     private float RedBullTimer;
@@ -29,8 +30,17 @@ public class GameInputProcessor extends InputAdapter {
     private float BeerEffectLength;
     private float RedBullEffectLength;
 
+    public Animation attackAnimation;
+    private Texture attackTexture;
+    private float attackDuration;
+    private float attackCnt;
+    private boolean attacked;
+    private boolean attacking;
+
    public GameInputProcessor(Player player, GameStateManager gsm, escapeGame game, ArrayList<Enemy> enemyList)
     {
+        this.attackTexture = new Texture("Attack-Sheet.png");
+        this.attackAnimation = new Animation(new TextureRegion(attackTexture), 4, 0.2f);
         this.player = player;
         this.speed = player.speed;
         this.gsm = gsm;
@@ -42,6 +52,10 @@ public class GameInputProcessor extends InputAdapter {
         this.usedRedBull = false;
         this.BeerEffectLength = 10f;
         this.RedBullEffectLength = 10f;
+        this.attackDuration = 0.2f;
+        this.attackCnt = 0;
+        this.attacked = false;
+        this.attacking = false;
     }
 
     public void movePlayer(float dt)
@@ -82,10 +96,12 @@ public class GameInputProcessor extends InputAdapter {
             if(player.getPosY() >= 0)
                 player.translatePlayer(0,-speed*dt);
         }
+
+
+        //ATTACKING
         if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT))//ATTACK RIGHT
         {
-//            attackTexture = new Texture(Gdx.files.internal("PRight.png"));
-//            player.sprite.setTexture(attackTexture);
+            this.attacked = true;
             for(Enemy x: enemyList) {
                 if((x.getPosX()>=player.getPosX()) &&x.getPosX() <= player.getPosX() +75f)
                 {
@@ -94,8 +110,9 @@ public class GameInputProcessor extends InputAdapter {
                 }
             }
         }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT))//ATTACK LEFT
+        else if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT))//ATTACK LEFT
         {
+            this.attacked = true;
             for(Enemy x: enemyList) {
                 if((x.getPosX()<=player.getPosX()) && x.getPosX() >= player.getPosX() -75f)
                 {
@@ -104,8 +121,9 @@ public class GameInputProcessor extends InputAdapter {
                 }
             }
         }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.UP))//ATTACK UP
+        else if(Gdx.input.isKeyJustPressed(Input.Keys.UP))//ATTACK UP
         {
+            this.attacked = true;
             for(Enemy x: enemyList) {
                 if((x.getPosY()>=player.getPosY()) &&x.getPosY() <= player.getPosY() +75f)
                 {
@@ -114,8 +132,9 @@ public class GameInputProcessor extends InputAdapter {
                 }
             }
         }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN))//ATTACK DOWN
+        else if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN))//ATTACK DOWN
         {
+            this.attacked = true;
             for(Enemy x: enemyList) {
                 if((x.getPosY()<=player.getPosY()) && x.getPosY() >= player.getPosY() -75f)
                 {
@@ -124,6 +143,14 @@ public class GameInputProcessor extends InputAdapter {
                 }
             }
         }
+        else if(attacking == false){
+            player.playerAnimation.update(dt);
+            player.sprite.setRegion(player.playerAnimation.getFrame());
+            this.attacked = false;
+        }
+        attackManager(dt);
+
+
         if(Gdx.input.isKeyJustPressed(Input.Keys.F) && player.canUlt())//ULT
         {
             for(Enemy x: enemyList) {
@@ -177,6 +204,21 @@ public class GameInputProcessor extends InputAdapter {
             }
 
         }
+    }
+
+    public void attackManager(float dt){
+       if(this.attacked == true) {
+           this.attackCnt += dt;
+           if (this.attackCnt < this.attackDuration) {
+               attackAnimation.update(dt);
+               player.sprite.setRegion(attackAnimation.getFrame());
+               this.attacking = true;
+           }
+           else if (this.attackCnt >= this.attackDuration) {
+               this.attackCnt = 0;
+               this.attacking = false;
+           }
+       }
     }
 
     public boolean checkUsedRedBull()
