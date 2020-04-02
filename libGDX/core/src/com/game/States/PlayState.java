@@ -26,6 +26,8 @@ public class PlayState extends GameState{
     private Texture playerTexture;
     private Player player;
     private Preferences prefs;
+    private int dungeonWidth;
+    private int dungeonHeight;
 
     public Enemy boss;
     public DungeonMapManager dungeonMapManager;
@@ -49,7 +51,9 @@ public class PlayState extends GameState{
         WIDTH = game.WIDTH;
         HEIGHT = game.HEIGHT;
         String[] maps = {"maps/generic.tmx","maps/satanic.tmx"};
-        dungeonMapManager = new DungeonMapManager(maps,10,10,player);
+        this.dungeonWidth = 1;
+        this.dungeonHeight = 2;
+        dungeonMapManager = new DungeonMapManager(maps,dungeonWidth,dungeonHeight,player);
         currentRoom = dungeonMapManager.getCurrentRoom();
         mapManager = new TiledMapManager(currentRoom.mapName,game,player);
         inputProcessor = new GameInputProcessor(player,this.gsm,game,mapManager.getEnemyList());
@@ -119,6 +123,9 @@ public class PlayState extends GameState{
         if(player.checkDead()){
             gsm.playerDied(gsm.getCurrentState());
             deathSound.play(1.0f);
+        }
+        if(player.roomsVisited == dungeonHeight*dungeonWidth && enemies.size() == 0){
+            gsm.playerWon(gsm.getCurrentState());
         }
         cam.update();
         mapManager.updateCam();
