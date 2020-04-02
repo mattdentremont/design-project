@@ -46,7 +46,7 @@ public class Player extends Character {
         this.roomsVisited = 1;
         this.enemiesDefeated = 0;
         this.inventory = new Item[2];
-        this.hasKey = true;
+        this.hasKey = false;
     }
 
 

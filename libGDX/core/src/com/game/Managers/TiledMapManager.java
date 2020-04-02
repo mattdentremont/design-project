@@ -32,6 +32,7 @@ public class TiledMapManager {
     private MapLayer EnemySpawns;
     private ArrayList<Enemy> enemies;
     private ArrayList<Item> items;
+    private boolean spawnedKey;
 
 
 
@@ -49,6 +50,7 @@ public class TiledMapManager {
         EnemySpawns = map.getLayers().get("EnemySpawns");
         enemies = new ArrayList<>();
         items = new ArrayList<>();
+        spawnedKey = false;
        // spawnEnemies();
     }
 
@@ -70,6 +72,8 @@ public class TiledMapManager {
         Doors = map.getLayers().get("Doors");
         EnemySpawns = map.getLayers().get("EnemySpawns");
         if(dungeon.getCurrentRoom().hasBeenVisited == false) {
+            player.setKey(false);
+            spawnedKey = false;
             spawnItems();
             player.regenHealth(10);
             if(player.getRoomsVisited() > 10)
@@ -198,7 +202,7 @@ public class TiledMapManager {
 
     public void checkDoors(DungeonMapManager dungeonMapManager)
     {
-        if(enemies.size() == 0) {
+        if(enemies.size() == 0 && player.checkKey()) {
             if (dungeon == null) {
                 this.dungeon = dungeonMapManager;
             }
@@ -236,6 +240,10 @@ public class TiledMapManager {
                     changeRoom(dungeonMapManager.getCurrentRoom().mapName, "RIGHT");
                 }
             } else return;
+        }
+        else if(enemies.size() == 0 &&!spawnedKey){
+            items.add(new Key(player,WIDTH/2-40,HEIGHT/2));
+            spawnedKey = true;
         }
     }
 

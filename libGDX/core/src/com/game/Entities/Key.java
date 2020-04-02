@@ -11,6 +11,7 @@ public class Key extends Item {
         this.sprite = new Sprite(new Texture("Key.png"));
         this.player = player;
         this.type = "KEY";
+        this.isPickedUp = false;
         this.sprite.setPosition(posX,posY);
     }
     @Override
