@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.game.Entities.Beer;
 import com.game.Entities.Item;
 import com.game.Entities.Player;
 import com.game.main.escapeGame;
@@ -38,7 +37,7 @@ public class UI {
     {
         String Score = Integer.toString(player.getScore());
         String Health = Integer.toString(player.getHealth());
-        String damage = Integer.toString(player.damage);
+        //String damage = Integer.toString(player.damage);
         String roomsVisited = Integer.toString(player.getRoomsVisited());
         String enemiesDefeated = Integer.toString(player.getEnemiesDefeated());
         String toPrint = "Score:" + Score +" Health:" + Health;
@@ -91,6 +90,7 @@ public class UI {
         float fontHeight3 = layout.height;
         font.draw(sb,toPrint3,0,escapeGame.HEIGHT - fontHeight3-15);
 
+        //draw ult percentage
         layout.setText(font,Ult);
         float fontWidthUlt = layout.width;
         float fontHeightUlt = layout.height;

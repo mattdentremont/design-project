@@ -72,6 +72,11 @@ public class GameStateManager {
         currentState = new DeadState(this,currentGameState,currentGameState.getPlayer(), currentGameState.getEnemies(), currentGameState.getHUD(), currentGameState.getmapManager());
     }
 
+    public void playerWon(GameState currentGameState)
+    {
+        currentState = new WinnerState(this,currentGameState,currentGameState.getPlayer(), currentGameState.getEnemies(), currentGameState.getHUD(), currentGameState.getmapManager());
+    }
+
 
     public void unpauseGame(GameState desiredState)
     {
