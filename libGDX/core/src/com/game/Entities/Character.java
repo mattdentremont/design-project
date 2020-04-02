@@ -1,5 +1,6 @@
 package com.game.Entities;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
@@ -11,9 +12,11 @@ public abstract class Character {
     public int posY;
     public Sprite sprite;
     boolean isDead;
+    private Texture texture;
 
-    Character(Texture texture, float speed, int damage, int health,int posX, int posY)
+    Character(String texturePath, float speed, int damage, int health,int posX, int posY)
     {
+        this.texture = new Texture(Gdx.files.internal(texturePath));
         this.sprite = new Sprite(texture);
         this.speed = speed;
         this.damage= damage;
