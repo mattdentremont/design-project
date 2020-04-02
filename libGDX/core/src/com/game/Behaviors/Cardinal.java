@@ -1,31 +1,41 @@
-//package com.game.Behaviors;
-//
-//import com.badlogic.gdx.graphics.g2d.Sprite;
-//import com.badlogic.gdx.math.Rectangle;
-//import com.game.Entities.Enemy;
-//
-//public class Cardinal extends Attack {
-//
-//    public Cardinal(){
-//
-//    }
+package com.game.Behaviors;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.game.Behaviors.AI;
+import com.game.Entities.Enemy;
+import com.game.Entities.Player;
+import com.game.main.escapeGame;
 
-//    @Override
-//    public boolean attack(Sprite attacker, String direction) {
-//        float attackerX = attacker.getOriginX();
-//        float attackerY = attacker.getOriginY();
-//        float attackerH = attacker.getHeight();
-//        float attackerW = attacker.getWidth();
-//        float attackHitbox;
-//        if(direction == "RIGHT")
-//        {
-//            attackHitbox = attackerY + (1.5f*attackerW);
-//        }
-//        else if(direction == "LEFT")
-//        {
-//            attackHitbox = attackerY - (1.5f*attackerW);
-//        }
-//        }
-//    }
-//}
+import java.util.Random;
+
+public class Cardinal extends AI {
+
+    public Cardinal(){
+
+    }
+
+    @Override
+    public void move(Enemy enemy, Player player, float movementSpeed, float dt) {
+        float myX = enemy.getPosX();
+        float myY = enemy.getPosY();
+        float mul = movementSpeed*dt;
+
+        int randInt = enemy.randRoll;
+        //Down?
+        if((randInt == 4) && (myY > 0)){
+            enemy.setPosition(myX, myY - mul);
+        }
+        else if((randInt == 3) && (myY < (escapeGame.HEIGHT - enemy.sprite.getHeight()))){ //Up
+            enemy.setPosition(myX, myY + mul);
+        }
+        else if((randInt == 2) && (myX < (escapeGame.WIDTH - enemy.sprite.getWidth()))){ //Right
+            enemy.setPosition(myX + mul, myY);
+        }
+        else if((randInt==1) && (myX > 0)){
+            enemy.setPosition(myX - mul, myY);
+        }
+        else {
+            enemy.setPosition(myX, myY);
+        }
+    }
+}

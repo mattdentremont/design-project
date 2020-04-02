@@ -18,6 +18,9 @@ public abstract class Enemy {
     public boolean flipSprite;
     public float attackDelayCnt;
     public float attackDelayTime;
+    public float moveDelayCnt;
+    public float moveDelayTime;
+    public int randRoll;
     public int heading;
     public boolean isBoss;
 

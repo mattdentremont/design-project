@@ -3,8 +3,11 @@ package com.game.Entities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.game.Behaviors.Cardinal;
 import com.game.Behaviors.Contact;
 import com.game.Behaviors.targetPlayer;
+
+import java.util.Random;
 
 public class V extends Enemy {
 
@@ -23,6 +26,8 @@ public class V extends Enemy {
         this.sprite.setPosition(posX, posY);
         this.attackDelayCnt = 0;
         this.attackDelayTime = 0.5f;
+        this.moveDelayCnt = 0;
+        this.moveDelayTime = 1f;
         this.isBoss = true;
     }
 
@@ -50,6 +55,11 @@ public class V extends Enemy {
 
     @Override
     public void move(Player player, float movementSpeed, float dt) {
+        this.moveDelayCnt += dt;
+        if(this.moveDelayCnt >= this.moveDelayTime) {
+            this.randRoll = new Random().nextInt(5);
+            this.moveDelayCnt = 0;
+        }
         this.movementPattern.move(this, player, this.movementSpeed, dt);
     }
 
