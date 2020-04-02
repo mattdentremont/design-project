@@ -23,6 +23,7 @@ public class Player extends Character {
     public int normalHealth;
 
     private Item[] inventory;
+    private float ultTimer;
 
     public Player(Texture texture, float speed, int damage, int health,int posX,int posY)
     {
@@ -88,6 +89,29 @@ public class Player extends Character {
             health+=healthAdded;
         else
             health = maxHealth;
+    }
+
+    public void incrementUltCharge(float inc)
+    {
+        this.ultTimer+=inc;
+        if(ultTimer > 60)
+            ultTimer = 60;
+    }
+    public void resetUlt()
+    {
+        this.ultTimer = 0;
+    }
+
+    public float getUltCharge()
+    {
+        return this.ultTimer/60*100;
+    }
+
+    public boolean canUlt()
+    {
+        if(ultTimer >=60)
+            return true;
+        else return false;
     }
 
     public void setPosition(float x, float y)

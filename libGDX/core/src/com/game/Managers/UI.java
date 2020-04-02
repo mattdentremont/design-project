@@ -41,10 +41,11 @@ public class UI {
         String damage = Integer.toString(player.damage);
         String roomsVisited = Integer.toString(player.getRoomsVisited());
         String enemiesDefeated = Integer.toString(player.getEnemiesDefeated());
-        String toPrint = "Score:" + Score +" Health:" + Health + " Damage:"+damage;
+        String toPrint = "Score:" + Score +" Health:" + Health;
         String toPrint2 = "Rooms Visited:" + roomsVisited + " Enemies Defeated: " + enemiesDefeated;
         String toPrint3 = "Inventory: ";
         String empty = "Empty";
+        String Ult = "Ultimate Charge(F):" + Integer.toString((int)player.getUltCharge()) + "%";
 
         //get Player Inventory
         Item[] playerInventory = player.getInventory();
@@ -89,6 +90,11 @@ public class UI {
         float fontWidth3 = layout.width;
         float fontHeight3 = layout.height;
         font.draw(sb,toPrint3,0,escapeGame.HEIGHT - fontHeight3-15);
+
+        layout.setText(font,Ult);
+        float fontWidthUlt = layout.width;
+        float fontHeightUlt = layout.height;
+        font.draw(sb,Ult,escapeGame.WIDTH/2-fontWidthUlt/2,escapeGame.HEIGHT - fontHeightUlt-10);
 
         //Print Counters For consumable effects
         if(ip.checkUsedBeer() || ip.checkUsedRedBull())

@@ -106,9 +106,11 @@ public class PlayState extends GameState{
                 if(x.isBoss)
                 {
                     player.incrementScore(100);
+                    player.incrementUltCharge(60);
                 }
                 else {
                     player.incrementScore(10);
+                    player.incrementUltCharge(1);
                 }
                 player.enemiesDefeated++;
             }
