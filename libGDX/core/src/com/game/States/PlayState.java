@@ -43,6 +43,7 @@ public class PlayState extends GameState{
     public GameInputProcessor inputProcessor;
     public TiledMapManager mapManager;
     public UI HUD;
+
     public PlayState(GameStateManager gsm, String t, float s, int h, int d)
     {
         super(gsm);
@@ -62,8 +63,8 @@ public class PlayState extends GameState{
         WIDTH = game.WIDTH;
         HEIGHT = game.HEIGHT;
         String[] maps = {"maps/generic.tmx","maps/satanic.tmx"};
-        dungeonWidth = 10;
-        dungeonHeight = 10;
+        dungeonWidth = 3;
+        dungeonHeight = 1;
         dungeonMapManager = new DungeonMapManager(maps,dungeonWidth,dungeonHeight,player);
         currentRoom = dungeonMapManager.getCurrentRoom();
         mapManager = new TiledMapManager(currentRoom.mapName,game,player);
@@ -89,11 +90,17 @@ public class PlayState extends GameState{
 
 
         for (Enemy x :enemies){
+
             x.move(player,x.movementSpeed,dt);
             x.attack(player, dt);
             if(x.hasProjectiles)
             {
                 x.getProjectiles(dt);
+            }
+            if(x.hasAnimation == true)
+            {
+                x.enemyAnimation.update(dt);
+                x.sprite.setRegion(x.enemyAnimation.getFrame());
             }
         }
         for(Item x : items){

@@ -3,6 +3,8 @@ package com.game.Entities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.game.Animation.Animation;
 import com.game.Behaviors.Cardinal;
 import com.game.Behaviors.Contact;
 import com.game.Behaviors.targetPlayer;
@@ -14,8 +16,9 @@ public class L extends Enemy {
 
     public L(float posX, float posY) {
         super(posX, posY,0);
-        this.sprite = new Sprite(new Texture(Gdx.files.internal("Bosses/L.png")));
-        this.damageValue = 20;
+        this.texture = new Texture(Gdx.files.internal("Bosses/L-Sheet.png"));
+        this.enemyAnimation = new Animation(new TextureRegion(texture),2,0.5f);
+        this.sprite = new Sprite(enemyAnimation.getFrame());        this.damageValue = 20;
         this.maxHealth = 50;
         this.movementSpeed = 150f;
         this.movementPattern = new Cardinal();
@@ -30,6 +33,7 @@ public class L extends Enemy {
         this.moveDelayCnt = 0;
         this.moveDelayTime = 0.5f;
         this.isBoss = true;
+        this.hasAnimation = true;
     }
 
     @Override
