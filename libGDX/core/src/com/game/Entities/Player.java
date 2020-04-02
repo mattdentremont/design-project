@@ -32,8 +32,8 @@ public class Player extends Character {
 
     public Animation playerAnimation;
     private Texture texture;
-    private Sound keyPickup = Gdx.audio.newSound(Gdx.files.internal("key.mp3"));
-    private Sound beerPickup = Gdx.audio.newSound(Gdx.files.internal("beerPickup.mp3"));
+    private Sound keyPickup = Gdx.audio.newSound(Gdx.files.internal("sounds/key.mp3"));
+    private Sound beerPickup = Gdx.audio.newSound(Gdx.files.internal("sounds/beerPickup.mp3"));
 
 
     public Player(String texturePath, float speed, int damage, int health,int posX,int posY)

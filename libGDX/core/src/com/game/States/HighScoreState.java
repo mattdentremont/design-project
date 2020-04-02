@@ -49,7 +49,7 @@ public class HighScoreState extends GameState {
         prefs = Gdx.app.getPreferences("GameStorage");
         menuTexture = new Texture(Gdx.files.internal("menuBackground.jpg"));
         menuSprite = new Sprite(menuTexture);
-        music = Gdx.audio.newMusic(Gdx.files.internal("menuMusic.mp3"));
+        music = Gdx.audio.newMusic(Gdx.files.internal("sounds/menuMusic.mp3"));
         music.setLooping(true);
         music.setVolume(.2f);
         music.play();

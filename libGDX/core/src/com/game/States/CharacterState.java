@@ -72,7 +72,7 @@ public class CharacterState extends GameState {
         p2Sprite = new Sprite(p2Texture);
         p2Sprite.setPosition(2*(escapeGame.WIDTH/3) - (p2Sprite.getWidth()/2),  escapeGame.HEIGHT/2);
         p2Sprite.setScale(0.5f);
-        music = Gdx.audio.newMusic(Gdx.files.internal("menuMusic.mp3"));
+        music = Gdx.audio.newMusic(Gdx.files.internal("sounds/menuMusic.mp3"));
         music.setLooping(true);
         music.setVolume(.2f);
         music.play();

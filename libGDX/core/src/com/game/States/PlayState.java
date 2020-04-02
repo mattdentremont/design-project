@@ -51,7 +51,7 @@ public class PlayState extends GameState{
     }
     private Sprite menuSprite;
     private Music music;
-    private Sound deathSound = Gdx.audio.newSound(Gdx.files.internal("bigOof.mp3"));
+    private Sound deathSound = Gdx.audio.newSound(Gdx.files.internal("sounds/bigOof.mp3"));
 
     @Override
     public void init() {
@@ -71,7 +71,7 @@ public class PlayState extends GameState{
         cam = game.cam;
         HUD = new UI(player,cam,inputProcessor);
         prefs = Gdx.app.getPreferences("GameStorage");
-        music = Gdx.audio.newMusic(Gdx.files.internal("Doom.mp3"));
+        music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Doom.mp3"));
         music.setLooping(true);
         music.setVolume(.2f);
         music.play();

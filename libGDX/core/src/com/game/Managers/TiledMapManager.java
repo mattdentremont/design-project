@@ -35,7 +35,7 @@ public class TiledMapManager {
     private ArrayList<Enemy> enemies;
     private ArrayList<Item> items;
     private boolean spawnedKey;
-    private Sound doorSound = Gdx.audio.newSound(Gdx.files.internal("door_lock.mp3"));
+    private Sound doorSound = Gdx.audio.newSound(Gdx.files.internal("sounds/door_lock.mp3"));
 
 
 

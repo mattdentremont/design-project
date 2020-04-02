@@ -37,7 +37,7 @@ public class GameInputProcessor extends InputAdapter {
     private float attackCnt;
     private boolean attacked;
     private boolean attacking;
-    private Sound beerDrink = Gdx.audio.newSound(Gdx.files.internal("beerDrink.mp3"));
+    private Sound beerDrink = Gdx.audio.newSound(Gdx.files.internal("sounds/beerDrink.mp3"));
 
    public GameInputProcessor(Player player, GameStateManager gsm, escapeGame game, ArrayList<Enemy> enemyList)
     {

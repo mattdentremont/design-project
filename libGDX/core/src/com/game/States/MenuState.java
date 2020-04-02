@@ -51,7 +51,7 @@ public class MenuState extends GameState {
         menuItems = new String[] {"Play Game", "Highscores", "Quit"};
         menuTexture = new Texture(Gdx.files.internal("menuBackground.jpg"));
         menuSprite = new Sprite(menuTexture);
-        music = Gdx.audio.newMusic(Gdx.files.internal("menuMusic.mp3"));
+        music = Gdx.audio.newMusic(Gdx.files.internal("sounds/menuMusic.mp3"));
         music.setLooping(true);
         music.setVolume(.2f);
         music.play();
