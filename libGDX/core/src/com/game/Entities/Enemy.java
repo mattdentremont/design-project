@@ -2,7 +2,9 @@ package com.game.Entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.game.Animation.Animation;
 import com.game.Behaviors.AI;
 import com.game.Behaviors.Attack;
 
@@ -29,6 +31,9 @@ public abstract class Enemy {
     public boolean isBoss;
     public boolean hasProjectiles;
     public Sound gotHitSound = Gdx.audio.newSound(Gdx.files.internal("sounds/hitEnemy.mp3"));
+    public Animation enemyAnimation;
+    public Texture texture;
+    public boolean hasAnimation;
 
     Enemy(float posX, float posY,double balancer)
     {
@@ -38,6 +43,7 @@ public abstract class Enemy {
         this.flipSprite = false;
         this.isBoss = false;
         this.hasProjectiles = false;
+        this.hasAnimation = false;
     }
     public abstract void attack(Player player, float dt);
 

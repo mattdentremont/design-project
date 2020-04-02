@@ -3,7 +3,6 @@ package com.game.Entities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
-//import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.game.Animation.*;
@@ -237,9 +236,4 @@ public class Player extends Character {
             this.health = normalHealth;
     }
 
-
-
-//    public void ult(float dt){
-//
-//    }
 }
