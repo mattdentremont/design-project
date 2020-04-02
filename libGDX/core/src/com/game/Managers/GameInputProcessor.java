@@ -39,8 +39,6 @@ public class GameInputProcessor extends InputAdapter {
 
    public GameInputProcessor(Player player, GameStateManager gsm, escapeGame game, ArrayList<Enemy> enemyList)
     {
-        this.attackTexture = new Texture("Attack-Sheet.png");
-        this.attackAnimation = new Animation(new TextureRegion(attackTexture), 4, 0.2f);
         this.player = player;
         this.speed = player.speed;
         this.gsm = gsm;
@@ -102,6 +100,8 @@ public class GameInputProcessor extends InputAdapter {
         if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT))//ATTACK RIGHT
         {
             this.attacked = true;
+            this.attackTexture = new Texture("AttackRight-Sheet.png");
+            this.attackAnimation = new Animation(new TextureRegion(attackTexture), 2, 0.2f);
             for(Enemy x: enemyList) {
                 if((x.getPosX()>=player.getPosX()) &&x.getPosX() <= player.getPosX() +75f)
                 {
@@ -113,6 +113,8 @@ public class GameInputProcessor extends InputAdapter {
         else if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT))//ATTACK LEFT
         {
             this.attacked = true;
+            this.attackTexture = new Texture("AttackLeft-Sheet.png");
+            this.attackAnimation = new Animation(new TextureRegion(attackTexture), 2, 0.2f);
             for(Enemy x: enemyList) {
                 if((x.getPosX()<=player.getPosX()) && x.getPosX() >= player.getPosX() -75f)
                 {
@@ -124,6 +126,8 @@ public class GameInputProcessor extends InputAdapter {
         else if(Gdx.input.isKeyJustPressed(Input.Keys.UP))//ATTACK UP
         {
             this.attacked = true;
+            this.attackTexture = new Texture("AttackUp-Sheet.png");
+            this.attackAnimation = new Animation(new TextureRegion(attackTexture), 2, 0.2f);
             for(Enemy x: enemyList) {
                 if((x.getPosY()>=player.getPosY()) &&x.getPosY() <= player.getPosY() +75f)
                 {
@@ -135,6 +139,8 @@ public class GameInputProcessor extends InputAdapter {
         else if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN))//ATTACK DOWN
         {
             this.attacked = true;
+            this.attackTexture = new Texture("AttackDown-Sheet1.png");
+            this.attackAnimation = new Animation(new TextureRegion(attackTexture), 2, 0.2f);
             for(Enemy x: enemyList) {
                 if((x.getPosY()<=player.getPosY()) && x.getPosY() >= player.getPosY() -75f)
                 {
