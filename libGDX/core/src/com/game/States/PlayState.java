@@ -49,7 +49,7 @@ public class PlayState extends GameState{
         WIDTH = game.WIDTH;
         HEIGHT = game.HEIGHT;
         String[] maps = {"maps/generic.tmx","maps/satanic.tmx"};
-        dungeonMapManager = new DungeonMapManager(maps,10,10,player);//225 dungeon rooms total.
+        dungeonMapManager = new DungeonMapManager(maps,10,10,player);
         currentRoom = dungeonMapManager.getCurrentRoom();
         mapManager = new TiledMapManager(currentRoom.mapName,game,player);
         inputProcessor = new GameInputProcessor(player,this.gsm,game,mapManager.getEnemyList());

@@ -4,12 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.game.Entities.Beer;
 import com.game.Entities.Enemy;
 import com.game.Entities.Item;
 import com.game.Entities.Player;
-import com.game.States.GameState;
 import com.game.main.escapeGame;
 
 import java.util.ArrayList;
