@@ -1,7 +1,10 @@
 package com.game.Entities;
 
 import com.badlogic.gdx.graphics.Texture;
+//import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.game.Animation.*;
 
 public class Player extends Character {
     public Sprite sprite;
@@ -25,10 +28,16 @@ public class Player extends Character {
     private float ultTimer;
     private boolean hasKey;
 
-    public Player(Texture texture, float speed, int damage, int health,int posX,int posY)
+    public Animation playerAnimation;
+    private Texture texture;
+
+
+    public Player(String texturePath, float speed, int damage, int health,int posX,int posY)
     {
-        super(texture, speed, damage, health,posX,posY);
-        this.sprite = new Sprite(texture);
+        super(texturePath, speed, damage, health,posX,posY);
+        this.texture = new Texture(texturePath);
+        this.playerAnimation = new Animation(new TextureRegion(texture), 2, 0.5f);
+        this.sprite = new Sprite(playerAnimation.getFrame());
         this.sprite.setScale(2);
         this.normalDamage = damage;
         this.damage= damage;
@@ -217,6 +226,7 @@ public class Player extends Character {
         if(health > normalHealth)
             this.health = normalHealth;
     }
+
 
 
 //    public void ult(float dt){

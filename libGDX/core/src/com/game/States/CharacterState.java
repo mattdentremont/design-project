@@ -58,13 +58,13 @@ public class CharacterState extends GameState {
         charsFont.setColor(Color.WHITE);
         charsFont.getData().setScale(2);
         font.setColor(Color.WHITE);
-        menuItems = new String[] {"Dingus", "Jim"};
+        menuItems = new String[] {"The Student", "Jim"};
         damages = new String[] {"Damage: 10", "Damage: 5"};
         speeds = new String[] {"Speed: 100", "Speed: 100"};
         healths = new String[] {"Health: 100", "Health: 150"};
         menuTexture = new Texture(Gdx.files.internal("menuBackground.jpg"));
         menuSprite = new Sprite(menuTexture);
-        p1Texture = new Texture(Gdx.files.internal("Protag.png"));
+        p1Texture = new Texture(Gdx.files.internal("TheStudentStill.png"));
         p1Sprite = new Sprite(p1Texture);
         p1Sprite.setPosition((escapeGame.WIDTH/3) + (p1Sprite.getWidth()/2),  escapeGame.HEIGHT/2);
         p1Sprite.setScale(2f);
@@ -140,10 +140,10 @@ public class CharacterState extends GameState {
 
     private void charSelect(){
         if(currentItem == 0) {
-            gsm.setPlayState("Protag.png", 200, 100, 10);
+            gsm.setPlayState("TheStudent-Sheet.png", 200, 100, 10);
         }
         else if(currentItem == 1) {
-            gsm.setPlayState("Jim.png", 250, 150, 5);
+            gsm.setPlayState("TheStudent-Sheet.png", 250, 150, 5);
         }
 //        else if(currentItem == 2) {
 //            gsm.setState(GameStateManager.MENU);

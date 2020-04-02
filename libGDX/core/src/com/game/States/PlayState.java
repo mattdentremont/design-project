@@ -86,6 +86,7 @@ public class PlayState extends GameState{
         Rectangle playerHitBox = player.sprite.getBoundingRectangle();
         Item toPickup = null;
 
+
         for (Enemy x :enemies){
             x.move(player,x.movementSpeed,dt);
             x.attack(player, dt);
@@ -144,7 +145,10 @@ public class PlayState extends GameState{
         }
         cam.update();
         mapManager.updateCam();
+
+        //Handles Animations for attacks now too
         handleInput(dt);
+
     }
 
     @Override
@@ -168,6 +172,7 @@ public class PlayState extends GameState{
 
     @Override
     public void handleInput(float dt) {
+
         inputProcessor.movePlayer(dt);
     }
 
@@ -214,7 +219,7 @@ public class PlayState extends GameState{
     }
 
     public void playerConstructor(String p, float s, int h, int d){
-        playerTexture = new Texture(Gdx.files.internal(p));
-        player = new Player(playerTexture,s,d,h,WIDTH/2,HEIGHT/2);
+        //playerTexture = new Texture(Gdx.files.internal(p));
+        player = new Player(p,s,d,h,WIDTH/2,HEIGHT/2);
     }
 }
