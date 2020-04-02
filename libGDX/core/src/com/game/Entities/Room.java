@@ -7,6 +7,7 @@ public class Room {
     public boolean hasBeenVisited;
     public boolean isDVDemon;
     public boolean isVHDL;
+    public boolean isProjectileEnemy;
 
    public Room(String  map)
     {
@@ -14,6 +15,7 @@ public class Room {
         this.hasBeenVisited = false;
         this.isDVDemon = false;
         this.isVHDL = false;
+        this.isProjectileEnemy = false;
     }
 
     public void setHasBeenVisited()

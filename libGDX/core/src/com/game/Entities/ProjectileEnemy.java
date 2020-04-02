@@ -4,40 +4,66 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.game.Behaviors.Cardinal;
-import com.game.Behaviors.Contact;
-import com.game.Behaviors.targetPlayer;
+import com.game.Behaviors.Shoot;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class H extends Enemy {
+public class ProjectileEnemy extends Enemy{
 
-    public H(float posX, float posY) {
-        super(posX, posY,0);
-        this.sprite = new Sprite(new Texture(Gdx.files.internal("Bosses/H.png")));
-        this.damageValue = 20;
-        this.maxHealth = 50;
-        this.movementSpeed = 150f;
+    ArrayList<Projectile> projectiles;
+    ArrayList<Projectile> temp;
+
+    public ProjectileEnemy(float posX, float posY) {
+        super(posX, posY, 0);
+        this.sprite = new Sprite(new Texture(Gdx.files.internal("Bosses/V.png")));
+        this.damageValue = 5;
+        this.maxHealth = 30;
+        this.movementSpeed = 100f;
         this.movementPattern = new Cardinal();
-        this.attackPattern = new Contact();
+        this.attackPattern = new Shoot();
         this.currentHealth = this.maxHealth;
         this.posX = posX;
         this.posY = posY;
         this.isDead = false;
         this.sprite.setPosition(posX, posY);
         this.attackDelayCnt = 0;
-        this.attackDelayTime = 0.5f;
-        this.moveDelayCnt = 0;
-        this.moveDelayTime = 0.5f;
+        this.attackDelayTime = 1f;
+        this.heading = 4;
         this.isBoss = true;
+        this.hasProjectiles = true;
+        this.projectiles = new ArrayList<>();
+        this.temp = new ArrayList<>();
     }
 
     @Override
     public void attack(Player player, float dt) {
         this.attackDelayCnt += dt;
         if (this.attackDelayCnt >= this.attackDelayTime) {
-            this.attackPattern.attack(player, this);
+            projectiles.add(this.attackPattern.shoot(player, this));//add new projectile to arraylist
             this.attackDelayCnt = 0;
+        }
+    }
+
+    @Override
+    public ArrayList<Projectile> getProjectiles(float dt)
+    {
+        if(dt == 0)
+        {
+            return this.projectiles;
+        }
+        else {
+            for (Projectile x : projectiles) {
+                x.update(dt);
+            }
+/*
+             temp = projectiles;
+            for(Projectile x : temp)
+            {
+                if(x.checkHit())
+                    projectiles.remove(x);
+            }*/
+            return this.projectiles;
         }
     }
 
@@ -62,11 +88,7 @@ public class H extends Enemy {
             this.moveDelayCnt = 0;
         }
         this.movementPattern.move(this, player, this.movementSpeed, dt);
-    }
 
-    @Override
-    public ArrayList<Projectile> getProjectiles(float dt) {
-        return null;
     }
 
     @Override

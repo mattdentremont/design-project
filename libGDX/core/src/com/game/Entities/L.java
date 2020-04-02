@@ -7,6 +7,7 @@ import com.game.Behaviors.Cardinal;
 import com.game.Behaviors.Contact;
 import com.game.Behaviors.targetPlayer;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class L extends Enemy {
@@ -61,6 +62,11 @@ public class L extends Enemy {
             this.moveDelayCnt = 0;
         }
         this.movementPattern.move(this, player, this.movementSpeed, dt);
+    }
+
+    @Override
+    public ArrayList<Projectile> getProjectiles(float dt) {
+        return null;
     }
 
     @Override

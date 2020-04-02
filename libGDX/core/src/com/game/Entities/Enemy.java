@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.game.Behaviors.AI;
 import com.game.Behaviors.Attack;
 
+import java.util.ArrayList;
+
 public abstract class Enemy {
     public int damageValue;
     public int maxHealth;
@@ -23,6 +25,7 @@ public abstract class Enemy {
     public int randRoll;
     public int heading;
     public boolean isBoss;
+    public boolean hasProjectiles;
 
     Enemy(float posX, float posY,double balancer)
     {
@@ -31,12 +34,14 @@ public abstract class Enemy {
         this.isDead = false;
         this.flipSprite = false;
         this.isBoss = false;
+        this.hasProjectiles = false;
     }
     public abstract void attack(Player player, float dt);
 
     public abstract boolean takeDamage(int damageTaken);
 
     public abstract void move(Player player, float movementSpeed, float dt);
+    public abstract ArrayList<Projectile> getProjectiles(float dt);
 
     public abstract float getPosX();
 

@@ -2,6 +2,7 @@ package com.game.Behaviors;
 
 import com.game.Entities.Enemy;
 import com.game.Entities.Player;
+import com.game.Entities.Projectile;
 
 public class Contact extends Attack
 {
@@ -13,5 +14,10 @@ public class Contact extends Attack
         if(attacker.sprite.getBoundingRectangle().overlaps(player.sprite.getBoundingRectangle())) {
             player.gotHit(attacker.damageValue);
         }
+    }
+
+    @Override
+    public Projectile shoot(Player player, Enemy attacker) {
+        return null;
     }
 }

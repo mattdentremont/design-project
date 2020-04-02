@@ -24,6 +24,7 @@ public class PlayState extends GameState{
 
     private BitmapFont font;
     private GlyphLayout layout;
+    private ProjectileEnemy enemy;
 
 
     private SpriteBatch sb;
@@ -89,6 +90,10 @@ public class PlayState extends GameState{
         for (Enemy x :enemies){
             x.move(player,x.movementSpeed,dt);
             x.attack(player, dt);
+            if(x.hasProjectiles)
+            {
+                x.getProjectiles(dt);
+            }
         }
         for(Item x : items){
             if(playerHitBox.overlaps(x.sprite.getBoundingRectangle())){
@@ -161,7 +166,15 @@ public class PlayState extends GameState{
       //boss.sprite.draw(sb);
         for (Enemy x :mapManager.getEnemyList()){
            x.sprite.draw(sb);
-            font.draw(sb,Integer.toString(x.currentHealth),(int)x.getPosX()+x.sprite.getWidth()/2-5, (int)x.getPosY()+x.sprite.getHeight()+5);
+           font.draw(sb,Integer.toString(x.currentHealth),(int)x.getPosX()+x.sprite.getWidth()/2-5, (int)x.getPosY()+x.sprite.getHeight()+5);
+            if(x.hasProjectiles)
+            {
+                ArrayList<Projectile> list = x.getProjectiles(0);
+                for(Projectile p : list)
+                {
+                    p.sprite.draw(sb);
+                }
+            }
         }
         sb.end();
     }

@@ -44,6 +44,7 @@ public class DungeonMapManager {
         }
         dungeon[randxDVD][randyDVD].isDVDemon = true;
         dungeon[randxVHDL][randyVHDL].isVHDL = true;
+        //dungeon[randxVHDL][randyVHDL].isProjectileEnemy = true;
         setCurrentRoom(xPos,yPos,true);
         currentRoom.setHasBeenVisited();
     }

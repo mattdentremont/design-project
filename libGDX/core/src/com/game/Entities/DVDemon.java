@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.game.Behaviors.Contact;
 import com.game.Behaviors.WallBounce;
 
+import java.util.ArrayList;
+
 public class DVDemon extends Enemy
 {
     public DVDemon(float posX, float posY)
@@ -13,7 +15,7 @@ public class DVDemon extends Enemy
         super(posX, posY,0);
         this.sprite = new Sprite(new Texture(Gdx.files.internal("Bosses/DVDemon.png")));
         this.damageValue = 20;
-        this.maxHealth = 200;
+        this.maxHealth = 10;
         this.movementSpeed = 200f;
         this.movementPattern = new WallBounce();
         this.attackPattern = new Contact();
@@ -55,6 +57,11 @@ public class DVDemon extends Enemy
     @Override
     public void move(Player player, float movementSpeed, float dt) {
         this.movementPattern.move(this, player, this.movementSpeed, dt);
+    }
+
+    @Override
+    public ArrayList<Projectile> getProjectiles(float dt) {
+        return null;
     }
 
     @Override

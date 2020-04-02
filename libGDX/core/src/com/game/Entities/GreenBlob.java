@@ -7,6 +7,7 @@ import com.game.Behaviors.AI;
 import com.game.Behaviors.Contact;
 import com.game.Behaviors.targetPlayer;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class GreenBlob extends Enemy {
@@ -65,6 +66,11 @@ public class GreenBlob extends Enemy {
     @Override
     public void move(Player player, float movementSpeed, float dt) {
         this.movementPattern.move(this, player, this.movementSpeed, dt);
+    }
+
+    @Override
+    public ArrayList<Projectile> getProjectiles(float dt) {
+        return null;
     }
 
     @Override

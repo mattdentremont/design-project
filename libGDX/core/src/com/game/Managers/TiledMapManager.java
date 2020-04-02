@@ -84,6 +84,10 @@ public class TiledMapManager {
             {
                 spawnVHDL();
             }
+            else if(dungeon.getCurrentRoom().isProjectileEnemy)
+            {
+                spawnProjectileEnemy();
+            }
             else {
                     int statIncrease = player.getRoomsVisited()/10 * 5;//every 10 rooms enemies gain 5 for each stat.
                     //note that bosses difficulties are always the same.
@@ -125,6 +129,10 @@ public class TiledMapManager {
     public void spawnDVDemon()
     {
         enemies.add(new DVDemon(WIDTH/3, HEIGHT/2));
+    }
+    public void spawnProjectileEnemy()
+    {
+        enemies.add(new ProjectileEnemy(WIDTH/3, HEIGHT/2));
     }
     public void spawnVHDL()
     {

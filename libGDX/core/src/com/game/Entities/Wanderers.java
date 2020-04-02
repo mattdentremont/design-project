@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.game.Behaviors.Cardinal;
 import com.game.Behaviors.Contact;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Wanderers extends Enemy {
@@ -62,6 +63,11 @@ public class Wanderers extends Enemy {
             this.moveDelayCnt = 0;
         }
         this.movementPattern.move(this, player, this.movementSpeed, dt);
+    }
+
+    @Override
+    public ArrayList<Projectile> getProjectiles(float dt) {
+        return null;
     }
 
     @Override
