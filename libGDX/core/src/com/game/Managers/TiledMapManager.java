@@ -100,16 +100,16 @@ public class TiledMapManager {
         }
 
         if(Direction == "UP") {
-            player.setPosition(player.getPosX(), getDownDoorRectangle().height +5);
+            player.setPosition(getDownDoorRectangle().x + getDownDoorRectangle().width/2, getDownDoorRectangle().height +20);
         }
         else if(Direction == "DOWN") {
-            player.setPosition(player.getPosX(), getUpDoorRectangle().y-getUpDoorRectangle().height - 5);
+            player.setPosition(getUpDoorRectangle().x + getUpDoorRectangle().width/2, getUpDoorRectangle().y-getUpDoorRectangle().height - 20);
         }
         else if(Direction == "LEFT") {
-            player.setPosition(getRightDoorRectangle().x-getRightDoorRectangle().width -5, player.getPosY());
+            player.setPosition(getRightDoorRectangle().x-getRightDoorRectangle().width -20, getRightDoorRectangle().y + getRightDoorRectangle().height/2);
         }
         else if(Direction == "RIGHT") {
-            player.setPosition(getLeftDoorRectangle().width +5, player.getPosY());
+            player.setPosition(getLeftDoorRectangle().width+getRightDoorRectangle().width +20, getLeftDoorRectangle().y + getLeftDoorRectangle().height/2);
         }
     }
 

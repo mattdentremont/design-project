@@ -78,10 +78,10 @@
   <object id="36" x="28" y="432" width="24" height="21"/>
   <object id="37" x="744" y="437" width="25" height="18"/>
  </objectgroup>
- <objectgroup id="7" name="Doors" visible="0">
-  <object id="8" name="DownDoor" x="382.333" y="451.333" width="54" height="28"/>
-  <object id="10" name="UpDoor" x="370" y="-3" width="48" height="35"/>
-  <object id="11" name="RightDoor" x="753" y="203" width="42" height="39"/>
-  <object id="12" name="LeftDoor" x="1" y="201" width="43" height="46"/>
+ <objectgroup id="7" name="Doors">
+  <object id="8" name="DownDoor" x="352.333" y="463.333" width="62.5" height="16"/>
+  <object id="10" name="UpDoor" x="351.333" y="1" width="66.6667" height="14.3333"/>
+  <object id="11" name="RightDoor" x="784" y="191.5" width="15" height="64"/>
+  <object id="12" name="LeftDoor" x="1.5" y="201" width="15" height="54.5"/>
  </objectgroup>
 </map>

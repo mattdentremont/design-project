@@ -108,13 +108,14 @@
   <object id="32" x="421.333" y="174.667" width="29.3333" height="31.3333"/>
   <object id="33" x="531" y="161" width="15" height="9"/>
   <object id="34" x="757" y="31" width="16" height="21"/>
+  <object id="35" x="34" y="26" width="25" height="18"/>
   <object id="36" x="28" y="432" width="24" height="21"/>
   <object id="37" x="744" y="437" width="25" height="18"/>
  </objectgroup>
  <objectgroup id="7" name="Doors">
   <object id="8" name="DownDoor" x="353.333" y="464.333" width="128" height="15"/>
   <object id="10" name="UpDoor" x="367" y="0" width="14" height="16"/>
-  <object id="11" name="RightDoor" x="796" y="147.5" width="10" height="122"/>
-  <object id="12" name="LeftDoor" x="32.5455" y="17.0909" width="15.1818" height="14"/>
+  <object id="11" name="RightDoor" x="790" y="148" width="10" height="122"/>
+  <object id="12" name="LeftDoor" x="30" y="18" width="19" height="14"/>
  </objectgroup>
 </map>
