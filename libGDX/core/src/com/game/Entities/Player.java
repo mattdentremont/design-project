@@ -23,6 +23,7 @@ public class Player extends Character {
 
     private Item[] inventory;
     private float ultTimer;
+    private boolean hasKey;
 
     public Player(Texture texture, float speed, int damage, int health,int posX,int posY)
     {
@@ -45,6 +46,7 @@ public class Player extends Character {
         this.roomsVisited = 1;
         this.enemiesDefeated = 0;
         this.inventory = new Item[2];
+        this.hasKey = true;
     }
 
 
@@ -73,10 +75,23 @@ public class Player extends Character {
         {
             inventory[0] = item;
         }
-        else{
+        else if(item.type == "REDBULL"){
             inventory[1] = item;
         }
+        else if(item.type == "KEY"){
+            this.hasKey = true;//picked up this rooms key.
+        }
     }
+
+    public boolean checkKey()
+    {
+        return this.hasKey;
+    }
+
+    public void setKey(boolean status){
+        this.hasKey = status;
+    }
+
 
     public Item[] getInventory(){
         return inventory;

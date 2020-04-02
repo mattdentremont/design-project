@@ -50,8 +50,8 @@ public class PlayState extends GameState{
         WIDTH = game.WIDTH;
         HEIGHT = game.HEIGHT;
         String[] maps = {"maps/generic.tmx","maps/satanic.tmx"};
-        dungeonWidth = 3;
-        dungeonHeight = 1;
+        dungeonWidth = 10;
+        dungeonHeight = 10;
         dungeonMapManager = new DungeonMapManager(maps,dungeonWidth,dungeonHeight,player);
         currentRoom = dungeonMapManager.getCurrentRoom();
         mapManager = new TiledMapManager(currentRoom.mapName,game,player);
@@ -86,9 +86,14 @@ public class PlayState extends GameState{
                         toPickup = x;
                     }
                 }
-                else
-                if (playerInventory[1] == null) {
+                else if(x.type == "REDBULL"){
+                    if (playerInventory[1] == null) {
                     toPickup = x;
+                    }
+                }
+                else if(x.type == "KEY"){
+                        toPickup = x;
+
                 }
             }
         }
