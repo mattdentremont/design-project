@@ -95,6 +95,11 @@ public class PlayState extends GameState{
             {
                 x.getProjectiles(dt);
             }
+            if(x.hasAnimation == true)
+            {
+                x.enemyAnimation.update(dt);
+                x.sprite.setRegion(x.enemyAnimation.getFrame());
+            }
         }
         for(Item x : items){
             if(playerHitBox.overlaps(x.sprite.getBoundingRectangle())){
