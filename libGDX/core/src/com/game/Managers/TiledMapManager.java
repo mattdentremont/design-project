@@ -1,5 +1,7 @@
 package com.game.Managers;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
@@ -33,6 +35,7 @@ public class TiledMapManager {
     private ArrayList<Enemy> enemies;
     private ArrayList<Item> items;
     private boolean spawnedKey;
+    private Sound doorSound = Gdx.audio.newSound(Gdx.files.internal("door_lock.mp3"));
 
 
 
@@ -66,6 +69,7 @@ public class TiledMapManager {
 
     public void changeRoom(String mapPath,String Direction)
     {
+        doorSound.play(.5f);
         items = new ArrayList<>();
         map = mapLoader.load(mapPath);
         renderer = new OrthogonalTiledMapRenderer(map);
@@ -263,6 +267,7 @@ public class TiledMapManager {
     public void dispose(){
         map.dispose();
         renderer.dispose();
+        doorSound.dispose();
     }
 
 

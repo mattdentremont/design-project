@@ -1,5 +1,7 @@
 package com.game.Entities;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 //import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -30,6 +32,8 @@ public class Player extends Character {
 
     public Animation playerAnimation;
     private Texture texture;
+    private Sound keyPickup = Gdx.audio.newSound(Gdx.files.internal("key.mp3"));
+    private Sound beerPickup = Gdx.audio.newSound(Gdx.files.internal("beerPickup.mp3"));
 
 
     public Player(String texturePath, float speed, int damage, int health,int posX,int posY)
@@ -83,12 +87,14 @@ public class Player extends Character {
         if(item.type == "BEER")
         {
             inventory[0] = item;
+            beerPickup.play(1f);
         }
         else if(item.type == "REDBULL"){
             inventory[1] = item;
         }
         else if(item.type == "KEY"){
             this.hasKey = true;//picked up this rooms key.
+            keyPickup.play(1f);
         }
     }
 

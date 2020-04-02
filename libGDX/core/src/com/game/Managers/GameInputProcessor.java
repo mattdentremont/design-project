@@ -3,6 +3,7 @@ package com.game.Managers;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.game.Animation.Animation;
@@ -36,6 +37,7 @@ public class GameInputProcessor extends InputAdapter {
     private float attackCnt;
     private boolean attacked;
     private boolean attacking;
+    private Sound beerDrink = Gdx.audio.newSound(Gdx.files.internal("beerDrink.mp3"));
 
    public GameInputProcessor(Player player, GameStateManager gsm, escapeGame game, ArrayList<Enemy> enemyList)
     {
@@ -168,6 +170,7 @@ public class GameInputProcessor extends InputAdapter {
                     BeerTimer += dt;//start the timer
                     player.useBeer();//use beer effects
                     player.getInventory()[0] = null;
+                    beerDrink.play(1f);
                 }
             }
         }
