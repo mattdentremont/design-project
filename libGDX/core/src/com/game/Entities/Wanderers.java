@@ -3,32 +3,32 @@ package com.game.Entities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.game.Behaviors.AI;
+import com.game.Behaviors.Cardinal;
 import com.game.Behaviors.Contact;
-import com.game.Behaviors.targetPlayer;
 
 import java.util.Random;
 
-public class GreenBlob extends Enemy {
+public class Wanderers extends Enemy {
 
-    public GreenBlob(float posX, float posY)
-    {
-        super(posX, posY);//because damage and health scale with progression
-        String[] enemyTextures = {"BobbyBlob.png","JohnWick.png","jamil.png"};
-        int rand = new Random().nextInt(enemyTextures.length);
+    Wanderers(float startPosX, float startPosY) {
+        super(startPosX, startPosY);
+        String[] enemyTextures = {"RedBlob.png", "integral.png"};
+        int rand =  new Random().nextInt(enemyTextures.length);
         this.sprite = new Sprite(new Texture(Gdx.files.internal(enemyTextures[rand])));
         this.damageValue = 10;
         this.maxHealth = 20;
         this.movementSpeed = 100f;
-        this.movementPattern = new targetPlayer();
+        this.movementPattern = new Cardinal();
         this.attackPattern = new Contact();
         this.currentHealth = this.maxHealth;
-        this.posX = posX;
-        this.posY = posY;
+        this.posX = startPosX;
+        this.posY = startPosY;
         this.isDead = false;
-        this.sprite.setPosition(posX, posY);
+        this.sprite.setPosition(startPosX, startPosY);
         this.attackDelayCnt = 0;
         this.attackDelayTime = 1f;
+        this.moveDelayCnt = 0;
+        this.moveDelayTime = 1f;
         this.isBoss = false;
     }
 
@@ -40,7 +40,6 @@ public class GreenBlob extends Enemy {
             this.attackDelayCnt = 0;
         }
     }
-
 
     @Override
     public boolean takeDamage(int damageTaken) {
@@ -56,14 +55,12 @@ public class GreenBlob extends Enemy {
     }
 
     @Override
-    public boolean checkDead()
-    {
-        return isDead;
-    }
-
-
-    @Override
     public void move(Player player, float movementSpeed, float dt) {
+        this.moveDelayCnt += dt;
+        if(this.moveDelayCnt >= this.moveDelayTime) {
+            this.randRoll = new Random().nextInt(5);
+            this.moveDelayCnt = 0;
+        }
         this.movementPattern.move(this, player, this.movementSpeed, dt);
     }
 
@@ -76,7 +73,14 @@ public class GreenBlob extends Enemy {
     public float getPosY() {
         return this.posY;
     }
-    public void setPosition(float x,float y) {
+
+    @Override
+    public boolean checkDead() {
+        return isDead;
+    }
+
+    @Override
+    public void setPosition(float x, float y) {
         if(x<0 && flipSprite==false)
         {
             flipSprite = true;
@@ -91,5 +95,4 @@ public class GreenBlob extends Enemy {
         posY = y;
         sprite.setPosition(posX,posY);
     }
-
 }
