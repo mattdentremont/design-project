@@ -24,7 +24,7 @@ public abstract class Enemy {
     public int heading;
     public boolean isBoss;
 
-    Enemy(float posX, float posY)
+    Enemy(float posX, float posY,double balancer)
     {
         this.posY = posY;
         this.posX = posX;

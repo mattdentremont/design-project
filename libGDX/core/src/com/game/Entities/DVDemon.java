@@ -10,7 +10,7 @@ public class DVDemon extends Enemy
 {
     public DVDemon(float posX, float posY)
     {
-        super(posX, posY);
+        super(posX, posY,0);
         this.sprite = new Sprite(new Texture(Gdx.files.internal("Bosses/DVDemon.png")));
         this.damageValue = 20;
         this.maxHealth = 10;

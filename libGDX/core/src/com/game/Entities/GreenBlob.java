@@ -11,15 +11,15 @@ import java.util.Random;
 
 public class GreenBlob extends Enemy {
 
-    public GreenBlob(float posX, float posY)
+    public GreenBlob(float posX, float posY,int balancer)
     {
-        super(posX, posY);//because damage and health scale with progression
+        super(posX, posY,balancer);//because damage and health scale with progression
         String[] enemyTextures = {"BobbyBlob.png","JohnWick.png","jamil.png"};
         int rand = new Random().nextInt(enemyTextures.length);
         this.sprite = new Sprite(new Texture(Gdx.files.internal(enemyTextures[rand])));
-        this.damageValue = 10;
-        this.maxHealth = 20;
-        this.movementSpeed = 100f;
+        this.damageValue = 10 + balancer;
+        this.maxHealth = 20 + balancer;
+        this.movementSpeed = 100f + balancer;
         this.movementPattern = new targetPlayer();
         this.attackPattern = new Contact();
         this.currentHealth = this.maxHealth;

@@ -3,8 +3,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -17,6 +20,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class PlayState extends GameState{
+
+
+    private BitmapFont font;
+    private GlyphLayout layout;
+
 
     private SpriteBatch sb;
     public static OrthographicCamera cam;
@@ -47,6 +55,9 @@ public class PlayState extends GameState{
     @Override
     public void init() {
         sb = new SpriteBatch();
+        font = new BitmapFont();
+        font.getData().setScale(.5f);
+        font.setColor(Color.RED);
         WIDTH = game.WIDTH;
         HEIGHT = game.HEIGHT;
         String[] maps = {"maps/generic.tmx","maps/satanic.tmx"};
@@ -150,6 +161,7 @@ public class PlayState extends GameState{
       //boss.sprite.draw(sb);
         for (Enemy x :mapManager.getEnemyList()){
            x.sprite.draw(sb);
+            font.draw(sb,Integer.toString(x.currentHealth),(int)x.getPosX()+x.sprite.getWidth()/2-5, (int)x.getPosY()+x.sprite.getHeight()+5);
         }
         sb.end();
     }

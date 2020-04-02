@@ -12,7 +12,7 @@ import java.util.Random;
 public class D extends Enemy {
 
     public D(float posX, float posY) {
-        super(posX, posY);
+        super(posX, posY,0);
         this.sprite = new Sprite(new Texture(Gdx.files.internal("Bosses/D.png")));
         this.damageValue = 20;
         this.maxHealth = 50;

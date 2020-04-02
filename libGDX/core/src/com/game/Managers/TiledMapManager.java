@@ -75,14 +75,7 @@ public class TiledMapManager {
             player.setKey(false);
             spawnedKey = false;
             spawnItems();
-            player.regenHealth(10);
-            if(player.getRoomsVisited() > 10)
-            {
-                //TODO: rebalance enemies/increase player damage?
-                //TODO: Add simple modifiers to do this...
-                //maybe add parameter to spawnEnemies for like difficulty of enemies....
-                //bosses should prob always be the same difficulty ...
-            }
+            //player.regenHealth(10);
             if(dungeon.getCurrentRoom().isDVDemon)
             {
                 spawnDVDemon();
@@ -92,7 +85,9 @@ public class TiledMapManager {
                 spawnVHDL();
             }
             else {
-                spawnEnemies();
+                    int statIncrease = player.getRoomsVisited()/10 * 5;//every 10 rooms enemies gain 5 for each stat.
+                    //note that bosses difficulties are always the same.
+                    spawnEnemies(statIncrease);
             }
         }
 
@@ -115,14 +110,14 @@ public class TiledMapManager {
         return Doors;
     }
 
-    public void spawnEnemies()
+    public void spawnEnemies(int balancer)
     {
         MapObjects spawnLocations = EnemySpawns.getObjects();
         for(RectangleMapObject location: spawnLocations.getByType(RectangleMapObject.class))
         {
            float xPos =  location.getRectangle().getX();
            float yPos = location.getRectangle().getY();
-           enemies.add(new GreenBlob(xPos,yPos));
+           enemies.add(new GreenBlob(xPos,yPos,balancer));
         }
     }
 

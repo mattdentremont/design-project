@@ -10,14 +10,14 @@ import java.util.Random;
 
 public class Wanderers extends Enemy {
 
-    Wanderers(float startPosX, float startPosY) {
-        super(startPosX, startPosY);
+    Wanderers(float startPosX, float startPosY,int balancer) {
+        super(startPosX, startPosY,balancer);
         String[] enemyTextures = {"RedBlob.png", "integral.png"};
         int rand =  new Random().nextInt(enemyTextures.length);
         this.sprite = new Sprite(new Texture(Gdx.files.internal(enemyTextures[rand])));
-        this.damageValue = 10;
-        this.maxHealth = 20;
-        this.movementSpeed = 100f;
+        this.damageValue = 10+ balancer;;
+        this.maxHealth = 20+ balancer;;
+        this.movementSpeed = 100f+ balancer;;
         this.movementPattern = new Cardinal();
         this.attackPattern = new Contact();
         this.currentHealth = this.maxHealth;
