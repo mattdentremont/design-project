@@ -144,7 +144,7 @@ public class GameInputProcessor extends InputAdapter {
         else if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN))//ATTACK DOWN
         {
             this.attacked = true;
-            this.attackTexture = new Texture(characterPath+"AttackDown-Sheet1.png");
+            this.attackTexture = new Texture(characterPath+"AttackDown-Sheet.png");
             this.attackAnimation = new Animation(new TextureRegion(attackTexture), 2, 0.2f);
             for(Enemy x: enemyList) {
                 if((x.getPosY()<=player.getPosY()) && x.getPosY() >= player.getPosY() -75f)

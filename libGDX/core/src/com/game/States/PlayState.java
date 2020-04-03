@@ -50,9 +50,9 @@ public class PlayState extends GameState{
         playerConstructor(t, s, h, d);
         if(t.contains("Student"))
         {
-            this.spriteSheetPath ="student";
+            this.spriteSheetPath ="student/";
         }
-        else this.spriteSheetPath = "prof";
+        else this.spriteSheetPath = "prof/";
         init();
     }
     private Sprite menuSprite;
