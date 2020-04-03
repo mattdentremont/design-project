@@ -48,11 +48,11 @@ public class PlayState extends GameState{
     {
         super(gsm);
         playerConstructor(t, s, h, d);
-        if(t.contains("Student"))
+        if(t.contains("Student"))//if this is a student character
         {
-            this.spriteSheetPath ="student/";
+            this.spriteSheetPath ="student/";//sets path to student folder
         }
-        else this.spriteSheetPath = "prof/";
+        else this.spriteSheetPath = "prof/";//otherwise sets to prof folder
         init();
     }
     private Sprite menuSprite;

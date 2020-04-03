@@ -119,6 +119,7 @@ public class CharacterState extends GameState {
             float menuSpread = (((escapeGame.WIDTH/3)-60) + ((escapeGame.WIDTH/3)*i));
             charsFont.draw(sb, menuItems[i], menuSpread, 2*(escapeGame.HEIGHT/3));
         }
+        font.draw(sb,"Press ESC To Return To Main Menu",escapeGame.WIDTH/2-120,50);
         sb.end();
     }
 
@@ -136,6 +137,9 @@ public class CharacterState extends GameState {
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
             charSelect();
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+            gsm.setState(GameStateManager.MENU);
         }
     }
 
