@@ -39,8 +39,9 @@ public class GameInputProcessor extends InputAdapter {
     private boolean attacking;
     private Sound beerDrink = Gdx.audio.newSound(Gdx.files.internal("sounds/beerDrink.mp3"));
     private Sound redbullDrink = Gdx.audio.newSound(Gdx.files.internal("sounds/redbullDrink.mp3"));
+    private String characterPath;
 
-   public GameInputProcessor(Player player, GameStateManager gsm, escapeGame game, ArrayList<Enemy> enemyList)
+   public GameInputProcessor(Player player, GameStateManager gsm, escapeGame game, ArrayList<Enemy> enemyList,String sheetPath)
     {
         this.player = player;
         this.speed = player.speed;
@@ -57,6 +58,7 @@ public class GameInputProcessor extends InputAdapter {
         this.attackCnt = 0;
         this.attacked = false;
         this.attacking = false;
+        this.characterPath = sheetPath;
     }
 
     public void movePlayer(float dt)
@@ -103,7 +105,7 @@ public class GameInputProcessor extends InputAdapter {
         if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT))//ATTACK RIGHT
         {
             this.attacked = true;
-            this.attackTexture = new Texture("AttackRight-Sheet.png");
+            this.attackTexture = new Texture(characterPath+"AttackRight-Sheet.png");
             this.attackAnimation = new Animation(new TextureRegion(attackTexture), 2, 0.2f);
             for(Enemy x: enemyList) {
                 if((x.getPosX()>=player.getPosX()) &&x.getPosX() <= player.getPosX() +75f)
@@ -116,7 +118,7 @@ public class GameInputProcessor extends InputAdapter {
         else if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT))//ATTACK LEFT
         {
             this.attacked = true;
-            this.attackTexture = new Texture("AttackLeft-Sheet.png");
+            this.attackTexture = new Texture(characterPath+"AttackLeft-Sheet.png");
             this.attackAnimation = new Animation(new TextureRegion(attackTexture), 2, 0.2f);
             for(Enemy x: enemyList) {
                 if((x.getPosX()<=player.getPosX()) && x.getPosX() >= player.getPosX() -75f)
@@ -129,7 +131,7 @@ public class GameInputProcessor extends InputAdapter {
         else if(Gdx.input.isKeyJustPressed(Input.Keys.UP))//ATTACK UP
         {
             this.attacked = true;
-            this.attackTexture = new Texture("AttackUp-Sheet.png");
+            this.attackTexture = new Texture(characterPath+"AttackUp-Sheet.png");
             this.attackAnimation = new Animation(new TextureRegion(attackTexture), 2, 0.2f);
             for(Enemy x: enemyList) {
                 if((x.getPosY()>=player.getPosY()) &&x.getPosY() <= player.getPosY() +75f)
@@ -142,7 +144,7 @@ public class GameInputProcessor extends InputAdapter {
         else if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN))//ATTACK DOWN
         {
             this.attacked = true;
-            this.attackTexture = new Texture("AttackDown-Sheet1.png");
+            this.attackTexture = new Texture(characterPath+"AttackDown-Sheet1.png");
             this.attackAnimation = new Animation(new TextureRegion(attackTexture), 2, 0.2f);
             for(Enemy x: enemyList) {
                 if((x.getPosY()<=player.getPosY()) && x.getPosY() >= player.getPosY() -75f)
