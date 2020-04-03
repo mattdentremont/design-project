@@ -39,6 +39,7 @@ public class GameInputProcessor extends InputAdapter {
     private boolean attacking;
     private Sound beerDrink = Gdx.audio.newSound(Gdx.files.internal("sounds/beerDrink.mp3"));
     private Sound redbullDrink = Gdx.audio.newSound(Gdx.files.internal("sounds/redbullDrink.mp3"));
+    private Sound ultSound = Gdx.audio.newSound(Gdx.files.internal("sounds/ult.mp3"));
     private String characterPath;
 
    public GameInputProcessor(Player player, GameStateManager gsm, escapeGame game, ArrayList<Enemy> enemyList,String sheetPath)
@@ -164,6 +165,7 @@ public class GameInputProcessor extends InputAdapter {
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.F) && player.canUlt())//ULT
         {
+            ultSound.play(1f);
             for(Enemy x: enemyList) {
                 x.takeDamage(100);
             }
