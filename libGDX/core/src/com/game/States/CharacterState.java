@@ -61,7 +61,7 @@ public class CharacterState extends GameState {
         font.setColor(Color.WHITE);
         menuItems = new String[] {"The Student", "The Professor"};
         damages = new String[] {"Damage: 10", "Damage: 5"};
-        speeds = new String[] {"Speed: 100", "Speed: 100"};
+        speeds = new String[] {"Speed: 200", "Speed: 250"};
         healths = new String[] {"Health: 100", "Health: 150"};
         menuTexture = new Texture(Gdx.files.internal("menuBackground.jpg"));
         menuSprite = new Sprite(menuTexture);
