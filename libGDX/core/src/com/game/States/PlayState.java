@@ -68,8 +68,8 @@ public class PlayState extends GameState{
         WIDTH = game.WIDTH;
         HEIGHT = game.HEIGHT;
         String[] maps = {"maps/generic.tmx","maps/satanic.tmx","maps/level1.tmx","maps/level2.tmx"};
-        dungeonWidth = 10;
-        dungeonHeight = 10;
+        dungeonWidth = 3;
+        dungeonHeight = 1;
         dungeonMapManager = new DungeonMapManager(maps,dungeonWidth,dungeonHeight,player);
         currentRoom = dungeonMapManager.getCurrentRoom();
         mapManager = new TiledMapManager(currentRoom.mapName,game,player);
