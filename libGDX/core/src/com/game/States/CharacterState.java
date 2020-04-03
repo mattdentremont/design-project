@@ -142,11 +142,11 @@ public class CharacterState extends GameState {
     private void charSelect(){
         if(currentItem == 0) {
             gsm.setPlayState("TheStudent-Sheet.png", 200, 100, 10);
-            String[] atkPathList = {"student/AttackUp-Sheet.png", ""};
 
         }
         else if(currentItem == 1) {
             gsm.setPlayState("TheProf-Sheet.png", 250, 150, 5);
+
         }
 //        else if(currentItem == 2) {
 //            gsm.setState(GameStateManager.MENU);

@@ -37,6 +37,7 @@ public class PlayState extends GameState{
     private Preferences prefs;
     private int dungeonWidth;
     private int dungeonHeight;
+    private String spriteSheetPath;
 
 
     public DungeonMapManager dungeonMapManager;
@@ -47,6 +48,11 @@ public class PlayState extends GameState{
     {
         super(gsm);
         playerConstructor(t, s, h, d);
+        if(t.contains("Student"))
+        {
+            this.spriteSheetPath ="student";
+        }
+        else this.spriteSheetPath = "prof";
         init();
     }
     private Sprite menuSprite;
@@ -67,7 +73,7 @@ public class PlayState extends GameState{
         dungeonMapManager = new DungeonMapManager(maps,dungeonWidth,dungeonHeight,player);
         currentRoom = dungeonMapManager.getCurrentRoom();
         mapManager = new TiledMapManager(currentRoom.mapName,game,player);
-        inputProcessor = new GameInputProcessor(player,this.gsm,game,mapManager.getEnemyList());
+        inputProcessor = new GameInputProcessor(player,this.gsm,game,mapManager.getEnemyList(),spriteSheetPath);
         cam = game.cam;
         HUD = new UI(player,cam,inputProcessor);
         prefs = Gdx.app.getPreferences("GameStorage");
