@@ -12,6 +12,8 @@ import com.game.Entities.Player;
 import com.game.Managers.*;
 import java.util.ArrayList;
 
+
+//State when player died/ran out of health and lost:
 public class DeadState extends GameState {
 
     private GameState currentGameState;

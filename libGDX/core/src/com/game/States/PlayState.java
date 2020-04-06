@@ -249,7 +249,7 @@ public class PlayState extends GameState{
         return mapManager;
     }
     public ArrayList<Enemy> getEnemies(){
-        return mapManager.getEnemies();
+        return mapManager.getEnemyList();
     }
     public Player getPlayer()
     {

@@ -15,34 +15,42 @@ import com.game.main.escapeGame;
 
 import java.util.ArrayList;
 
+//Processes inputs and keeps track of when inputs can be used.
+//This class also plays sounds and checks hitboxes/bounds of the game when inputs are given.
 public class GameInputProcessor extends InputAdapter {
     public Player player;
     public escapeGame game;
     public GameStateManager gsm;
     public static int WIDTH;
     public static int HEIGHT;
-    public  float speed;
     private ArrayList<Enemy> enemyList;
 
+    //Timers and flags for items:
     public boolean usedRedBull;
     private float RedBullTimer;
     public boolean usedBeer;
     private float BeerTimer;
 
+    //Variables that define effect lengths for items:
     private float BeerEffectLength;
     private float RedBullEffectLength;
 
+    //Attack timers/flags and animations
     public Animation attackAnimation;
     private Texture attackTexture;
     private float attackDuration;
+    public  float speed;
     private float attackCnt;
     private boolean attacked;
     private boolean attacking;
+
+    //sound effects:
     private Sound beerDrink = Gdx.audio.newSound(Gdx.files.internal("sounds/beerDrink.mp3"));
     private Sound redbullDrink = Gdx.audio.newSound(Gdx.files.internal("sounds/redbullDrink.mp3"));
     private Sound ultSound = Gdx.audio.newSound(Gdx.files.internal("sounds/ult.mp3"));
     private String characterPath;
 
+    //constructor:
    public GameInputProcessor(Player player, GameStateManager gsm, escapeGame game, ArrayList<Enemy> enemyList,String sheetPath)
     {
         this.player = player;
@@ -65,16 +73,21 @@ public class GameInputProcessor extends InputAdapter {
 
     public void movePlayer(float dt)
     {
+        /*
+        dt is the time elapsed since the last call!
+        */
+        //increment ult charge.
         player.incrementUltCharge(dt);
         Item beer = player.getInventory()[0];
         Item redbull = player.getInventory()[1];
         this.speed = player.speed;
 
+        //Pause the game:
         if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
             gsm.pauseGame(gsm.getCurrentState());
         }
 
-        //MOVING
+        //MOVING. Note movement is bound by the size of the game so the player cannot move off of the screen:
         if((Gdx.input.isKeyPressed(Input.Keys.A))&&(player.getPosX() >= 0) || Gdx.input.isKeyPressed(Input.Keys.D)&& (player.getPosX() <= WIDTH - player.sprite.getWidth())) {
             if (Gdx.input.isKeyPressed(Input.Keys.A))//MOVE LEFT
             {
@@ -110,11 +123,14 @@ public class GameInputProcessor extends InputAdapter {
         //ATTACKING
         if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT))//ATTACK RIGHT
         {
+            //set animation flags and variables:
             this.attacked = true;
             this.attackTexture = new Texture(characterPath+"AttackRight-Sheet.png");
             this.attackAnimation = new Animation(new TextureRegion(attackTexture), 2, 0.2f);
+
             for(Enemy x: enemyList)
             {
+                //If player can hit the enemy in the direction desired
                 Rectangle enemyRectangle = x.sprite.getBoundingRectangle();
                 if(player.E.overlaps(enemyRectangle))
                 {
@@ -124,11 +140,13 @@ public class GameInputProcessor extends InputAdapter {
         }
         else if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT))//ATTACK LEFT
         {
+            //set animation flags and variables:
             this.attacked = true;
             this.attackTexture = new Texture(characterPath+"AttackLeft-Sheet.png");
             this.attackAnimation = new Animation(new TextureRegion(attackTexture), 2, 0.2f);
             for(Enemy x: enemyList)
             {
+                //If player can hit the enemy in the direction desired
                 Rectangle enemyRectangle = x.sprite.getBoundingRectangle();
                 if(player.W.overlaps(enemyRectangle))
                 {
@@ -138,11 +156,13 @@ public class GameInputProcessor extends InputAdapter {
         }
         else if(Gdx.input.isKeyJustPressed(Input.Keys.UP))//ATTACK UP
         {
+            //set animation flags and variables:
             this.attacked = true;
             this.attackTexture = new Texture(characterPath+"AttackUp-Sheet.png");
             this.attackAnimation = new Animation(new TextureRegion(attackTexture), 2, 0.2f);
             for(Enemy x: enemyList)
             {
+                //If player can hit the enemy in the direction desired
                 Rectangle enemyRectangle = x.sprite.getBoundingRectangle();
                 if(player.N.overlaps(enemyRectangle))
                 {
@@ -152,11 +172,13 @@ public class GameInputProcessor extends InputAdapter {
         }
         else if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN))//ATTACK DOWN
         {
+            //set animation flags and variables:
             this.attacked = true;
             this.attackTexture = new Texture(characterPath+"AttackDown-Sheet.png");
             this.attackAnimation = new Animation(new TextureRegion(attackTexture), 2, 0.2f);
             for(Enemy x: enemyList)
             {
+                //If player can hit the enemy in the direction desired
                 Rectangle enemyRectangle = x.sprite.getBoundingRectangle();
                 if(player.S.overlaps(enemyRectangle))
                 {
@@ -170,23 +192,23 @@ public class GameInputProcessor extends InputAdapter {
             this.attacked = false;
         }
 
-        attackManager(dt);
+        attackManager(dt);//manage attack animations
 
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.F) && player.canUlt())//ULT
         {
             ultSound.play(1f);
             for(Enemy x: enemyList) {
-                x.takeDamage(100);
+                x.takeDamage(100);//the ultimate does 100 damage to all enemies in the room.
             }
-            player.resetUlt();
+            player.resetUlt();//reset ult
         }
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.Q))//DRINK BEER - starts timer
         {
-            if(beer != null)//if you have a beer
+            if(beer != null)//if you have a beer start timers, use beer and play effects:
             {
-                if (BeerTimer ==0) {//and timer hasn't started
+                if (BeerTimer ==0) {
                     usedBeer = true;
                     BeerTimer += dt;//start the timer
                     player.useBeer();//use beer effects
@@ -195,7 +217,7 @@ public class GameInputProcessor extends InputAdapter {
                 }
             }
         }
-        if(usedBeer)//if a redbull has been consumed
+        if(usedBeer)//if a beer has been consumed update the timer before removing the effects afterwards:
         {
             BeerTimer+= dt;
             if (BeerTimer >=BeerEffectLength) {
@@ -206,9 +228,9 @@ public class GameInputProcessor extends InputAdapter {
 
         }
 
-        if(Gdx.input.isKeyJustPressed(Input.Keys.E))//DRINK REDBULL - starts timer if you have a redbull.
+        if(Gdx.input.isKeyJustPressed(Input.Keys.E))//DRINK REDBULL
         {
-            if(redbull != null)//if you have a redbull
+            if(redbull != null)//if you have a redbull start timers, use redbull and play effects:
             {
                 if (RedBullTimer == 0) {
                     usedRedBull = true;
@@ -219,7 +241,7 @@ public class GameInputProcessor extends InputAdapter {
                 }
             }
         }
-        if(usedRedBull)//if a redbull has been consumed
+        if(usedRedBull)//if a redbull has been consumed update the timer before removing the effects afterwards:
         {
             RedBullTimer += dt;
             if (RedBullTimer >=RedBullEffectLength) {
@@ -231,6 +253,7 @@ public class GameInputProcessor extends InputAdapter {
         }
     }
 
+    //function to check attack timers and flags and manage animations:
     public void attackManager(float dt){
        if(this.attacked == true) {
            this.attackCnt += dt;
@@ -246,11 +269,12 @@ public class GameInputProcessor extends InputAdapter {
        }
     }
 
+
+    //accessors:
     public boolean checkUsedRedBull()
     {
         return usedRedBull;
     }
-
     public boolean checkUsedBeer()
     {
         return usedBeer;
@@ -259,12 +283,10 @@ public class GameInputProcessor extends InputAdapter {
     {
         return BeerTimer;
     }
-
     public float getRedBullTimer()
     {
         return RedBullTimer;
     }
-
     public float getBeerEffectLength()
     {
         return this.BeerEffectLength;

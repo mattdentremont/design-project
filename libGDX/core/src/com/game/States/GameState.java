@@ -9,6 +9,7 @@ import com.game.main.escapeGame;
 
 import java.util.ArrayList;
 
+//Abstract class to represent different states/screens of the game:
 public abstract class GameState {
 
     protected GameStateManager gsm;

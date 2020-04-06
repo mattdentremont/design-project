@@ -18,7 +18,7 @@ import com.game.Managers.UI;
 
 import java.util.ArrayList;
 
-
+//State to display high scores:
 public class HighScoreState extends GameState {
 
     private BitmapFont font;

@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.game.Entities.Enemy;
 import com.game.Entities.Player;
 import com.game.Managers.GameStateManager;
@@ -19,10 +18,10 @@ import com.game.main.escapeGame;
 
 import java.util.ArrayList;
 
+//State for main menu:
 public class MenuState extends GameState {
 
     private SpriteBatch sb;
-    private escapeGame game;
     private BitmapFont titleFont;
     private BitmapFont font;
     private final String title = "Dungeon Escape";
@@ -33,6 +32,7 @@ public class MenuState extends GameState {
     private Sprite menuSprite;
     private Music music;
 
+    //State for main menu:
     public MenuState(GameStateManager gsm)
     {
         super(gsm);
