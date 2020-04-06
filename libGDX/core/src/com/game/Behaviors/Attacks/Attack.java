@@ -10,7 +10,8 @@ public abstract class Attack {
     }
 
     public abstract void attack(Player player, Enemy attacker);
-    public abstract Projectile shoot(Player player, Enemy attacker);
 
-    //public abstract boolean attackDelay(float delay, float dt);
+    //For The Un-Implemented Projectiles
+    //public abstract Projectile shoot(Player player, Enemy attacker);
+
 }

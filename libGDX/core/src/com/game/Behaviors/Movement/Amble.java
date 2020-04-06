@@ -7,6 +7,7 @@ import java.util.Random;
 
 public class Amble extends AI {
 
+    //Somewhat Functioning random movement Pattern
     @Override
     public void move(Enemy enemy, Player player, float movementSpeed, float dt) {
         float targetX = player.getPosX();
@@ -18,6 +19,7 @@ public class Amble extends AI {
         int randY = new Random().nextInt(2);
         int randIndex = new Random().nextInt(5);
 
+        //Pick a direction based on rand roll
         if(randIndex == 0){
             enemy.setPosition(myX + randX, myY + randY);
         }
