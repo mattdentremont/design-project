@@ -167,7 +167,7 @@ public class PlayState extends GameState{
         }
 
         //Check if the player has won the game by clearing all rooms:
-        if(player.roomsVisited == dungeonHeight*dungeonWidth && enemies.size() == 0){
+        if(player.getRoomsVisited() == dungeonHeight*dungeonWidth && enemies.size() == 0){
             gsm.playerWon(gsm.getCurrentState());
         }
 
