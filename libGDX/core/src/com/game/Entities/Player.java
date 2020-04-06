@@ -5,6 +5,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.game.Animation.*;
 
 public class Player extends Character {
@@ -36,6 +37,11 @@ public class Player extends Character {
     private Sound redbullPickup = Gdx.audio.newSound(Gdx.files.internal("sounds/redbullPickup.mp3"));
     private Sound gotHitSound = Gdx.audio.newSound(Gdx.files.internal("sounds/playerOof.mp3"));
 
+    //Hitbox Boxes
+    public Rectangle N;
+    public Rectangle E;
+    public Rectangle S;
+    public Rectangle W;
 
     public Player(String texturePath, float speed, int damage, int health,int posX,int posY)
     {
@@ -61,8 +67,18 @@ public class Player extends Character {
         this.enemiesDefeated = 0;
         this.inventory = new Item[2];
         this.hasKey = false;
+        this.N = new Rectangle(0,0,this.sprite.getWidth(), 1.5f * this.sprite.getHeight());
+        this.E = new Rectangle(0,0,1.5f * this.sprite.getWidth(), this.sprite.getHeight());
+        this.S = new Rectangle(0,0,this.sprite.getWidth(), 1.5f * this.sprite.getHeight());
+        this.W = new Rectangle(0,0,1.5f * this.sprite.getWidth(), this.sprite.getHeight());
     }
 
+    public void updateHitboxes(){
+        this.N.setPosition(this.sprite.getX(),this.sprite.getY() + this.sprite.getHeight());
+        this.E.setPosition(this.sprite.getX() + this.sprite.getWidth(), this.sprite.getY());
+        this.S.setPosition(this.sprite.getX(),this.sprite.getY() - (1.5f*this.sprite.getHeight()));
+        this.W.setPosition(this.sprite.getX() - (1.5f*this.sprite.getWidth()),this.sprite.getY());
+    }
 
     public void translatePlayer(float x,float y) {
        if(x<0 && flipSprite==false)

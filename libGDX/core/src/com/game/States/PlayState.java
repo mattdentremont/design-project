@@ -164,6 +164,7 @@ public class PlayState extends GameState{
 
         //Handles Animations for attacks now too
         handleInput(dt);
+        player.updateHitboxes();
     }
 
     @Override

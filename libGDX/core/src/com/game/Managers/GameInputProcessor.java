@@ -6,6 +6,7 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.game.Animation.Animation;
 import com.game.Entities.Enemy;
 import com.game.Entities.Item;
@@ -72,28 +73,32 @@ public class GameInputProcessor extends InputAdapter {
         if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
             gsm.pauseGame(gsm.getCurrentState());
         }
+
+        //MOVING
         if((Gdx.input.isKeyPressed(Input.Keys.A))&&(player.getPosX() >= 0) || Gdx.input.isKeyPressed(Input.Keys.D)&& (player.getPosX() <= WIDTH - player.sprite.getWidth())) {
             if (Gdx.input.isKeyPressed(Input.Keys.A))//MOVE LEFT
             {
-                    if (Gdx.input.isKeyPressed(Input.Keys.W) && player.getPosY() <= HEIGHT-player.sprite.getHeight())
-                        player.translatePlayer((float) (.7071) * (-1) * speed * dt, (float) (.7071) * speed * dt);
-                    else if (Gdx.input.isKeyPressed(Input.Keys.S) && player.getPosY() >= 0)
-                        player.translatePlayer((float) (.7071) * (-1) * speed * dt, (float) (.7071) * (-1) * speed * dt);
-                    else player.translatePlayer(-speed * dt, 0);
+                if (Gdx.input.isKeyPressed(Input.Keys.W) && player.getPosY() <= HEIGHT-player.sprite.getHeight())
+                    player.translatePlayer((float) (.7071) * (-1) * speed * dt, (float) (.7071) * speed * dt);
+                else if (Gdx.input.isKeyPressed(Input.Keys.S) && player.getPosY() >= 0)
+                    player.translatePlayer((float) (.7071) * (-1) * speed * dt, (float) (.7071) * (-1) * speed * dt);
+                else
+                    player.translatePlayer(-speed * dt, 0);
             }
             if (Gdx.input.isKeyPressed(Input.Keys.D))//MOVE RIGHT
             {
-                    if (Gdx.input.isKeyPressed(Input.Keys.W) && player.getPosY() <= HEIGHT-player.sprite.getHeight())
-                        player.translatePlayer((float) (.7071) * speed * dt, (float) (.7071) * speed * dt);
-                    else if (Gdx.input.isKeyPressed(Input.Keys.S) && player.getPosY() >= 0)
-                        player.translatePlayer((float) (.7071) * speed * dt, (float) (.7071) * (-1) * speed * dt);
-                    else player.translatePlayer(speed * dt, 0);
+                if (Gdx.input.isKeyPressed(Input.Keys.W) && player.getPosY() <= HEIGHT-player.sprite.getHeight())
+                    player.translatePlayer((float) (.7071) * speed * dt, (float) (.7071) * speed * dt);
+                else if (Gdx.input.isKeyPressed(Input.Keys.S) && player.getPosY() >= 0)
+                    player.translatePlayer((float) (.7071) * speed * dt, (float) (.7071) * (-1) * speed * dt);
+                else
+                    player.translatePlayer(speed * dt, 0);
             }
         }
         else if(Gdx.input.isKeyPressed(Input.Keys.W))//MOVE UP
         {
             if(player.getPosY() <= HEIGHT-player.sprite.getHeight())
-            player.translatePlayer(0,speed*dt);
+                player.translatePlayer(0,speed*dt);
         }
         else if(Gdx.input.isKeyPressed(Input.Keys.S))//MOVE DOWN
         {
@@ -108,11 +113,12 @@ public class GameInputProcessor extends InputAdapter {
             this.attacked = true;
             this.attackTexture = new Texture(characterPath+"AttackRight-Sheet.png");
             this.attackAnimation = new Animation(new TextureRegion(attackTexture), 2, 0.2f);
-            for(Enemy x: enemyList) {
-                if((x.getPosX()>=player.getPosX()) &&x.getPosX() <= player.getPosX() +75f)
+            for(Enemy x: enemyList)
+            {
+                Rectangle enemyRectangle = x.sprite.getBoundingRectangle();
+                if(player.E.overlaps(enemyRectangle))
                 {
-                    if((x.getPosY() > player.getPosY() &&(x.getPosY() - player.getPosY()) <= 50f) ||(x.getPosY() <= player.getPosY() &&(x.getPosY() - player.getPosY()) <= 50f))
-                        x.takeDamage(player.damage);
+                    x.takeDamage(player.damage);
                 }
             }
         }
@@ -121,10 +127,11 @@ public class GameInputProcessor extends InputAdapter {
             this.attacked = true;
             this.attackTexture = new Texture(characterPath+"AttackLeft-Sheet.png");
             this.attackAnimation = new Animation(new TextureRegion(attackTexture), 2, 0.2f);
-            for(Enemy x: enemyList) {
-                if((x.getPosX()<=player.getPosX()) && x.getPosX() >= player.getPosX() -75f)
+            for(Enemy x: enemyList)
+            {
+                Rectangle enemyRectangle = x.sprite.getBoundingRectangle();
+                if(player.W.overlaps(enemyRectangle))
                 {
-                    if((x.getPosY() > player.getPosY() &&(x.getPosY() - player.getPosY()) <= 50f) ||(x.getPosY() <= player.getPosY() &&(x.getPosY() - player.getPosY()) <= 50f))
                     x.takeDamage(player.damage);
                 }
             }
@@ -134,11 +141,12 @@ public class GameInputProcessor extends InputAdapter {
             this.attacked = true;
             this.attackTexture = new Texture(characterPath+"AttackUp-Sheet.png");
             this.attackAnimation = new Animation(new TextureRegion(attackTexture), 2, 0.2f);
-            for(Enemy x: enemyList) {
-                if((x.getPosY()>=player.getPosY()) &&x.getPosY() <= player.getPosY() +75f)
+            for(Enemy x: enemyList)
+            {
+                Rectangle enemyRectangle = x.sprite.getBoundingRectangle();
+                if(player.N.overlaps(enemyRectangle))
                 {
-                    if((x.getPosX() > player.getPosX() &&(x.getPosX() - player.getPosX()) <= 50f) ||(x.getPosY() <= player.getPosY() &&(x.getPosX() - player.getPosX()) <= 50f))
-                        x.takeDamage(player.damage);
+                    x.takeDamage(player.damage);
                 }
             }
         }
@@ -147,11 +155,12 @@ public class GameInputProcessor extends InputAdapter {
             this.attacked = true;
             this.attackTexture = new Texture(characterPath+"AttackDown-Sheet.png");
             this.attackAnimation = new Animation(new TextureRegion(attackTexture), 2, 0.2f);
-            for(Enemy x: enemyList) {
-                if((x.getPosY()<=player.getPosY()) && x.getPosY() >= player.getPosY() -75f)
+            for(Enemy x: enemyList)
+            {
+                Rectangle enemyRectangle = x.sprite.getBoundingRectangle();
+                if(player.S.overlaps(enemyRectangle))
                 {
-                    if((x.getPosX() > player.getPosX() &&(x.getPosX() - player.getPosX()) <= 50f) ||(x.getPosY() <= player.getPosY() &&(x.getPosX() - player.getPosX()) <= 50f))
-                        x.takeDamage(player.damage);
+                    x.takeDamage(player.damage);
                 }
             }
         }
@@ -160,6 +169,7 @@ public class GameInputProcessor extends InputAdapter {
             player.sprite.setRegion(player.playerAnimation.getFrame());
             this.attacked = false;
         }
+
         attackManager(dt);
 
 
