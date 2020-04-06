@@ -135,6 +135,7 @@ public class PlayState extends GameState{
             }
         }
 
+        //
         while(iterator.hasNext()){
             Enemy x = iterator.next();
             if(x.checkDead()) {
@@ -153,32 +154,44 @@ public class PlayState extends GameState{
 
         }
 
+        //Check if the player has died:
         if(player.checkDead()){
             gsm.playerDied(gsm.getCurrentState());
             deathSound.play(1.0f);
         }
 
+        //Check if the player has won the game by clearing all rooms:
         if(player.roomsVisited == dungeonHeight*dungeonWidth && enemies.size() == 0){
             gsm.playerWon(gsm.getCurrentState());
         }
-        cam.update();
-        mapManager.updateCam();
-        handleInput(dt);
-        player.updateHitboxes();
+
+        cam.update();//update the game cam.
+        mapManager.updateCam();//update the game cam in the mapmanager.
+        handleInput(dt);//handle keyboard input.
+        player.updateHitboxes();//update player's hitboxes. (where they can hit enemies/be hit.)
+        mapManager.checkDoors(dungeonMapManager);//checks if player is leaving the room
     }
 
     @Override
     public void draw() {
-        sb.setProjectionMatrix(escapeGame.cam.combined);
+        sb.setProjectionMatrix(escapeGame.cam.combined);//sets projection matrix to correct
+
+        //render the tiled map and draw it to the screen
         mapManager.render();
-        mapManager.checkDoors(dungeonMapManager);
+        //open the sprite batch to draw necessary elements to the screen:
         sb.begin();
+
+        //draw the heads up display statistics to screen first:
         HUD.draw(sb);
+
+        //Then draw items:
         for(Item x : mapManager.getItemList()){
             x.sprite.draw(sb);
         }
+        //then draw the player:
         player.sprite.draw(sb);
 
+        //Draw all enemies and draw health above them:
         for (Enemy x :mapManager.getEnemyList()){
            x.sprite.draw(sb);
            if(x.currentHealth >= 0) {
@@ -191,12 +204,14 @@ public class PlayState extends GameState{
         sb.end();
     }
 
+    //Handle keyboard input.
     @Override
     public void handleInput(float dt) {
 
         inputProcessor.movePlayer(dt);
     }
 
+    //save high scores and dispose of sounds and music and sprites.
     @Override
     public void dispose() {
         saveHighScore();
@@ -208,6 +223,7 @@ public class PlayState extends GameState{
     }
 
 
+    //Saves High score to a file. Called when PlayState is disposed of.
     public void saveHighScore()
     {
         int currentScore = player.getScore();
@@ -221,6 +237,8 @@ public class PlayState extends GameState{
         }
     }
 
+
+    //Some Accessors
     public TiledMapManager getmapManager(){
         return mapManager;
     }
@@ -236,8 +254,4 @@ public class PlayState extends GameState{
         return HUD;
     }
 
-/*
-    public void playerConstructor(String p, float s, int h, int d){
-        player = new Player(p,s,d,h,WIDTH/2,HEIGHT/2);
-    }*/
 }
