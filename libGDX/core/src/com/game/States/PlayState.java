@@ -34,8 +34,8 @@ public class PlayState extends GameState{
     private Preferences prefs;//Class for writing to files.
 
     //Define dungeon size:
-    private static final int dungeonWidth = 3;
-    private static final int dungeonHeight = 1;
+    private static final int dungeonWidth = 5;
+    private static final int dungeonHeight = 5;
 
     //Path to spriteSheets within  the project:
     private String spriteSheetPath;
