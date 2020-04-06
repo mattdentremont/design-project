@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.game.Behaviors.Animation;
 import com.game.Entities.Pickups.Item;
 
+//Player class. This is the character the user controls.
 public class Player extends Character {
 
     public Sprite sprite; //The Player Sprite (the thing you see)

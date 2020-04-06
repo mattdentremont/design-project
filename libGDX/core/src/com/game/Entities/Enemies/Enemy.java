@@ -12,6 +12,7 @@ import com.game.Entities.Projectile;
 
 import java.util.ArrayList;
 
+//Abstract class for enemies.
 public abstract class Enemy {
     public int damageValue;
     public int maxHealth;
@@ -20,9 +21,9 @@ public abstract class Enemy {
     public float posX;
     public float posY;
     public Sprite sprite;
-    boolean isDead;
-    public AI movementPattern;
-    public Attack attackPattern;
+    boolean isDead;//boolean to keep track if the enemy is dead.
+    public AI movementPattern;//class for it's behaviour
+    public Attack attackPattern;//enemies attack pattern
     public boolean flipSprite;
     public float attackDelayCnt;
     public float attackDelayTime;

@@ -6,9 +6,10 @@ import com.game.Entities.Pickups.Item;
 import com.game.Entities.Player;
 
 public class Beer extends Item {
+
+    //Beer class. This will increase player's health.
     public Beer(Player player, float posX, float posY) {
         super(player,posX,posY);
-        //TODO: Change path to beer texture
         this.sprite = new Sprite(new Texture("Beer.png"));
         this.player = player;
         this.type = "BEER";

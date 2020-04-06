@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.game.Entities.Pickups.Item;
 import com.game.Entities.Player;
 
+//Class for key item. Lets player leave room out of any door.
 public class Key extends Item {
 
     public Key(Player player, float posX, float posY) {

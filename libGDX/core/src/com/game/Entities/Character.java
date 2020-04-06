@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
+//Abstract class for player. Could implement characters in different ways in the future.
 public abstract class Character {
     public float speed;
     public int damage;

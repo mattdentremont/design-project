@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.game.Entities.Pickups.Item;
 import com.game.Entities.Player;
 
+//Redbull class that increases player speed and damage.
 public class RedBull extends Item {
     public RedBull(Player player, float posX, float posY) {
         super(player,posX,posY);

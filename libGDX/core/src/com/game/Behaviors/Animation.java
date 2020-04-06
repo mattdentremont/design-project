@@ -3,6 +3,7 @@ package com.game.Behaviors;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 
+//Class to implement animations.
 public class Animation {
     private Array<TextureRegion> frames;
     private float totalFrameTime;
@@ -21,6 +22,7 @@ public class Animation {
         currentFrame = 0;
     }
 
+    //update counters for animations
     public void update(float dt){
         currentFrameTime += dt;
         if(currentFrameTime > totalFrameTime){
@@ -32,6 +34,7 @@ public class Animation {
         }
     }
 
+    //returns region of the sheet where the current frame is.
     public TextureRegion getFrame(){
         return frames.get(currentFrame);
     }
