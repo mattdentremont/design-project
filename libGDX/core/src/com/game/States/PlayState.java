@@ -155,7 +155,7 @@ public class PlayState extends GameState{
                     player.incrementScore(10);//Increment 10 score for normal enemy defeated.
                     player.incrementUltCharge(1);//Increment ultimate ability charge accordingly.
                 }
-                player.enemiesDefeated++;//Increment player's count for enemies defeated.
+                player.incrementEnemiesDefeated();
             }
 
         }
