@@ -24,8 +24,9 @@ The bosses are not very difficult in their current state, but are easily made ha
 You should encounter 2 boss rooms out of the 25 total rooms.
 THe room with the red background's left door is located in the top left of the screen, it is a trap door and might be hard to find in the beginning.
 
-If you clear all rooms (25) the game will present you with a screen telling you that you won.
-Highscores are saved to a file on your machine once you run the code called "GameStorage". On windows it will be here: "%UserProfile%/.prefs/My Preferences", and on Linux it will be here: "~/.prefs/My Preferences".
+If you clear all rooms (25) the game will present you with a screen telling you that you won, and also a death screen if you die.
+
+Highscores are saved to a file on your machine once you run the code called "GameStorage". On windows it will be here: "%UserProfile%/.prefs/My Preferences", and on Linux it will be here: "~/.prefs/My Preferences". You may want to delete this file when you are done with the game.
 
 Selecting high score from the main menu will display statistics from your game where you got your highest score.
 
