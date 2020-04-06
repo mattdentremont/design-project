@@ -11,6 +11,7 @@ import com.game.Entities.Projectile;
 
 import java.util.ArrayList;
 
+//DVDemon boss
 public class DVDemon extends Enemy
 {
     public DVDemon(float posX, float posY)

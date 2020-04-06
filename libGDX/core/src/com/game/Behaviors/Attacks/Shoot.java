@@ -4,6 +4,9 @@ import com.game.Entities.Enemies.Enemy;
 import com.game.Entities.Player;
 import com.game.Entities.Projectile;
 
+
+//NOT IMPLEMENTED: We didn't implement projectiles. This class would allow enemies to shoot projectiles towards the player.
+//We did not originally plan to implement projectiles, we just tried to do them as extra work but didn't finish them.
 public class Shoot extends Attack {
 
     @Override

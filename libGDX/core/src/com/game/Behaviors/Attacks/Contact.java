@@ -4,6 +4,7 @@ import com.game.Entities.Enemies.Enemy;
 import com.game.Entities.Player;
 import com.game.Entities.Projectile;
 
+//attack when enemy comes in contact with player.
 public class Contact extends Attack
 {
 

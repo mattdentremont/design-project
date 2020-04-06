@@ -3,6 +3,7 @@ package com.game.Entities.Pickups;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.game.Entities.Player;
 
+//Abstract class for items that can be picked up in the game.
 public abstract class Item {
     public Sprite sprite;
     public Player player;
