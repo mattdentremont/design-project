@@ -9,6 +9,12 @@ import com.game.Behaviors.Shoot;
 import java.util.ArrayList;
 import java.util.Random;
 
+/*
+THIS CLASS IS NOT USED AS IT IS NOT FINISHED!
+WE THOUGHT ABOUT TRYING TO ADD PROJECTILES EVEN THOUGH IT WASN'T IN THE ORIGINAL PLANS
+AS WE HAD IMPLEMENTED EVERYTHING THAT WE WANTED TO AND WANTED A CHALLENGE!
+ */
+
 public class ProjectileEnemy extends Enemy{
 
     ArrayList<Projectile> projectiles;

@@ -1,8 +1,13 @@
 package com.game.Entities;
-
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
+
+/*
+THIS CLASS IS NOT USED ANYWHERE AS IT IS NOT FINISHED!
+WE THOUGHT ABOUT TRYING TO ADD PROJECTILES EVEN THOUGH IT WASN'T IN THE ORIGINAL PLANS
+AS WE HAD IMPLEMENTED EVERYTHING THAT WE WANTED TO AND WANTED A CHALLENGE!
+ */
 
 public class Projectile {
     public int damageValue;
