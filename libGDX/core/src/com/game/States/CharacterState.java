@@ -18,10 +18,11 @@ import com.game.main.escapeGame;
 
 import java.util.ArrayList;
 
+
+//Character select screen:
 public class CharacterState extends GameState {
 
     private SpriteBatch sb;
-    private escapeGame game;
     private BitmapFont font;
     private BitmapFont titleFont;
     private BitmapFont charsFont;
@@ -39,7 +40,6 @@ public class CharacterState extends GameState {
     private Texture p2Texture;
     private Sprite p2Sprite;
     private Music music;
-    private String[] atkPathList;
 
     public CharacterState(GameStateManager gsm)
     {
@@ -91,7 +91,6 @@ public class CharacterState extends GameState {
         sb.begin();
         layout.setText(titleFont,title);
         float fontWidth = layout.width;
-        float fontHeight = layout.height;
 
         //draw Title
         menuSprite.draw(sb);
@@ -152,9 +151,6 @@ public class CharacterState extends GameState {
             gsm.setPlayState("TheProf-Sheet.png", 250, 150, 5);
 
         }
-//        else if(currentItem == 2) {
-//            gsm.setState(GameStateManager.MENU);
-//        }
     }
 
     @Override
@@ -165,6 +161,8 @@ public class CharacterState extends GameState {
         music.dispose();
     }
 
+
+    //Some accessors:
     @Override
     public TiledMapManager getmapManager() {
         return null;

@@ -9,6 +9,7 @@ import com.game.Entities.Item;
 import com.game.Entities.Player;
 import com.game.main.escapeGame;
 
+//Class to draw heads up display with important info:
 public class UI {
 
     private Player player;
@@ -33,11 +34,11 @@ public class UI {
     }
 
 
+    //Draw values to screen:
     public void draw(SpriteBatch sb)
     {
         String Score = Integer.toString(player.getScore());
         String Health = Integer.toString(player.getHealth());
-        //String damage = Integer.toString(player.damage);
         String roomsVisited = Integer.toString(player.getRoomsVisited());
         String enemiesDefeated = Integer.toString(player.getEnemiesDefeated());
         String toPrint = "Score:" + Score +" Health:" + Health;
@@ -76,17 +77,15 @@ public class UI {
         }
 
 
+        //Draw score, health, rooms visited and enemies defeated:
         layout.setText(font,toPrint);
-        float fontWidth = layout.width;
         float fontHeight = layout.height;
-        //draw title
         font.draw(sb,toPrint,0,escapeGame.HEIGHT - fontHeight/2);
         layout.setText(font,toPrint2);
         float fontWidth2 = layout.width;
         float fontHeight2 = layout.height;
         font.draw(sb,toPrint2,escapeGame.WIDTH-fontWidth2,escapeGame.HEIGHT - fontHeight2/2);
         layout.setText(font,toPrint3);
-        float fontWidth3 = layout.width;
         float fontHeight3 = layout.height;
         font.draw(sb,toPrint3,0,escapeGame.HEIGHT - fontHeight3-15);
 
@@ -135,8 +134,6 @@ public class UI {
 
             }
         }
-
-
         }
 
         public void dispose()

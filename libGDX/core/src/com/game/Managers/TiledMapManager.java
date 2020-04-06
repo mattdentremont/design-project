@@ -1,5 +1,4 @@
 package com.game.Managers;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -16,12 +15,12 @@ import com.game.main.escapeGame;
 import java.util.ArrayList;
 import java.util.Random;
 
+//Class to manage current rooms tiled map and enemies/items spawning:
 public class TiledMapManager {
     public static OrthographicCamera cam;
     private GameStateManager gsm;
     private escapeGame game;
     private Player player;
-
     public int WIDTH = 800;
     public int HEIGHT = 480;
     private Room currentRoom;
@@ -54,19 +53,22 @@ public class TiledMapManager {
         enemies = new ArrayList<>();
         items = new ArrayList<>();
         spawnedKey = false;
-       // spawnEnemies();
+        //Enemies are not spawned in the first room!
     }
 
+    //Update gamecam
     public void updateCam()
     {
         renderer.setView(cam);
     }
 
+    //render current map
     public void render()
     {
         renderer.render();
     }
 
+    //Called when a player goes through a door and changes rooms:
     public void changeRoom(String mapPath,String Direction)
     {
         doorSound.play(.5f);
@@ -76,29 +78,29 @@ public class TiledMapManager {
         Doors = map.getLayers().get("Doors");
         EnemySpawns = map.getLayers().get("EnemySpawns");
         if(dungeon.getCurrentRoom().hasBeenVisited == false) {
+            //set flags:
             player.setKey(false);
             spawnedKey = false;
+
+            //spawn items:
             spawnItems();
-            //player.regenHealth(10);
+
+            //Figure out what enemies are in this room and spawn them accordingly:
             if(dungeon.getCurrentRoom().isDVDemon)
             {
-                spawnDVDemon();
+                spawnDVDemon();//spawn the DVDemon boss.
             }
             else if(dungeon.getCurrentRoom().isVHDL)
             {
-                spawnVHDL();
-            }
-            else if(dungeon.getCurrentRoom().isProjectileEnemy)
-            {
-                spawnProjectileEnemy();
+                spawnVHDL();//spawn the VHDL boss.
             }
             else {
                     int statIncrease = (int)Math.floor(player.getRoomsVisited()/10.0)*5;//every 10 rooms enemies gain 5 for each stat.
-                    //note that bosses difficulties are always the same.
-                    spawnEnemies(statIncrease);
+                    spawnEnemies(statIncrease);//spawn normal enemies.
             }
         }
 
+        //Check what door you went through and adjust position in the next room accordingly:
         if(Direction == "UP") {
             player.setPosition(getDownDoorRectangle().x + getDownDoorRectangle().width/2, getDownDoorRectangle().height +20);
         }
@@ -113,11 +115,8 @@ public class TiledMapManager {
         }
     }
 
-    public MapLayer getDoors()
-    {
-        return Doors;
-    }
 
+    //spawn enemies
     public void spawnEnemies(int balancer)
     {
         MapObjects spawnLocations = EnemySpawns.getObjects();
@@ -136,14 +135,13 @@ public class TiledMapManager {
     }
 
 
+    //spawn DVDemon boss:
     public void spawnDVDemon()
     {
         enemies.add(new DVDemon(WIDTH/3, HEIGHT/2));
     }
-    public void spawnProjectileEnemy()
-    {
-        enemies.add(new ProjectileEnemy(WIDTH/3, HEIGHT/2));
-    }
+
+    //Spawn VHDL boss:
     public void spawnVHDL()
     {
         enemies.add(new V(WIDTH/2, 2*HEIGHT/3));
@@ -152,6 +150,7 @@ public class TiledMapManager {
         enemies.add(new L(WIDTH/3, HEIGHT/2));
     }
 
+    //spawn items:
     public void spawnItems()
     {
         MapObjects spawnLocations = EnemySpawns.getObjects();
@@ -170,60 +169,24 @@ public class TiledMapManager {
         }
     }
 
-    public ArrayList<Enemy> getEnemyList()
-    {
-        return enemies;
-    }
-
-    public ArrayList<Item> getItemList()
-    {
-        return items;
-    }
-
-    public void addItem(Item newItem){
-        if(newItem !=null)
-            items.add(newItem);
-    }
 
 
-    public Rectangle getUpDoorRectangle()
-    {
-        MapObject UpDoor = Doors.getObjects().get("UpDoor");
-        Rectangle UpRect = ((RectangleMapObject) UpDoor).getRectangle();
-        return UpRect;
-    }
-    public Rectangle getDownDoorRectangle()
-    {
-        MapObject DownDoor = Doors.getObjects().get("DownDoor");
-        Rectangle DownRect = ((RectangleMapObject) DownDoor).getRectangle();
-        return DownRect;
-    }
-    public Rectangle getLeftDoorRectangle()
-    {
-        MapObject LeftDoor = Doors.getObjects().get("LeftDoor");
-        Rectangle LeftRect = ((RectangleMapObject) LeftDoor).getRectangle();
-        return LeftRect;
-    }
 
-    public Rectangle getRightDoorRectangle()
-    {
-        MapObject RightDoor = Doors.getObjects().get("RightDoor");
-        Rectangle RightRect = ((RectangleMapObject) RightDoor).getRectangle();
-        return RightRect;
-    }
-
-
+    //Check if player hit a door and if they can unlock that door, if so the room will be changed:
     public void checkDoors(DungeonMapManager dungeonMapManager)
     {
+        //If no enemies and you have a key for this room you can leave.
         if(enemies.size() == 0 && player.checkKey()) {
             if (dungeon == null) {
                 this.dungeon = dungeonMapManager;
             }
+            //get door objects from tiled map
             Rectangle upDoor = getUpDoorRectangle();
             Rectangle DownDoor = getDownDoorRectangle();
             Rectangle LeftDoor = getLeftDoorRectangle();
             Rectangle RightDoor = getRightDoorRectangle();
 
+            //Check for each door if the player is trying to leave then change room accordingly:
             if (player.sprite.getBoundingRectangle().overlaps(upDoor)) {
                 int currentX = dungeon.getxPos();
                 int currentY = dungeon.getyPos();
@@ -254,14 +217,49 @@ public class TiledMapManager {
                 }
             } else return;
         }
+
+        //if enemies are dead and you don't have the key spawn it:
         else if(enemies.size() == 0 &&!spawnedKey){
             items.add(new Key(player,WIDTH/2-40,HEIGHT/2));
             spawnedKey = true;
         }
     }
 
-    public ArrayList<Enemy> getEnemies(){
+    //Accessors:
+    public ArrayList<Enemy> getEnemyList()
+    {
         return enemies;
+    }
+
+    public ArrayList<Item> getItemList()
+    {
+        return items;
+    }
+
+    public Rectangle getUpDoorRectangle()
+    {
+        MapObject UpDoor = Doors.getObjects().get("UpDoor");
+        Rectangle UpRect = ((RectangleMapObject) UpDoor).getRectangle();
+        return UpRect;
+    }
+    public Rectangle getDownDoorRectangle()
+    {
+        MapObject DownDoor = Doors.getObjects().get("DownDoor");
+        Rectangle DownRect = ((RectangleMapObject) DownDoor).getRectangle();
+        return DownRect;
+    }
+    public Rectangle getLeftDoorRectangle()
+    {
+        MapObject LeftDoor = Doors.getObjects().get("LeftDoor");
+        Rectangle LeftRect = ((RectangleMapObject) LeftDoor).getRectangle();
+        return LeftRect;
+    }
+
+    public Rectangle getRightDoorRectangle()
+    {
+        MapObject RightDoor = Doors.getObjects().get("RightDoor");
+        Rectangle RightRect = ((RectangleMapObject) RightDoor).getRectangle();
+        return RightRect;
     }
 
     public void dispose(){

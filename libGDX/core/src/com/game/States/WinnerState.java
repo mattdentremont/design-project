@@ -1,24 +1,20 @@
 package com.game.States;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.game.Entities.Enemy;
 import com.game.Entities.Player;
 import com.game.Managers.*;
 import java.util.ArrayList;
 
+//State entered when player beat the game:
 public class WinnerState extends GameState {
 
     private GameState currentGameState;
     private BitmapFont font;
-    private GlyphLayout layout;
     private SpriteBatch sb;
-    private Preferences prefs;
 
     public TiledMapManager mapManager;
     public UI HUD;
@@ -30,7 +26,6 @@ public class WinnerState extends GameState {
         super(gsm);
         init();
         this.currentGameState = currentGameState;
-        layout = new GlyphLayout();
         this.player = player;
         this.enemies = enemies;
         this.HUD = HUD;
@@ -39,7 +34,6 @@ public class WinnerState extends GameState {
     @Override
     public void init() {
         sb = new SpriteBatch();
-        layout = new GlyphLayout();
         font = new BitmapFont();
         font.getData().setScale(2f);
         font.setColor(Color.GREEN);
