@@ -23,8 +23,7 @@ public class PlayState extends GameState{
 
 
     private BitmapFont font;
-    private GlyphLayout layout;
-    private ProjectileEnemy enemy;
+   // private ProjectileEnemy enemy; //Did not implement projectiles.
 
 
     private SpriteBatch sb;
@@ -32,11 +31,10 @@ public class PlayState extends GameState{
     public int WIDTH = 800;
     public int HEIGHT = 480;
     private Room currentRoom;
-    private Texture playerTexture;
     private Player player;
     private Preferences prefs;
-    private int dungeonWidth;
-    private int dungeonHeight;
+    private static final int dungeonWidth = 3;
+    private static final int dungeonHeight = 1;
     private String spriteSheetPath;
 
 
@@ -44,18 +42,19 @@ public class PlayState extends GameState{
     public GameInputProcessor inputProcessor;
     public TiledMapManager mapManager;
     public UI HUD;
-    public PlayState(GameStateManager gsm, String t, float s, int h, int d)
+
+
+    public PlayState(GameStateManager gsm, String playerTexture, float playerSpeed, int playerHealth, int playerDamage)
     {
         super(gsm);
-        playerConstructor(t, s, h, d);
-        if(t.contains("Student"))//if this is a student character
+        player = new Player(playerTexture,playerSpeed,playerDamage,playerHealth,WIDTH/2,HEIGHT/2);
+        if(playerTexture.contains("Student"))//if this is a student character
         {
             this.spriteSheetPath ="student/";//sets path to student folder
         }
         else this.spriteSheetPath = "prof/";//otherwise sets to prof folder
         init();
     }
-    private Sprite menuSprite;
     private Music music;
     private Sound deathSound = Gdx.audio.newSound(Gdx.files.internal("sounds/bigOof.mp3"));
 
@@ -68,8 +67,6 @@ public class PlayState extends GameState{
         WIDTH = game.WIDTH;
         HEIGHT = game.HEIGHT;
         String[] maps = {"maps/generic.tmx","maps/satanic.tmx","maps/level1.tmx","maps/level2.tmx"};
-        dungeonWidth = 3;
-        dungeonHeight = 1;
         dungeonMapManager = new DungeonMapManager(maps,dungeonWidth,dungeonHeight,player);
         currentRoom = dungeonMapManager.getCurrentRoom();
         mapManager = new TiledMapManager(currentRoom.mapName,game,player);
@@ -107,6 +104,7 @@ public class PlayState extends GameState{
                 x.sprite.setRegion(x.enemyAnimation.getFrame());
             }
         }
+
         for(Item x : items){
             if(playerHitBox.overlaps(x.sprite.getBoundingRectangle())){
                 if (x.type == "BEER") {
@@ -125,6 +123,7 @@ public class PlayState extends GameState{
                 }
             }
         }
+
         if(toPickup != null)
         {
             player.pickUp(toPickup);
@@ -135,6 +134,7 @@ public class PlayState extends GameState{
                 iteratorItems.remove();
             }
         }
+
         while(iterator.hasNext()){
             Enemy x = iterator.next();
             if(x.checkDead()) {
@@ -152,17 +152,17 @@ public class PlayState extends GameState{
             }
 
         }
+
         if(player.checkDead()){
             gsm.playerDied(gsm.getCurrentState());
             deathSound.play(1.0f);
         }
+
         if(player.roomsVisited == dungeonHeight*dungeonWidth && enemies.size() == 0){
             gsm.playerWon(gsm.getCurrentState());
         }
         cam.update();
         mapManager.updateCam();
-
-        //Handles Animations for attacks now too
         handleInput(dt);
         player.updateHitboxes();
     }
@@ -178,7 +178,7 @@ public class PlayState extends GameState{
             x.sprite.draw(sb);
         }
         player.sprite.draw(sb);
-      //boss.sprite.draw(sb);
+
         for (Enemy x :mapManager.getEnemyList()){
            x.sprite.draw(sb);
            if(x.currentHealth >= 0) {
@@ -187,14 +187,6 @@ public class PlayState extends GameState{
            else{
                font.draw(sb, Integer.toString(0), (int) x.getPosX() + x.sprite.getWidth() / 2 - 5, (int) x.getPosY() + x.sprite.getHeight() + 5);
            }
-            if(x.hasProjectiles)
-            {
-                ArrayList<Projectile> list = x.getProjectiles(0);
-                for(Projectile p : list)
-                {
-                    p.sprite.draw(sb);
-                }
-            }
         }
         sb.end();
     }
@@ -227,13 +219,11 @@ public class PlayState extends GameState{
             prefs.putInteger("Enemies Defeated", player.getEnemiesDefeated());
             prefs.flush();
         }
-
     }
-    //GameStateManager gsm,GameState currentGameState,Player player, Enemy[] enemies, UI HUD, TiledMapManager mapManager
+
     public TiledMapManager getmapManager(){
         return mapManager;
     }
-
     public ArrayList<Enemy> getEnemies(){
         return mapManager.getEnemies();
     }
@@ -246,8 +236,8 @@ public class PlayState extends GameState{
         return HUD;
     }
 
+/*
     public void playerConstructor(String p, float s, int h, int d){
-        //playerTexture = new Texture(Gdx.files.internal(p));
         player = new Player(p,s,d,h,WIDTH/2,HEIGHT/2);
-    }
+    }*/
 }
