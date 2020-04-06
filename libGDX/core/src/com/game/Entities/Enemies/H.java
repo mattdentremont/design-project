@@ -23,7 +23,7 @@ public class H extends Enemy {
         this.sprite = new Sprite(enemyAnimation.getFrame());
         this.damageValue = 20;
         this.maxHealth = 50;
-        this.movementSpeed = 150f;
+        this.movementSpeed = 250f;
         this.movementPattern = new Cardinal();
         this.attackPattern = new Contact();
         this.currentHealth = this.maxHealth;
