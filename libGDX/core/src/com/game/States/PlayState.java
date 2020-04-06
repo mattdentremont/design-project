@@ -5,45 +5,49 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
 import com.badlogic.gdx.math.Rectangle;
 import com.game.Entities.*;
 import com.game.Managers.*;
 import com.game.main.escapeGame;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 
 public class PlayState extends GameState{
 
-
+    //Declare necessary heap variables/fields:
+    //Tools to draw with:
     private BitmapFont font;
-   // private ProjectileEnemy enemy; //Did not implement projectiles.
-
-
     private SpriteBatch sb;
+    //Game camera config:
     public static OrthographicCamera cam;
+
+    //Resolution of game:
     public int WIDTH = 800;
     public int HEIGHT = 480;
-    private Room currentRoom;
-    private Player player;
-    private Preferences prefs;
+
+    private Room currentRoom;//Current room player is in
+    private Player player;//player(user)
+    private Preferences prefs;//Class for writing to files.
+
+    //Define dungeon size:
     private static final int dungeonWidth = 3;
     private static final int dungeonHeight = 1;
+
+    //Path to spriteSheets within  the project:
     private String spriteSheetPath;
 
+    public DungeonMapManager dungeonMapManager;//Object to manage dungeon:
+    public GameInputProcessor inputProcessor;//Object to manage inputs:
+    public TiledMapManager mapManager;//Object to manage things in the current room of the dungeon.
+    public UI HUD;//Heads up display to print relevant information.
 
-    public DungeonMapManager dungeonMapManager;
-    public GameInputProcessor inputProcessor;
-    public TiledMapManager mapManager;
-    public UI HUD;
+    //Music and sound to play when a player dies:
+    private Music music;
+    private Sound deathSound = Gdx.audio.newSound(Gdx.files.internal("sounds/bigOof.mp3"));
 
-
+    //Constructor for PlayState, mainly used for setting the path to the selected player's animations:
     public PlayState(GameStateManager gsm, String playerTexture, float playerSpeed, int playerHealth, int playerDamage)
     {
         super(gsm);
@@ -55,9 +59,9 @@ public class PlayState extends GameState{
         else this.spriteSheetPath = "prof/";//otherwise sets to prof folder
         init();
     }
-    private Music music;
-    private Sound deathSound = Gdx.audio.newSound(Gdx.files.internal("sounds/bigOof.mp3"));
 
+
+    //Initialize the PlayState (called after the constructor has ran:
     @Override
     public void init() {
         sb = new SpriteBatch();
@@ -82,22 +86,19 @@ public class PlayState extends GameState{
 
     @Override
     public void update(float dt) {
-        ArrayList<Enemy> enemies = mapManager.getEnemyList();
-        ArrayList<Item> items = mapManager.getItemList();
-        Item[] playerInventory = player.getInventory();
-        Iterator<Enemy> iterator = enemies.iterator();
-        Iterator<Item> iteratorItems = items.iterator();
-        Rectangle playerHitBox = player.sprite.getBoundingRectangle();
-        Item toPickup = null;
+        ArrayList<Enemy> enemies = mapManager.getEnemyList();//enemies in current room
+        ArrayList<Item> items = mapManager.getItemList();//items in current room
+        Item[] playerInventory = player.getInventory();//player's inventory
+        Iterator<Enemy> iterator = enemies.iterator();//iterator for enemies in the room
+        Iterator<Item> iteratorItems = items.iterator();//iterator for items in the room
+        Rectangle playerHitBox = player.sprite.getBoundingRectangle();//player's hitbox
+        Item toPickup = null;//variable to store an item if it should be picked up.
 
 
+        //Update enemies
         for (Enemy x :enemies){
             x.move(player,x.movementSpeed,dt);
             x.attack(player, dt);
-            if(x.hasProjectiles)
-            {
-                x.getProjectiles(dt);
-            }
             if(x.hasAnimation == true)
             {
                 x.enemyAnimation.update(dt);
@@ -105,6 +106,7 @@ public class PlayState extends GameState{
             }
         }
 
+        //Check if a player should pick up an item.
         for(Item x : items){
             if(playerHitBox.overlaps(x.sprite.getBoundingRectangle())){
                 if (x.type == "BEER") {
@@ -124,32 +126,36 @@ public class PlayState extends GameState{
             }
         }
 
+        /*pick up item that the player contacted. Had to do this after iterating through the list to avoid
+        concurrentmodificationexception.
+        */
         if(toPickup != null)
         {
             player.pickUp(toPickup);
         }
 
+        //If an item has been picked up remove it from that room's items list.
         while(iteratorItems.hasNext()){
             if(iteratorItems.next().isPickedUp) {
                 iteratorItems.remove();
             }
         }
 
-        //
+        //Checks if any enemies are dead. If so they are "removed" and the player increments statistics.
         while(iterator.hasNext()){
             Enemy x = iterator.next();
             if(x.checkDead()) {
                 iterator.remove();
                 if(x.isBoss)
                 {
-                    player.incrementScore(100);
-                    player.incrementUltCharge(60);
+                    player.incrementScore(200);//Increment 100 score when a boss has been defeated.
+                    player.incrementUltCharge(50);//Increment ultimate ability charge accordingly.
                 }
                 else {
-                    player.incrementScore(10);
-                    player.incrementUltCharge(1);
+                    player.incrementScore(10);//Increment 10 score for normal enemy defeated.
+                    player.incrementUltCharge(1);//Increment ultimate ability charge accordingly.
                 }
-                player.enemiesDefeated++;
+                player.enemiesDefeated++;//Increment player's count for enemies defeated.
             }
 
         }
@@ -169,7 +175,6 @@ public class PlayState extends GameState{
         mapManager.updateCam();//update the game cam in the mapmanager.
         handleInput(dt);//handle keyboard input.
         player.updateHitboxes();//update player's hitboxes. (where they can hit enemies/be hit.)
-        mapManager.checkDoors(dungeonMapManager);//checks if player is leaving the room
     }
 
     @Override
@@ -201,6 +206,7 @@ public class PlayState extends GameState{
                font.draw(sb, Integer.toString(0), (int) x.getPosX() + x.sprite.getWidth() / 2 - 5, (int) x.getPosY() + x.sprite.getHeight() + 5);
            }
         }
+        mapManager.checkDoors(dungeonMapManager);//checks if player is leaving the room. Placed here to avoid flash between rooms.
         sb.end();
     }
 
