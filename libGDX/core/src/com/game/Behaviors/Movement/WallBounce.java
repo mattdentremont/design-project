@@ -18,49 +18,49 @@ public class WallBounce extends AI
         int heading = enemy.heading;
         if(myY <= 0f)
         {
-            if (heading == 4){
-                enemy.heading = 1;
+            if (heading == 4){ //was going SW
+                enemy.heading = 1; //Go NE
             }
             else {
-                enemy.heading = 2;
+                enemy.heading = 2; //Go NW
             }
         }
         else if (myY + enemy.sprite.getHeight() >= HEIGHT){
-            if (heading == 1){
-                enemy.heading = 4;
+            if (heading == 1){ //was going NE
+                enemy.heading = 4; //Go SE
             }
             else {
-                enemy.heading = 3;
+                enemy.heading = 3; //Go SW
             }
         }
         else if (myX <= 0f)
         {
-            if (heading == 2){
-                enemy.heading = 1;
+            if (heading == 2){ //was going NW
+                enemy.heading = 1; //Go NE
             }
             else {
-                enemy.heading = 4;
+                enemy.heading = 4; //Go SE
             }
         }
         else if (myX + enemy.sprite.getWidth() >= WIDTH){ //myX >= WIDTH
-            if (heading == 1){
-                enemy.heading = 2;
+            if (heading == 1){ //Was going NE
+                enemy.heading = 2; //Go NW
             }
             else {
-                enemy.heading = 3;
+                enemy.heading = 3; //Go SW
             }
         }
         if(enemy.heading == 1){
-            enemy.setPosition((myX + mul), myY + mul);
+            enemy.setPosition((myX + mul), myY + mul); //Move North-East
         }
         else if(enemy.heading == 2){
-            enemy.setPosition((myX - mul), myY + mul);
+            enemy.setPosition((myX - mul), myY + mul); //Move North-West
         }
         else if(enemy.heading == 4){
-            enemy.setPosition((myX + mul), myY - mul);
+            enemy.setPosition((myX + mul), myY - mul); //Move South-East
         }
-        else if(heading == 3){
-            enemy.setPosition((myX - mul), myY - mul);
+        else if(enemy.heading == 3){
+            enemy.setPosition((myX - mul), myY - mul); //Move South-West
         }
     }
 }

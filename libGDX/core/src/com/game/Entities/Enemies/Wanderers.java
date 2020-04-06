@@ -21,7 +21,7 @@ public class Wanderers extends Enemy {
         this.sprite = new Sprite(new Texture(Gdx.files.internal(enemyTextures[rand])));
         this.damageValue = 10+ balancer;;
         this.maxHealth = 20+ balancer;;
-        this.movementSpeed = 100f+ balancer;;
+        this.movementSpeed = 200f+ balancer;;
         this.movementPattern = new Cardinal();
         this.attackPattern = new Contact();
         this.currentHealth = this.maxHealth;

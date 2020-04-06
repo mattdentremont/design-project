@@ -49,7 +49,7 @@ public class ProjectileEnemy extends Enemy {
     public void attack(Player player, float dt) {
         this.attackDelayCnt += dt;
         if (this.attackDelayCnt >= this.attackDelayTime) {
-            projectiles.add(this.attackPattern.shoot(player, this));//add new projectile to arraylist
+            //projectiles.add(this.attackPattern.attack());//add new projectile to arraylist
             this.attackDelayCnt = 0;
         }
     }

@@ -16,6 +16,7 @@ public class Cardinal extends AI {
 
         int randInt = enemy.randRoll;
 
+        //Move in a cardinal direction based on rand roll
         if((randInt == 4) && (myY > 0)){
             enemy.setPosition(myX, myY - mul);
         }
