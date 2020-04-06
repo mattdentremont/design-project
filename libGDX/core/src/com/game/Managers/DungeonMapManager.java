@@ -96,7 +96,7 @@ public class DungeonMapManager {
             {
                 player.incrementScore(50);
                 player.incrementRoomsVisited();
-                System.out.println("Score: "+ player.getScore() + " Health: "+ player.health+ " Rooms Visited: "+ player.roomsVisited);
+                System.out.println("Score: "+ player.getScore() + " Health: "+ player.health+ " Rooms Visited: "+ player.getRoomsVisited());
             }
         }
         else return;

@@ -148,7 +148,7 @@ public class PlayState extends GameState{
                     player.incrementScore(10);
                     player.incrementUltCharge(1);
                 }
-                player.enemiesDefeated++;
+                player.incrementEnemiesDefeated();
             }
 
         }
@@ -156,7 +156,7 @@ public class PlayState extends GameState{
             gsm.playerDied(gsm.getCurrentState());
             deathSound.play(1.0f);
         }
-        if(player.roomsVisited == dungeonHeight*dungeonWidth && enemies.size() == 0){
+        if(player.getRoomsVisited() == dungeonHeight*dungeonWidth && enemies.size() == 0){
             gsm.playerWon(gsm.getCurrentState());
         }
         cam.update();
