@@ -1,10 +1,13 @@
-package com.game.Entities;
+package com.game.Entities.Enemies;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.game.Behaviors.Cardinal;
-import com.game.Behaviors.Shoot;
+import com.game.Behaviors.Movement.Cardinal;
+import com.game.Behaviors.Attacks.Shoot;
+import com.game.Entities.Enemies.Enemy;
+import com.game.Entities.Player;
+import com.game.Entities.Projectile;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -15,7 +18,7 @@ WE THOUGHT ABOUT TRYING TO ADD PROJECTILES EVEN THOUGH IT WASN'T IN THE ORIGINAL
 AS WE HAD IMPLEMENTED EVERYTHING THAT WE WANTED TO AND WANTED A CHALLENGE!
  */
 
-public class ProjectileEnemy extends Enemy{
+public class ProjectileEnemy extends Enemy {
 
     ArrayList<Projectile> projectiles;
     ArrayList<Projectile> temp;

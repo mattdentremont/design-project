@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.game.Entities.*;
+import com.game.Entities.Enemies.Enemy;
+import com.game.Entities.Pickups.Item;
 import com.game.Managers.*;
 import com.game.main.escapeGame;
 import java.util.ArrayList;

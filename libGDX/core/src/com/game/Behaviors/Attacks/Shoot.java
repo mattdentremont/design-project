@@ -1,6 +1,6 @@
-package com.game.Behaviors;
+package com.game.Behaviors.Attacks;
 
-import com.game.Entities.Enemy;
+import com.game.Entities.Enemies.Enemy;
 import com.game.Entities.Player;
 import com.game.Entities.Projectile;
 

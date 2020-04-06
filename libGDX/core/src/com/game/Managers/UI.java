@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.game.Entities.Item;
+import com.game.Entities.Pickups.Item;
 import com.game.Entities.Player;
 import com.game.main.escapeGame;
 
@@ -32,7 +32,6 @@ public class UI {
         this.hasBeer = false;
         this.hasRedBull = false;
     }
-
 
     //Draw values to screen:
     public void draw(SpriteBatch sb)

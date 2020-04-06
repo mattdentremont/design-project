@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.game.Entities.Enemy;
+import com.game.Entities.Enemies.Enemy;
 import com.game.Entities.Player;
 import com.game.Managers.GameStateManager;
 import com.game.Managers.TiledMapManager;

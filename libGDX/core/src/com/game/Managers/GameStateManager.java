@@ -1,10 +1,5 @@
 package com.game.Managers;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Texture;
-import com.game.Entities.Enemy;
-import com.game.Entities.Player;
 import com.game.States.*;
 import com.game.main.escapeGame;
 

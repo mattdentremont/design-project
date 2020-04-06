@@ -7,9 +7,9 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
-import com.game.Animation.Animation;
-import com.game.Entities.Enemy;
-import com.game.Entities.Item;
+import com.game.Behaviors.Animation;
+import com.game.Entities.Enemies.Enemy;
+import com.game.Entities.Pickups.Item;
 import com.game.Entities.Player;
 import com.game.main.escapeGame;
 

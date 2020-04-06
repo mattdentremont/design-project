@@ -1,4 +1,4 @@
-package com.game.Animation;
+package com.game.Behaviors;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;

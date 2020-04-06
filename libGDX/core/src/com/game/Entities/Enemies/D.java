@@ -1,27 +1,29 @@
-package com.game.Entities;
+package com.game.Entities.Enemies;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.game.Animation.Animation;
-import com.game.Behaviors.Cardinal;
-import com.game.Behaviors.Contact;
-import com.game.Behaviors.targetPlayer;
+import com.game.Behaviors.Animation;
+import com.game.Behaviors.Attacks.Contact;
+import com.game.Behaviors.Movement.targetPlayer;
+import com.game.Entities.Enemies.Enemy;
+import com.game.Entities.Player;
+import com.game.Entities.Projectile;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class L extends Enemy {
+public class D extends Enemy {
 
-    public L(float posX, float posY) {
+    public D(float posX, float posY) {
         super(posX, posY,0);
-        this.texture = new Texture(Gdx.files.internal("Bosses/L-Sheet.png"));
+        this.texture = new Texture(Gdx.files.internal("Bosses/D-Sheet.png"));
         this.enemyAnimation = new Animation(new TextureRegion(texture),2,0.5f);
         this.sprite = new Sprite(enemyAnimation.getFrame());        this.damageValue = 20;
         this.maxHealth = 50;
         this.movementSpeed = 150f;
-        this.movementPattern = new Cardinal();
+        this.movementPattern = new targetPlayer();
         this.attackPattern = new Contact();
         this.currentHealth = this.maxHealth;
         this.posX = posX;
@@ -31,7 +33,7 @@ public class L extends Enemy {
         this.attackDelayCnt = 0;
         this.attackDelayTime = 0.5f;
         this.moveDelayCnt = 0;
-        this.moveDelayTime = 0.5f;
+        this.moveDelayTime = 1f;
         this.isBoss = true;
         this.hasAnimation = true;
     }

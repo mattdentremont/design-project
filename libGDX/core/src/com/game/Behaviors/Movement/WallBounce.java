@@ -1,6 +1,6 @@
-package com.game.Behaviors;
+package com.game.Behaviors.Movement;
 
-import com.game.Entities.Enemy;
+import com.game.Entities.Enemies.Enemy;
 import com.game.Entities.Player;
 import static com.game.main.escapeGame.WIDTH;
 import static com.game.main.escapeGame.HEIGHT;

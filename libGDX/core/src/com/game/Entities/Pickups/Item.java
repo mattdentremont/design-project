@@ -1,6 +1,7 @@
-package com.game.Entities;
+package com.game.Entities.Pickups;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.game.Entities.Player;
 
 public abstract class Item {
     public Sprite sprite;

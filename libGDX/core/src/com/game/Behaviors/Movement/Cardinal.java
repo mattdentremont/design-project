@@ -1,18 +1,12 @@
-package com.game.Behaviors;
+package com.game.Behaviors.Movement;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.game.Behaviors.AI;
-import com.game.Entities.Enemy;
+import com.game.Entities.Enemies.Enemy;
 import com.game.Entities.Player;
 import com.game.main.escapeGame;
 
-import java.util.Random;
-
 public class Cardinal extends AI {
 
-    public Cardinal(){
-
-    }
+    public Cardinal(){}
 
     @Override
     public void move(Enemy enemy, Player player, float movementSpeed, float dt) {
@@ -21,7 +15,7 @@ public class Cardinal extends AI {
         float mul = movementSpeed*dt;
 
         int randInt = enemy.randRoll;
-        //Down?
+
         if((randInt == 4) && (myY > 0)){
             enemy.setPosition(myX, myY - mul);
         }

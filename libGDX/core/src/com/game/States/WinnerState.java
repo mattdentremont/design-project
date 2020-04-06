@@ -4,7 +4,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.game.Entities.Enemy;
+import com.game.Entities.Enemies.Enemy;
 import com.game.Entities.Player;
 import com.game.Managers.*;
 import java.util.ArrayList;

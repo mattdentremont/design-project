@@ -1,27 +1,26 @@
-package com.game.Entities;
+package com.game.Entities.Enemies;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.game.Behaviors.AI;
-import com.game.Behaviors.Contact;
-import com.game.Behaviors.targetPlayer;
+import com.game.Behaviors.Attacks.Contact;
+import com.game.Behaviors.Movement.WallBounce;
+import com.game.Entities.Enemies.Enemy;
+import com.game.Entities.Player;
+import com.game.Entities.Projectile;
 
 import java.util.ArrayList;
-import java.util.Random;
 
-public class GreenBlob extends Enemy {
-
-    public GreenBlob(float posX, float posY,int balancer)
+public class DVDemon extends Enemy
+{
+    public DVDemon(float posX, float posY)
     {
-        super(posX, posY,balancer);//because damage and health scale with progression
-        String[] enemyTextures = {"BobbyBlob.png","JohnWick.png","jamil.png"};
-        int rand = new Random().nextInt(enemyTextures.length);
-        this.sprite = new Sprite(new Texture(Gdx.files.internal(enemyTextures[rand])));
-        this.damageValue = 10 + balancer;
-        this.maxHealth = 20 + balancer;
-        this.movementSpeed = 100f + balancer;
-        this.movementPattern = new targetPlayer();
+        super(posX, posY,0);
+        this.sprite = new Sprite(new Texture(Gdx.files.internal("Bosses/DVDemon.png")));
+        this.damageValue = 20;
+        this.maxHealth = 200;
+        this.movementSpeed = 200f;
+        this.movementPattern = new WallBounce();
         this.attackPattern = new Contact();
         this.currentHealth = this.maxHealth;
         this.posX = posX;
@@ -29,9 +28,11 @@ public class GreenBlob extends Enemy {
         this.isDead = false;
         this.sprite.setPosition(posX, posY);
         this.attackDelayCnt = 0;
-        this.attackDelayTime = 1f;
-        this.isBoss = false;
+        this.attackDelayTime = 0.5f;
+        this.heading = 4;
+        this.isBoss = true;
     }
+
 
     @Override
     public void attack(Player player, float dt) {
@@ -42,27 +43,20 @@ public class GreenBlob extends Enemy {
         }
     }
 
-
     @Override
-    public boolean takeDamage(int damageTaken) {
+    public boolean takeDamage(int damageTaken)
+    {
         gotHitSound.play(1f);
         this.currentHealth -= damageTaken;
-        if (this.currentHealth <= 0){
+        if (this.currentHealth <= 0)
+        {
             isDead = true;
             return true;
         }
-        else
-        {
+        else {
             return false;
         }
     }
-
-    @Override
-    public boolean checkDead()
-    {
-        return isDead;
-    }
-
 
     @Override
     public void move(Player player, float movementSpeed, float dt) {
@@ -83,20 +77,18 @@ public class GreenBlob extends Enemy {
     public float getPosY() {
         return this.posY;
     }
-    public void setPosition(float x,float y) {
-        if(x<0 && flipSprite==false)
-        {
-            flipSprite = true;
-            sprite.flip(true,false);
-        }
-        else if(x>0 && flipSprite == true)
-        {
-            flipSprite = false;
-            sprite.flip(true,false);
-        }
+
+    @Override
+    public boolean checkDead()
+    {
+        return isDead;
+    }
+
+    @Override
+    public void setPosition(float x, float y)
+    {
         posX = x;
         posY = y;
         sprite.setPosition(posX,posY);
     }
-
 }

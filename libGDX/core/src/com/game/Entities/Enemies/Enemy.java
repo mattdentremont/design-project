@@ -1,12 +1,14 @@
-package com.game.Entities;
+package com.game.Entities.Enemies;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.game.Animation.Animation;
-import com.game.Behaviors.AI;
-import com.game.Behaviors.Attack;
+import com.game.Behaviors.Animation;
+import com.game.Behaviors.Movement.AI;
+import com.game.Behaviors.Attacks.Attack;
+import com.game.Entities.Player;
+import com.game.Entities.Projectile;
 
 import java.util.ArrayList;
 
