@@ -1,10 +1,9 @@
 # design-project
-Term 5 Junior Design Project w/ Luke Kelly
+Term 5 Junior Design Project w/ Luke Kelly 
 A dungeon crawler game where you encounter nightmares of computer engineering.
 
 Included with the package is a .jar file. Running this should run the game.
 If this does not work for some reason, a tried and true method that works for us is just to import the project into intelliJIDEA (other IDEs may work), and run the DeskTopLauncher.java file.
-Also submitted is a .zip folder. This is the project folder. Extract this folder to see the code within.
 The code that we wrote is contained in libGDX\core\src\com\game.
 
 The game requires a keyboard with qwerty keys and arrow keys.
